@@ -1,0 +1,8 @@
+body {
+    background-color: #F2EFEE;
+    font-feature-settings: 'pnum' on, 'lnum' on;
+}
+
+.box-shadow {
+    filter: drop-shadow(0px 3px 12px rgba(112, 34, 114, 0.2));
+}
