@@ -6,13 +6,11 @@ import {FooterComponent, HeaderComponent} from "./components";
 import {Outlet} from "react-router-dom";
 
 interface LayoutProps {
-    hasFooter: boolean;
-    isAuth: boolean;
+    isAuth?: boolean;
 }
 
 const Layout: FC<LayoutProps> = (props) => {
     const {
-        hasFooter,
         isAuth
     } = props;
     const classes = useStyles();
@@ -21,12 +19,8 @@ const Layout: FC<LayoutProps> = (props) => {
             [classes.wrapper]: true,
         })}>
             <HeaderComponent isAuth={isAuth}/>
-            <main className={classes.main}>
-                <Outlet/>
-            </main>
-            {Boolean(hasFooter) && (
-                <FooterComponent/>
-            )}
+            <Outlet/>
+            <FooterComponent/>
         </Box>
     );
 };

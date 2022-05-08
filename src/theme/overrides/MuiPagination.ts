@@ -16,7 +16,7 @@ export default {
 
                 "&.Mui-selected": {
                     backgroundColor: palette.primary.main,
-                    color: palette.primary.secondary,
+                    color: palette.secondary.main,
                 },
                 "&.Mui-disabled": {
                     color: "#E6E6E6"

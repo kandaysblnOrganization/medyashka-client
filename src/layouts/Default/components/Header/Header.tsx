@@ -6,7 +6,7 @@ import {
 } from '@mui/icons-material';
 
 interface HeaderProps {
-    isAuth: boolean;
+    isAuth?: boolean;
 }
 
 const Header: FC<HeaderProps> = (props) => {

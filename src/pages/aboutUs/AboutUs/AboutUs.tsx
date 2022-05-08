@@ -3,7 +3,7 @@ import React, {FC} from 'react';
 const AboutUs: FC = () => {
     return (
         <div>
-
+            О нас
         </div>
     );
 };
