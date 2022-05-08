@@ -1,11 +1,24 @@
 import React, {FC} from 'react';
+import {createUseStyles} from "react-jss";
+import clsx from "clsx";
+import {MainInformationComponent} from "./components";
 
 const Footer: FC = () => {
+    const classes = useStyles();
     return (
-        <div>
-
-        </div>
+        <footer className={clsx({
+            [classes.footer]: true
+        })}>
+            <MainInformationComponent/>
+        </footer>
     );
 };
 
-export default Footer;
+const useStyles = createUseStyles({
+    footer: {
+        flex: "0 0 auto",
+        backgroundColor: "#443F54",
+    }
+})
+
+export default Footer
