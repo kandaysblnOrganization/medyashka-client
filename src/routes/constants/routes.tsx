@@ -16,7 +16,7 @@ import Book from "../../pages/book/Book/Book";
 export const authRoutes = [
     {
         id: 1,
-        path: PROFILE_ROUTE || '/',
+        path: PROFILE_ROUTE,
         element: <Profile/>,
     }
 ];
