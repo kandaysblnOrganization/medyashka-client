@@ -19,7 +19,9 @@ const Layout: FC<LayoutProps> = (props) => {
             [classes.wrapper]: true,
         })}>
             <HeaderComponent isAuth={isAuth}/>
-            <Outlet/>
+            <main className={classes.main}>
+                <Outlet/>
+            </main>
             <FooterComponent/>
         </Box>
     );

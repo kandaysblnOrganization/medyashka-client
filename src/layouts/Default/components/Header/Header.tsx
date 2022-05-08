@@ -14,25 +14,27 @@ const Header: FC<HeaderProps> = (props) => {
         isAuth
     } = props;
     return (
-        <Container maxWidth="md">
-            <Grid container alignItems="center" justifyContent="space-between">
-                <Grid item>
-                    <IconButton color="primary">
-                        <MenuIcon color="primary"/>
-                    </IconButton>
-                </Grid>
-                {Boolean(isAuth) && (
+        <header>
+            <Container maxWidth="md">
+                <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item>
-                        <Button
-                            endIcon={<LogOutIcon/>}
-                            variant="outlined"
-                        >
-                            Выход
-                        </Button>
+                        <IconButton color="primary">
+                            <MenuIcon color="primary"/>
+                        </IconButton>
                     </Grid>
-                )}
-            </Grid>
-        </Container>
+                    {Boolean(isAuth) && (
+                        <Grid item>
+                            <Button
+                                endIcon={<LogOutIcon/>}
+                                variant="outlined"
+                            >
+                                Выход
+                            </Button>
+                        </Grid>
+                    )}
+                </Grid>
+            </Container>
+        </header>
     );
 };
 

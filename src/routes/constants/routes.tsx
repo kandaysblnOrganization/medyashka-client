@@ -29,32 +29,32 @@ export const publicRoutes = [
     },
     {
         id: 3,
-        path: BOOKS_ROUTE || '/',
+        path: BOOKS_ROUTE,
         element: <Books/>,
     },
     {
         id: 4,
-        path: ABOUT_US_ROUTE || '/',
+        path: ABOUT_US_ROUTE,
         element: <AboutUs/>,
     },
     {
         id: 5,
-        path: FIRST_BOOK_ROUTE || '/',
+        path: FIRST_BOOK_ROUTE,
         element: <Book/>,
     },
     {
         id: 6,
-        path: SECOND_BOOK_ROUTE || '/',
+        path: SECOND_BOOK_ROUTE,
         element: <Book/>,
     },
     {
         id: 7,
-        path: THIRD_BOOK_ROUTE || '/',
+        path: THIRD_BOOK_ROUTE,
         element: <Book/>,
     },
     {
         id: 8,
-        path: FOURTH_BOOK_ROUTE || '/',
+        path: FOURTH_BOOK_ROUTE,
         element: <Book/>,
     },
 ];
