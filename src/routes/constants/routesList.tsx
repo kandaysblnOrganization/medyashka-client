@@ -15,8 +15,9 @@ import {
     Books as BooksPage,
     Profile as ProfilePage
 } from '../../pages';
+import {IRoutesList} from "./types";
 
-export const authRoutes = [
+export const authRoutes: IRoutesList[] = [
     {
         id: 1,
         path: PROFILE_ROUTE,
@@ -24,7 +25,7 @@ export const authRoutes = [
     }
 ];
 
-export const publicRoutes = [
+export const publicRoutes: IRoutesList[] = [
     {
         id: 2,
         index: true,

@@ -1,8 +1,8 @@
 import React, {FC} from 'react';
 import {
-    Routes,
+    Navigate,
     Route,
-    useLocation, Navigate
+    Routes
 } from "react-router-dom";
 import {authRoutes, publicRoutes} from "./constants/routesList";
 import {Layout} from "../layouts";
