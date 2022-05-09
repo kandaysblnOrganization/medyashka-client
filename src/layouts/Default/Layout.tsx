@@ -1,8 +1,9 @@
 import React, {FC} from 'react';
-import {Box} from "@mui/material";
 import {createUseStyles} from "react-jss";
-import clsx from "clsx";
-import {FooterComponent, HeaderComponent} from "./components";
+import {
+    FooterComponent,
+    HeaderComponent
+} from "./components";
 import {Outlet, useLocation} from "react-router-dom";
 
 interface LayoutProps {
@@ -11,24 +12,31 @@ interface LayoutProps {
 const Layout: FC<LayoutProps> = (props) => {
     const classes = useStyles();
     const location = useLocation();
-    console.log("location.pathname: ", location.pathname);
+
+    const renderFooter = () => {
+        const path = location.pathname;
+
+        switch (path) {
+            case "/books":
+                return null;
+            case "/profile":
+                return null;
+            default:
+                return <FooterComponent/>;
+        }
+    }
     return (
         <>
             <HeaderComponent/>
             <main className={classes.main}>
                 <Outlet/>
             </main>
-            <FooterComponent/>
+            {renderFooter()}
         </>
     );
 };
 
 const useStyles = createUseStyles({
-    wrapper: {
-        display: "flex",
-        flexDirection: "column",
-        minHeight: "100%",
-    },
     main: {
         flex: "1 0 auto",
     }
