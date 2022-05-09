@@ -15,15 +15,13 @@ const Layout: FC<LayoutProps> = (props) => {
     } = props;
     const classes = useStyles();
     return (
-        <Box className={clsx({
-            [classes.wrapper]: true,
-        })}>
+        <>
             <HeaderComponent isAuth={isAuth}/>
             <main className={classes.main}>
                 <Outlet/>
             </main>
             <FooterComponent/>
-        </Box>
+        </>
     );
 };
 

@@ -1,4 +1,4 @@
-const palette = require('./palette');
+import {palette} from './index';
 
 export default {
     h1: {

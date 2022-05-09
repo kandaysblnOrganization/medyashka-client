@@ -17,6 +17,7 @@ const Footer: FC = () => {
 const useStyles = createUseStyles({
     footer: {
         flex: "0 0 auto",
+        padding: "20px 0",
         backgroundColor: "#443F54",
     }
 })

@@ -3,7 +3,7 @@ import {
     Routes,
     Route
 } from "react-router-dom";
-import {authRoutes, publicRoutes} from "./constants/routes";
+import {authRoutes, publicRoutes} from "./constants/routesList";
 import {Layout} from "../layouts";
 
 const RouteComponent: FC = () => {
@@ -14,14 +14,15 @@ const RouteComponent: FC = () => {
                 <>
                     {isAuth && (
                         <>
-                            {authRoutes.map(route => <Route key={route.id} path={route.path} element={route.element}/>)}
+                            {authRoutes.map(route =>
+                                <Route key={route.id} path={route.path} element={<route.element/>}/>)}
                         </>
                     )}
                     {publicRoutes.map(route => (
                         <>
                             {route.index
-                                ? <Route key={route.id} index element={route.element}/>
-                                : <Route key={route.id} path={route.path} element={route.element}/>
+                                ? <Route key={route.id} index element={<route.element/>}/>
+                                : <Route key={route.id} path={route.path} element={<route.element/>}/>
                             }
                         </>
                     ))}

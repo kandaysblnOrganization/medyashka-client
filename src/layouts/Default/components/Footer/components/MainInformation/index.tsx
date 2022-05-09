@@ -5,7 +5,7 @@ import {SocialNavigateComponent} from "../index";
 const MainInformation: FC = () => {
     return (
         <>
-            <Container maxWidth="md">
+            <Container maxWidth="xl">
                 <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item xs>
                         <Typography
@@ -14,9 +14,12 @@ const MainInformation: FC = () => {
                             Путешествуем с Медяшкой
                         </Typography>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={8}>
                         <Typography
-                            sx={{color: "#EAEAEA"}}
+                            sx={{
+                                color: "#EAEAEA",
+                                textAlign: "center",
+                            }}
                         >
                             © 2022, ДП Стамбеков Б.З.
                         </Typography>
