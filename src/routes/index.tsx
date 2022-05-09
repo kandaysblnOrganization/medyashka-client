@@ -1,7 +1,8 @@
 import React, {FC} from 'react';
 import {
     Routes,
-    Route
+    Route,
+    useLocation, Navigate
 } from "react-router-dom";
 import {authRoutes, publicRoutes} from "./constants/routesList";
 import {Layout} from "../layouts";
@@ -10,7 +11,7 @@ const RouteComponent: FC = () => {
     const isAuth = false;
     return (
         <Routes>
-            <Route path="/" element={<Layout isAuth={isAuth}/>}>
+            <Route path="/" element={<Layout/>}>
                 <>
                     {isAuth && (
                         <>
@@ -26,6 +27,7 @@ const RouteComponent: FC = () => {
                             }
                         </>
                     ))}
+                    <Route path="*" element={<Navigate to={'/'}/>}/>
                 </>
             </Route>
         </Routes>

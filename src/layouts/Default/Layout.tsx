@@ -3,20 +3,18 @@ import {Box} from "@mui/material";
 import {createUseStyles} from "react-jss";
 import clsx from "clsx";
 import {FooterComponent, HeaderComponent} from "./components";
-import {Outlet} from "react-router-dom";
+import {Outlet, useLocation} from "react-router-dom";
 
 interface LayoutProps {
-    isAuth?: boolean;
 }
 
 const Layout: FC<LayoutProps> = (props) => {
-    const {
-        isAuth
-    } = props;
     const classes = useStyles();
+    const location = useLocation();
+    console.log("location.pathname: ", location.pathname);
     return (
         <>
-            <HeaderComponent isAuth={isAuth}/>
+            <HeaderComponent/>
             <main className={classes.main}>
                 <Outlet/>
             </main>

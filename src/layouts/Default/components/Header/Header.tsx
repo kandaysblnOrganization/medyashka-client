@@ -11,6 +11,11 @@ import {
 } from '@mui/icons-material';
 import {MenuBurger} from "../../../../components";
 import {createUseStyles} from "react-jss";
+import {
+    HeaderBackground
+} from '../../../../assets/images';
+import clsx from "clsx";
+import {useLocation} from "react-router-dom";
 
 interface HeaderProps {
     isAuth?: boolean;
@@ -18,11 +23,16 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = (props) => {
     const {
-        isAuth
+        isAuth,
     } = props;
     const classes = useStyles();
+    const location = useLocation();
     return (
-        <header className={classes.header}>
+        <header
+            className={clsx({
+                [classes.mainPageHeader]: location.pathname === '/',
+            })}
+        >
             <Container maxWidth="xl">
                 <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item>
@@ -38,7 +48,7 @@ const Header: FC<HeaderProps> = (props) => {
                             <MenuBurger/>
                         </Button>
                     </Grid>
-                    {Boolean(isAuth) && (
+                    {location.pathname === '/profile' && (
                         <Grid item>
                             <Button
                                 endIcon={<LogOutIcon/>}
@@ -55,7 +65,12 @@ const Header: FC<HeaderProps> = (props) => {
 };
 
 const useStyles = createUseStyles({
-    header: {}
+    mainPageHeader: {
+        width: "100%",
+        height: "100vh",
+        background: `url(${HeaderBackground}) center no-repeat`,
+        backgroundSize: "cover",
+        position: "relative",
+    }
 })
-
 export default Header;
