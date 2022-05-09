@@ -3,7 +3,8 @@ import {Grid, IconButton} from "@mui/material";
 import {ReactSVG} from 'react-svg';
 import {
     Instagram as InstIcon,
-    FacebookOutlined as FacebookIcon,
+    Facebook as FacebookIcon,
+    YouTube as YouTubeIcon
 } from '@mui/icons-material';
 import {
     VkIcon,
@@ -19,6 +20,13 @@ const SocialNavigate = () => {
                     color="secondary"
                 >
                     <InstIcon color="secondary"/>
+                </IconButton>
+            </Grid>
+            <Grid item>
+                <IconButton
+                    color="secondary"
+                >
+                    <YouTubeIcon color="secondary"/>
                 </IconButton>
             </Grid>
             <Grid item>
