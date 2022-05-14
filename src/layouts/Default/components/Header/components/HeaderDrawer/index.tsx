@@ -179,11 +179,11 @@ const useStyles = createUseStyles({
     },
     drawerListItem: {
         "&.MuiListItem-root": {
-            height: "40px",
             justifyContent: "center",
             padding: "0 0 0 20px",
-            marginBottom: "10px",
+            marginBottom: "0",
             borderRight: "10px solid rgba(0, 0, 0, 0.0)",
+            transition: "all .2s linear",
             "&:last-child": {
                 marginBottom: "0",
             }
@@ -198,9 +198,9 @@ const useStyles = createUseStyles({
             lineHeight: "16px",
             letterSpacing: "0.14em",
             width: "100%",
-            height: "inherit",
             borderRadius: "0",
             transition: "all .2s linear",
+            padding: "0 12px",
 
             "&:hover": {
                 color: "#FB8349",
@@ -250,6 +250,7 @@ const useStyles = createUseStyles({
 
     activePage: {
         "&.MuiListItem-root": {
+            backgroundColor: "rgba(251,131,73, 0.15)",
             borderColor: "#FB8349",
             "& .MuiButton-root": {
                 color: "#FB8349",
