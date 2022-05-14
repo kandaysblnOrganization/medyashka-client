@@ -18,7 +18,7 @@ const MainInformation: FC = () => {
                             Путешествуем с Медяшкой
                         </Typography>
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={8}>
                         <Typography
                             variant="h6"
                             sx={{
