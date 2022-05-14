@@ -6,10 +6,13 @@ import {useLocation} from "react-router-dom";
 import {createUseStyles} from "react-jss";
 
 interface HeaderActionsProps {
+    onSetOpen: () => void
 }
 
 const HeaderActions: FC<HeaderActionsProps> = (props) => {
-    const {} = props;
+    const {
+        onSetOpen
+    } = props;
     const classes = useStyles();
     const location = useLocation();
     return (
@@ -20,6 +23,8 @@ const HeaderActions: FC<HeaderActionsProps> = (props) => {
                         className={classes.headerButton}
                         color="secondary"
                         size="small"
+
+                        onClick={onSetOpen}
                     >
                         <MenuBurger/>
                     </Button>

@@ -7,9 +7,13 @@ import {
 import {Outlet, useLocation} from "react-router-dom";
 
 interface LayoutProps {
+    isAuth: boolean;
 }
 
 const Layout: FC<LayoutProps> = (props) => {
+    const {
+        isAuth
+    } = props;
     const classes = useStyles();
     const location = useLocation();
 
@@ -27,7 +31,7 @@ const Layout: FC<LayoutProps> = (props) => {
     }
     return (
         <>
-            <HeaderComponent/>
+            <HeaderComponent isAuth={isAuth}/>
             <main className={classes.main}>
                 <Outlet/>
             </main>

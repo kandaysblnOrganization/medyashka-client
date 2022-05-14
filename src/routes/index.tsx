@@ -11,7 +11,7 @@ const RouteComponent: FC = () => {
     const isAuth = false;
     return (
         <Routes>
-            <Route path="/" element={<Layout/>}>
+            <Route path="/" element={<Layout isAuth={isAuth}/>}>
                 <>
                     {isAuth && (
                         <>
