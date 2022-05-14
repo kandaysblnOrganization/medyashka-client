@@ -29,7 +29,7 @@ const Header: FC<HeaderProps> = (props) => {
                 [classes.mainPageHeader]: location.pathname === '/',
             })}
         >
-            <HeaderActionsComponent onSetOpen={handleOpenDrawer}/>
+            <HeaderActionsComponent isOpen={isOpenDrawer} onSetOpen={handleOpenDrawer}/>
             <HeaderDrawerComponent isOpen={isOpenDrawer} isAuth={isAuth} onClose={handleCloseDrawer}/>
         </header>
     );

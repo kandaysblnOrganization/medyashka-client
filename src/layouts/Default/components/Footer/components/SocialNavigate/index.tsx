@@ -1,18 +1,16 @@
 import React from 'react';
-import {Grid, IconButton} from "@mui/material";
-import {ReactSVG} from 'react-svg';
 import {
-    Instagram as InstIcon,
+    Grid,
+    IconButton
+} from "@mui/material";
+import {
     Facebook as FacebookIcon,
+    Instagram as InstIcon,
     YouTube as YouTubeIcon
 } from '@mui/icons-material';
-import {
-    VkIcon,
-} from '../../../../../../assets/svg';
 import {createUseStyles} from "react-jss";
 
 const SocialNavigate = () => {
-    const classes = useStyles();
     return (
         <Grid container alignItems="center" justifyContent="center">
             <Grid item>
@@ -39,14 +37,5 @@ const SocialNavigate = () => {
         </Grid>
     );
 };
-
-const useStyles = createUseStyles({
-    footerIcons: {
-        "& path": {
-            width: "20px",
-            height: "20px",
-        }
-    }
-})
 
 export default SocialNavigate;

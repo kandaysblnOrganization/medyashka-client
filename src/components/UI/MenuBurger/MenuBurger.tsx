@@ -1,14 +1,22 @@
 import React, {FC} from 'react';
 import {Box} from "@mui/material";
 import {createUseStyles} from "react-jss";
+import clsx from "clsx";
 
 interface MenuBurgerProps {
+    isOpenDrawer: boolean;
 }
 
 const MenuBurger: FC<MenuBurgerProps> = (props) => {
+    const {
+        isOpenDrawer
+    } = props;
     const classes = useStyles();
     return (
-        <Box className={classes.menuBurger}>
+        <Box className={clsx({
+            [classes.menuBurger]: true,
+            [classes.menuBurgerActive]: isOpenDrawer,
+        })}>
             <span></span>
             <span></span>
             <span></span>
@@ -20,7 +28,7 @@ const useStyles = createUseStyles({
     menuBurger: {
         backgroundColor: "none",
         transform: "scale(1)",
-        transition: "all .3s linear",
+        transition: "all .2s linear",
 
         "& span": {
             display: "block",
@@ -28,7 +36,7 @@ const useStyles = createUseStyles({
             backgroundColor: "#000000",
             borderRadius: "100px",
             marginBottom: "7px",
-            transition: "all .3s linear",
+            transition: "all .2s linear",
 
             "&:first-child": {
                 width: "35px",
@@ -62,6 +70,10 @@ const useStyles = createUseStyles({
                 }
             },
         }
+    },
+
+    menuBurgerActive: {
+        transform: "scale(0)",
     }
 })
 

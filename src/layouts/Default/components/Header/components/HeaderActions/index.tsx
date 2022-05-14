@@ -6,11 +6,14 @@ import {useLocation} from "react-router-dom";
 import {createUseStyles} from "react-jss";
 
 interface HeaderActionsProps {
+    isOpen: boolean;
     onSetOpen: () => void
 }
 
 const HeaderActions: FC<HeaderActionsProps> = (props) => {
     const {
+        isOpen,
+
         onSetOpen
     } = props;
     const classes = useStyles();
@@ -26,7 +29,7 @@ const HeaderActions: FC<HeaderActionsProps> = (props) => {
 
                         onClick={onSetOpen}
                     >
-                        <MenuBurger/>
+                        <MenuBurger isOpenDrawer={isOpen}/>
                     </Button>
                 </Grid>
                 {location.pathname === '/profile' && (
