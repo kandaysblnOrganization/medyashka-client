@@ -9,13 +9,18 @@ const MainInformation: FC = () => {
                 <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item xs>
                         <Typography
-                            sx={{color: "#FF8A00",}}
+                            variant="h6"
+                            sx={{
+                                color: "#FF8A00",
+                                textTransform: "uppercase"
+                            }}
                         >
                             Путешествуем с Медяшкой
                         </Typography>
                     </Grid>
-                    <Grid item xs={8}>
+                    <Grid item xs={6}>
                         <Typography
+                            variant="h6"
                             sx={{
                                 color: "#EAEAEA",
                                 textAlign: "center",
@@ -25,7 +30,15 @@ const MainInformation: FC = () => {
                         </Typography>
                     </Grid>
                     <Grid item xs>
-                        <SocialNavigateComponent/>
+                        <Typography
+                            variant="h6"
+                            sx={{
+                                color: "#EAEAEA",
+                                textAlign: "right",
+                            }}
+                        >
+                            По книгам Елены Назаровой
+                        </Typography>
                     </Grid>
                 </Grid>
             </Container>
