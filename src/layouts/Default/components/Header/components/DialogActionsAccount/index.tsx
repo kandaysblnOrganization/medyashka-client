@@ -106,7 +106,6 @@ const useStyles = createUseStyles({
         "&.MuiPaper-root": {
             borderRadius: "20px",
             paddingTop: "10px",
-            paddingBottom: "80px",
         }
     },
     dialogTitle: {
