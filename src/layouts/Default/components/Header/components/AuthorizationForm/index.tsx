@@ -29,7 +29,7 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
     const handleSubmit = () => {
     }
 
-    const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {value, name} = e.currentTarget;
 
         if (refFormik !== null && refFormik.current !== null) {
@@ -56,7 +56,6 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
                         errors,
                         touched,
 
-                        handleChange
                     } = props
 
                     return (
@@ -73,7 +72,7 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
                                     value={values.email}
                                     name="email"
 
-                                    onChange={(e) => handleChangeInput(e)}
+                                    onChange={(e) => handleChange(e)}
                                 />
                             </Grid>
                             <Grid mb={7} item xs={12}>
@@ -85,7 +84,7 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
                                     value={values.password}
                                     name="password"
 
-                                    onChange={(e) => handleChangeInput(e)}
+                                    onChange={(e) => handleChange(e)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
