@@ -16,17 +16,19 @@ import clsx from "clsx";
 import {Link, useLocation} from "react-router-dom";
 
 interface HeaderDrawerProps {
-    isOpen: boolean;
+    isOpenDrawer: boolean;
     isAuth: boolean;
-    onClose: () => void;
+    onCloseDrawer: () => void;
+    onOpenDialog: () => void;
 }
 
 const HeaderDrawer: FC<HeaderDrawerProps> = (props) => {
     const {
-        isOpen,
+        isOpenDrawer,
         isAuth,
 
-        onClose
+        onCloseDrawer,
+        onOpenDialog,
     } = props;
     const classes = useStyles();
     const location = useLocation();
@@ -89,10 +91,10 @@ const HeaderDrawer: FC<HeaderDrawerProps> = (props) => {
                     paper: classes.drawerContainer,
                 }}
                 anchor="left"
-                open={isOpen}
+                open={isOpenDrawer}
                 variant="temporary"
 
-                onClose={onClose}
+                onClose={onCloseDrawer}
             >
                 <Box className={classes.drawerBox}>
                     <Grid
@@ -106,7 +108,12 @@ const HeaderDrawer: FC<HeaderDrawerProps> = (props) => {
                             <Grid container flexDirection="column" alignItems="center">
                                 {!isAuth && (
                                     <Grid item>
-                                        <IconButton className={classes.loginIcon} color="secondary">
+                                        <IconButton
+                                            className={classes.loginIcon}
+                                            color="secondary"
+
+                                            onClick={onOpenDialog}
+                                        >
                                             <LoginIcon/>
                                         </IconButton>
                                     </Grid>

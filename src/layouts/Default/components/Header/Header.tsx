@@ -3,7 +3,7 @@ import {createUseStyles} from "react-jss";
 import {HeaderBackground} from '../../../../assets/images';
 import clsx from "clsx";
 import {useLocation} from "react-router-dom";
-import {HeaderActionsComponent, HeaderDrawerComponent} from "./components";
+import {DialogActionsAccountComponent, HeaderActionsComponent, HeaderDrawerComponent} from "./components";
 
 interface HeaderProps {
     isAuth: boolean;
@@ -16,6 +16,7 @@ const Header: FC<HeaderProps> = (props) => {
     const classes = useStyles();
     const location = useLocation();
     const [isOpenDrawer, setIsOpenDrawer] = useState(false);
+    const [isOpenDialog, setIsOpenDialog] = useState(false);
 
     const handleOpenDrawer = () => {
         setIsOpenDrawer(true);
@@ -23,15 +24,32 @@ const Header: FC<HeaderProps> = (props) => {
     const handleCloseDrawer = () => {
         setIsOpenDrawer(false);
     }
+
+    const handleOpenDialog = () => {
+        setIsOpenDialog(true);
+    }
+    const handleCloseDialog = () => {
+        setIsOpenDialog(false);
+    }
     return (
-        <header
-            className={clsx({
-                [classes.mainPageHeader]: location.pathname === '/',
-            })}
-        >
-            <HeaderActionsComponent isOpen={isOpenDrawer} onSetOpen={handleOpenDrawer}/>
-            <HeaderDrawerComponent isOpen={isOpenDrawer} isAuth={isAuth} onClose={handleCloseDrawer}/>
-        </header>
+        <>
+            <header
+                className={clsx({
+                    [classes.mainPageHeader]: location.pathname === '/',
+                })}
+            >
+                <HeaderActionsComponent isOpen={isOpenDrawer} onSetOpen={handleOpenDrawer}/>
+                <HeaderDrawerComponent
+                    isOpenDrawer={isOpenDrawer}
+                    isAuth={isAuth}
+
+                    onCloseDrawer={handleCloseDrawer}
+                    onOpenDialog={handleOpenDialog}
+                />
+            </header>
+
+            <DialogActionsAccountComponent isOpen={isOpenDialog} onClose={handleCloseDialog}/>
+        </>
     );
 };
 
