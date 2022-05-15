@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useState} from 'react';
 import {
     Button,
     Container,
@@ -11,6 +11,7 @@ import {
 import {createUseStyles} from "react-jss";
 import {AccountActionsImage} from '../../../../../../assets/images';
 import clsx from "clsx";
+import {AuthFormComponent} from "../index";
 
 interface DialogActionsAccountProps {
     isOpen: boolean;
@@ -25,7 +26,22 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
         onClose
     } = props;
     const classes = useStyles();
+    const [mainContentActive, setMainContentActive] = useState(true);
+    const [authContentActive, setAuthContentActive] = useState(false);
 
+    const handleOpenAuthContent = () => {
+        setMainContentActive(false);
+        setAuthContentActive(true);
+    }
+    const handleCloseAuthContent = () => {
+        setAuthContentActive(false);
+        setMainContentActive(true);
+    }
+
+    const handleClose = () => {
+        handleCloseAuthContent();
+        onClose();
+    }
     return (
         <>
             <Dialog
@@ -36,7 +52,7 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                 maxWidth="sm"
                 open={isOpen}
 
-                onClose={onClose}
+                onClose={handleClose}
             >
                 <DialogTitle
                     className={classes.dialogTitle}
@@ -48,7 +64,10 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                         ПРИКЛЮЧЕНИЕ С МЕДЯШКОЙ
                     </Typography>
                 </DialogTitle>
-                <DialogContent>
+                <DialogContent className={clsx({
+                    [classes.dialogContent]: true,
+                    [classes.dialogContentActive]: mainContentActive,
+                })}>
                     <Container maxWidth="xs">
                         <Grid
                             container
@@ -76,6 +95,8 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                                     fullWidth
                                     variant="contained"
                                     color="secondary"
+
+                                    onClick={handleOpenAuthContent}
                                 >
                                     Войти в аккаунт
                                 </Button>
@@ -96,6 +117,14 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                         </Grid>
                     </Container>
                 </DialogContent>
+                <DialogContent className={clsx({
+                    [classes.authContent]: true,
+                    [classes.authContentActive]: authContentActive,
+                })}>
+                    <Container maxWidth="xs">
+                        <AuthFormComponent/>
+                    </Container>
+                </DialogContent>
             </Dialog>
         </>
     );
@@ -106,12 +135,19 @@ const useStyles = createUseStyles({
         "&.MuiPaper-root": {
             borderRadius: "20px",
             paddingTop: "10px",
+            height: "620px",
         }
     },
     dialogTitle: {
         "&.MuiDialogTitle-root": {
             background: "none",
         }
+    },
+    dialogContent: {
+        display: "none",
+    },
+    dialogContentActive: {
+        display: "block",
     },
     title: {
         "&.MuiTypography-root": {
@@ -160,6 +196,14 @@ const useStyles = createUseStyles({
         "&.MuiButton-root": {
             backgroundColor: "#FD659D",
         }
+    },
+
+    //AUTH CONTENT
+    authContent: {
+        display: "none",
+    },
+    authContentActive: {
+        display: "block",
     }
 })
 
