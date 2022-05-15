@@ -1,12 +1,13 @@
 import React, {FC, useRef} from 'react';
-import {Button, Grid, TextField, Typography} from "@mui/material";
-import {AccountActionsImage} from "../../../../../../assets/images";
+import {
+    Button,
+    Grid,
+    TextField
+} from "@mui/material";
+import {AuthImage} from "../../../../../../assets/images";
 import clsx from "clsx";
 import {Formik, FormikProps} from "formik";
 import {createUseStyles} from "react-jss";
-import {
-    AuthImage
-} from '../../../../../../assets/images';
 
 interface AuthorizationFormProps {
 }
