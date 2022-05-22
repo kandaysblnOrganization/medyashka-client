@@ -39,8 +39,8 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
     }
 
     const handleClose = () => {
-        handleCloseAuthContent();
         onClose();
+        handleCloseAuthContent();
     }
     return (
         <>
@@ -135,7 +135,7 @@ const useStyles = createUseStyles({
         "&.MuiPaper-root": {
             borderRadius: "20px",
             paddingTop: "10px",
-            height: "620px",
+            height: "640px",
         }
     },
     dialogTitle: {
