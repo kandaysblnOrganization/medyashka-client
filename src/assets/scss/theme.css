@@ -1,12 +1,10 @@
-html {
-    width: 100vw;
-}
 html,
 body {
     height: 100%;
 }
 
 body {
+    overflow-x: hidden;
     background-color: #F2EFEE;
     font-feature-settings: 'pnum' on, 'lnum' on;
 }

@@ -68,51 +68,54 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                     [classes.dialogContent]: true,
                     [classes.dialogContentActive]: mainContentActive,
                 })}>
-                    <Container maxWidth="xs">
+                    <Container className={classes.container} maxWidth="xs">
                         <Grid
+                            className={classes.actionsWrapper}
                             container
                             alignItems="center"
                             textAlign="center"
                         >
-                            <Grid mb={10} item xs={12}>
-                                <img src={AccountActionsImage} alt="Медяшка"/>
-                            </Grid>
-                            <Grid mb={4} item xs={12}>
-                                <Typography
-                                    sx={{
-                                        color: "#693900",
-                                    }}
-                                    variant="h6"
-                                >
-                                    Что вы хотите сделать?
-                                </Typography>
-                            </Grid>
-                            <Grid mb={1.5} item xs={12}>
-                                <Button
-                                    className={clsx({
-                                        [classes.actionButton]: true,
-                                    })}
-                                    fullWidth
-                                    variant="contained"
-                                    color="secondary"
-
-                                    onClick={handleOpenAuthContent}
-                                >
-                                    Войти в аккаунт
-                                </Button>
-                            </Grid>
                             <Grid item xs={12}>
-                                <Button
-                                    className={clsx({
-                                        [classes.actionButton]: true,
-                                        [classes.registrationBtn]: true,
-                                    })}
-                                    fullWidth
-                                    variant="contained"
-                                    color="secondary"
-                                >
-                                    Зарегистрироваться
-                                </Button>
+                                <img height={240} src={AccountActionsImage} alt="Медяшка"/>
+                            </Grid>
+                            <Grid item container>
+                                <Grid mb={4} item xs={12}>
+                                    <Typography
+                                        sx={{
+                                            color: "#693900",
+                                        }}
+                                        variant="h6"
+                                    >
+                                        Что вы хотите сделать?
+                                    </Typography>
+                                </Grid>
+                                <Grid mb={1.5} item xs={12}>
+                                    <Button
+                                        className={clsx({
+                                            [classes.actionButton]: true,
+                                        })}
+                                        fullWidth
+                                        variant="contained"
+                                        color="secondary"
+
+                                        onClick={handleOpenAuthContent}
+                                    >
+                                        Войти в аккаунт
+                                    </Button>
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Button
+                                        className={clsx({
+                                            [classes.actionButton]: true,
+                                            [classes.registrationBtn]: true,
+                                        })}
+                                        fullWidth
+                                        variant="contained"
+                                        color="secondary"
+                                    >
+                                        Зарегистрироваться
+                                    </Button>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </Container>
@@ -121,7 +124,7 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                     [classes.authContent]: true,
                     [classes.authContentActive]: authContentActive,
                 })}>
-                    <Container maxWidth="xs">
+                    <Container className={classes.container} maxWidth="xs">
                         <AuthFormComponent/>
                     </Container>
                 </DialogContent>
@@ -131,11 +134,14 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
 };
 
 const useStyles = createUseStyles({
+    container: {
+        height: "100%",
+    },
     dialogContainer: {
         "&.MuiPaper-root": {
             borderRadius: "20px",
             paddingTop: "10px",
-            height: "640px",
+            height: "720px",
         }
     },
     dialogTitle: {
@@ -148,6 +154,12 @@ const useStyles = createUseStyles({
     },
     dialogContentActive: {
         display: "block",
+    },
+    actionsWrapper: {
+        height: "100%",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        alignItems: "center",
     },
     title: {
         "&.MuiTypography-root": {
