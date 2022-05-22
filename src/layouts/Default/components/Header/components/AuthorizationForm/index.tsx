@@ -1,10 +1,14 @@
-import React, {FC, useRef} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import {
     Button,
-    Grid,
+    Grid, IconButton,
     TextField,
     Typography
 } from "@mui/material";
+import {
+    VisibilityOutlined as VisibilityIcon,
+    VisibilityOffOutlined as VisibilityOffIcon
+} from "@mui/icons-material";
 import {AuthImage} from "../../../../../../assets/images";
 import clsx from "clsx";
 import {Formik, FormikProps} from "formik";
@@ -28,6 +32,7 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
     const {} = props;
     const classes = useStyles();
     const refFormik = useRef<FormikProps<FormModel>>(null);
+    const [visiblePass, setVisiblePass] = useState(false);
 
     const onSubmit = () => {
         if (refFormik && refFormik.current) {
@@ -90,66 +95,77 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
                                         onChange={(e) => handleChange(e)}
                                     />
                                 </Grid>
-                                <Grid mb={4} item xs={12}>
-                                    <TextField
-                                        className={classes.textField}
-                                        size="medium"
-                                        type="password"
-                                        fullWidth
-                                        color="secondary"
-                                        label="Пароль"
-                                        value={values.password}
-                                        error={Boolean(touched.password && errors.password)}
-                                        helperText={touched.password && errors.password}
-                                        name="password"
+                                <Grid mb={3} container item xs={12}>
+                                    <Grid item mb={1} xs={12}>
+                                        <TextField
+                                            className={classes.textField}
+                                            size="medium"
+                                            type={visiblePass ? "text" : "password"}
+                                            fullWidth
+                                            color="secondary"
+                                            label="Пароль"
+                                            value={values.password}
+                                            error={Boolean(touched.password && errors.password)}
+                                            helperText={touched.password && errors.password}
+                                            name="password"
+                                            InputProps={{
+                                                endAdornment: (
+                                                    <IconButton
+                                                        size="small"
 
-                                        onChange={(e) => handleChange(e)}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Button
-                                        className={clsx({
-                                            [classes.submitButton]: true,
-                                        })}
-                                        fullWidth
-                                        variant="contained"
-                                        color="secondary"
+                                                        onClick={() => setVisiblePass(!visiblePass)}
+                                                    >
+                                                        {visiblePass
+                                                            ? <VisibilityIcon/>
+                                                            : <VisibilityOffIcon/>
+                                                        }
+                                                    </IconButton>
+                                                )
+                                            }}
 
-                                        onClick={() => handleSubmit()}
-                                    >
-                                        Войти
-                                    </Button>
-                                </Grid>
-                            </Grid>
-                            <Grid item container>
-                                <Grid item container xs={12} mb="12px" alignItems='center'>
-                                    <Grid item xs>
-                                        <Typography variant="body1" textAlign="right">Забыли пароль?</Typography>
+                                            onChange={(e) => handleChange(e)}
+                                        />
                                     </Grid>
-                                    <Grid item xs>
+                                    <Grid item>
                                         <Button
                                             disableRipple
                                             fullWidth
                                             size="small"
                                             className={classes.actionButton}
                                         >
-                                            Восстановите
+                                            Забыли пароль?
                                         </Button>
                                     </Grid>
                                 </Grid>
-                                <Grid item container xs={12} alignItems='center'>
-                                    <Grid item xs>
-                                        <Typography variant="body1" textAlign="right">Нет аккаунта?</Typography>
-                                    </Grid>
-                                    <Grid item xs>
+                                <Grid item container xs={12}>
+                                    <Grid item mb={1} xs={12}>
                                         <Button
-                                            disableRipple
+                                            className={clsx({
+                                                [classes.submitButton]: true,
+                                            })}
                                             fullWidth
-                                            size="small"
-                                            className={classes.actionButton}
+                                            variant="contained"
+                                            color="secondary"
+
+                                            onClick={() => handleSubmit()}
                                         >
-                                            Зарегистрируйтесь
+                                            Войти
                                         </Button>
+                                    </Grid>
+                                    <Grid item container xs={12} alignItems='center'>
+                                        <Grid item xs>
+                                            <Typography variant="body1" textAlign="right">Нет аккаунта?</Typography>
+                                        </Grid>
+                                        <Grid item xs>
+                                            <Button
+                                                disableRipple
+                                                fullWidth
+                                                size="small"
+                                                className={classes.actionButton}
+                                            >
+                                                Зарегистрируйтесь
+                                            </Button>
+                                        </Grid>
                                     </Grid>
                                 </Grid>
                             </Grid>
