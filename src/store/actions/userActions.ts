@@ -14,7 +14,7 @@ export interface IFormDataAuth {
     password: string;
 }
 
-export const userAuth = (formData: IFormDataAuth) => {
+export const userAuth = (formData: IFormDataAuth, onClose: () => void) => {
     return async (dispatch: Dispatch<AuthorizationActions>) => {
         const user: IUser | IError = await agentAuth.post<IResponseUser>('medya-api/users/authorization', formData)
             .then(res => {
@@ -38,6 +38,7 @@ export const userAuth = (formData: IFormDataAuth) => {
         } else {
             await dispatch(setUser(user as IUser) as AuthorizationActions);
             await dispatch(setIsAuth(true) as AuthorizationActions);
+            onClose();
         }
     }
 };

@@ -40,8 +40,7 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
     const onSubmit = () => {
         if (refFormik && refFormik.current) {
             const newForm: IFormDataAuth = refFormik.current.values;
-            userAuth(newForm);
-            onClose();
+            userAuth(newForm, onClose);
         }
     };
 
