@@ -33,6 +33,10 @@ const HeaderDrawer: FC<HeaderDrawerProps> = (props) => {
     const classes = useStyles();
     const location = useLocation();
 
+    const openActionsDialog = () => {
+        onOpenDialog();
+        onCloseDrawer();
+    }
     const getNavList = (isAuth: boolean) => {
         if (isAuth) {
             return [
@@ -105,7 +109,7 @@ const HeaderDrawer: FC<HeaderDrawerProps> = (props) => {
                                             className={classes.loginIcon}
                                             color="secondary"
 
-                                            onClick={onOpenDialog}
+                                            onClick={openActionsDialog}
                                         >
                                             <LoginIcon/>
                                         </IconButton>
