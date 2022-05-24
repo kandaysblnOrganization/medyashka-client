@@ -7,4 +7,11 @@ const axiosInstance = axios.create({
     }
 })
 
-export default axiosInstance
+const authAxiosInstance = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+})
+
+export {
+    authAxiosInstance as agentAuth,
+    axiosInstance as agent
+};

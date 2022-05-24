@@ -14,30 +14,34 @@ import clsx from "clsx";
 import {Formik, FormikProps} from "formik";
 import {createUseStyles} from "react-jss";
 import * as Yup from "yup";
+import {IFormDataAuth} from "../../../../../../store/actions/userActions";
+import {useActions} from "../../../../../../hooks/redux/useActions";
 
 interface AuthorizationFormProps {
+    onClose: () => void
 }
 
-interface FormModel {
-    email: string;
-    password: string;
-}
-
-const initAuthVal: FormModel = {
+const initAuthVal: IFormDataAuth = {
     email: "",
     password: "",
 };
 
 const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
-    const {} = props;
+    const {
+        onClose
+    } = props;
     const classes = useStyles();
-    const refFormik = useRef<FormikProps<FormModel>>(null);
+    const refFormik = useRef<FormikProps<IFormDataAuth>>(null);
     const [visiblePass, setVisiblePass] = useState(false);
+    const {
+        userAuth
+    } = useActions();
 
     const onSubmit = () => {
         if (refFormik && refFormik.current) {
-            const newForm: FormModel = refFormik.current.values;
-            console.log("newForm: ", newForm);
+            const newForm: IFormDataAuth = refFormik.current.values;
+            userAuth(newForm);
+            onClose();
         }
     };
 
@@ -45,8 +49,8 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
         const {value, name} = e.currentTarget;
 
         if (refFormik && refFormik.current) {
-            const newForm: FormModel = refFormik.current.values;
-            newForm[name as keyof FormModel] = value;
+            const newForm: IFormDataAuth = refFormik.current.values;
+            newForm[name as keyof IFormDataAuth] = value;
 
             refFormik.current.setValues(newForm);
         }

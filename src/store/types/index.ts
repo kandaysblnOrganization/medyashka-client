@@ -2,6 +2,7 @@ export interface IUser {
     id: number;
     full_name: string;
     position: string;
+    error?: string;
 }
 
 export interface IAuthorizationState {

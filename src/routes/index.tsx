@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {
     Navigate,
     Route,
@@ -6,9 +6,20 @@ import {
 } from "react-router-dom";
 import {authRoutes, publicRoutes} from "./constants/routesList";
 import {Layout} from "../layouts";
+import {useTypedSelector} from "../hooks/redux/useTypedSelector";
+import {useActions} from "../hooks/redux/useActions";
 
 const RouteComponent: FC = () => {
-    const isAuth = false;
+    const {
+        isAuth
+    } = useTypedSelector(state => state.user);
+    const {
+        userCheckAuth
+    } = useActions();
+
+    useEffect(() => {
+        userCheckAuth();
+    }, [])
     return (
         <Routes>
             <Route path="/" element={<Layout isAuth={isAuth}/>}>

@@ -125,7 +125,9 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                     [classes.authContentActive]: authContentActive,
                 })}>
                     <Container className={classes.container} maxWidth="xs">
-                        <AuthFormComponent/>
+                        <AuthFormComponent
+                            onClose={handleClose}
+                        />
                     </Container>
                 </DialogContent>
             </Dialog>
