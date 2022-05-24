@@ -66,6 +66,14 @@ export const userCheckAuth = () => {
     }
 }
 
+export const userLogout = () => {
+    return async (dispatch: Dispatch<AuthorizationActions>) => {
+        await localStorage.removeItem('token');
+        await dispatch(setUser(null) as AuthorizationActions);
+        await dispatch(setIsAuth(false) as AuthorizationActions);
+    }
+}
+
 const setUser = (payload: IUser | null) => ({
     type: authorizationActionTypes.SET_USER,
     payload,

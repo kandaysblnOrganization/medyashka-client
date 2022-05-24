@@ -4,6 +4,7 @@ import {MenuBurger} from "../../../../../../components";
 import {LogoutRounded as LogOutIcon} from "@mui/icons-material";
 import {useLocation} from "react-router-dom";
 import {createUseStyles} from "react-jss";
+import {useActions} from "../../../../../../hooks/redux/useActions";
 
 interface HeaderActionsProps {
     isOpen: boolean;
@@ -18,6 +19,9 @@ const HeaderActions: FC<HeaderActionsProps> = (props) => {
     } = props;
     const classes = useStyles();
     const location = useLocation();
+    const {
+        userLogout
+    } = useActions();
     return (
         <Container maxWidth="xl">
             <Grid container alignItems="center" justifyContent="space-between">
@@ -37,6 +41,8 @@ const HeaderActions: FC<HeaderActionsProps> = (props) => {
                         <Button
                             endIcon={<LogOutIcon/>}
                             variant="outlined"
+
+                            onClick={userLogout}
                         >
                             Выход
                         </Button>
