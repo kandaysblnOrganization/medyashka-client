@@ -16,8 +16,8 @@ const App: FC = () => {
                 </BrowserRouter>
 
                 <ToastContainer
-                    position="bottom-left"
-                    autoClose={2000}
+                    position="top-right"
+                    autoClose={2500}
                     hideProgressBar={false}
                     newestOnTop={false}
                     closeOnClick
