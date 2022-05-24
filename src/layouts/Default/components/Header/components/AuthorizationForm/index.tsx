@@ -41,6 +41,7 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
         if (refFormik && refFormik.current) {
             const newForm: IFormDataAuth = refFormik.current.values;
             userAuth(newForm, onClose);
+            refFormik.current.setValues(initAuthVal);
         }
     };
 
