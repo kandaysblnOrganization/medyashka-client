@@ -40,25 +40,21 @@ const HeaderDrawer: FC<HeaderDrawerProps> = (props) => {
                     id: 1,
                     label: "Главная",
                     to: "/",
-                    onClick: null,
                 },
                 {
                     id: 2,
                     label: "Книги",
                     to: "/books",
-                    onClick: null,
                 },
                 {
                     id: 3,
                     label: "Профиль",
                     to: "/profile",
-                    onClick: null,
                 },
                 {
                     id: 4,
                     label: "Разработчики",
                     to: "/aboutUs",
-                    onClick: null,
                 }
             ]
         } else {
@@ -67,19 +63,16 @@ const HeaderDrawer: FC<HeaderDrawerProps> = (props) => {
                     id: 5,
                     label: "Главная",
                     to: "/",
-                    onClick: null,
                 },
                 {
                     id: 6,
                     label: "Книги",
                     to: "/books",
-                    onClick: null,
                 },
                 {
                     id: 7,
                     label: "Разработчики",
                     to: "/aboutUs",
-                    onClick: null,
                 }
             ]
         }
@@ -133,6 +126,8 @@ const HeaderDrawer: FC<HeaderDrawerProps> = (props) => {
                                                         <Button
                                                             disableRipple
                                                             className={classes.drawerButton}
+
+                                                            onClick={onCloseDrawer}
                                                         >
                                                             {item.label}
                                                         </Button>
