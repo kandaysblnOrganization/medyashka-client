@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, Ref, RefObject, useRef, useState} from 'react';
 import {
     Button,
     Grid, IconButton,
@@ -16,32 +16,33 @@ import {createUseStyles} from "react-jss";
 import * as Yup from "yup";
 import {IFormDataAuth} from "../../../../../../store/actions/userActions";
 import {useActions} from "../../../../../../hooks/redux/useActions";
+import {useNavigate} from "react-router-dom";
 
 interface AuthorizationFormProps {
+    initAuthVal: IFormDataAuth;
+    refFormik: RefObject<FormikProps<IFormDataAuth>>;
     onClose: () => void
 }
 
-const initAuthVal: IFormDataAuth = {
-    email: "",
-    password: "",
-};
-
 const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
     const {
-        onClose
+        initAuthVal,
+        refFormik,
+
+        onClose,
     } = props;
     const classes = useStyles();
-    const refFormik = useRef<FormikProps<IFormDataAuth>>(null);
     const [visiblePass, setVisiblePass] = useState(false);
     const {
         userAuth
     } = useActions();
+    const navigate = useNavigate();
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         if (refFormik && refFormik.current) {
             const newForm: IFormDataAuth = refFormik.current.values;
-            userAuth(newForm, onClose);
-            refFormik.current.setValues(initAuthVal);
+            await userAuth(newForm, onClose);
+            await navigate('/profile');
         }
     };
 
@@ -74,7 +75,8 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
                         errors,
                         touched,
 
-                        handleSubmit
+                        handleSubmit,
+                        resetForm
                     } = props;
 
                     return (

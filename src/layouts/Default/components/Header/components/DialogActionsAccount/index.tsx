@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useRef, useState} from 'react';
 import {
     Button,
     Container,
@@ -12,12 +12,19 @@ import {createUseStyles} from "react-jss";
 import {AccountActionsImage} from '../../../../../../assets/images';
 import clsx from "clsx";
 import {AuthFormComponent} from "../index";
+import {IFormDataAuth} from "../../../../../../store/actions/userActions";
+import {FormikProps} from "formik";
 
 interface DialogActionsAccountProps {
     isOpen: boolean;
 
     onClose: () => void
 }
+
+const initAuthVal: IFormDataAuth = {
+    email: "",
+    password: "",
+};
 
 const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
     const {
@@ -28,6 +35,7 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
     const classes = useStyles();
     const [mainContentActive, setMainContentActive] = useState(true);
     const [authContentActive, setAuthContentActive] = useState(false);
+    const refFormik = useRef<FormikProps<IFormDataAuth>>(null);
 
     const handleOpenAuthContent = () => {
         setMainContentActive(false);
@@ -38,7 +46,17 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
         setMainContentActive(true);
     }
 
+    const resetForm = () => {
+        if (refFormik && refFormik.current) {
+            const resetForm = refFormik.current.values;
+            resetForm.password = "";
+            resetForm.email = "";
+            refFormik.current.setValues(resetForm);
+        }
+    }
+
     const handleClose = () => {
+        resetForm();
         onClose();
         handleCloseAuthContent();
     }
@@ -126,6 +144,9 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                 })}>
                     <Container className={classes.container} maxWidth="xs">
                         <AuthFormComponent
+                            refFormik={refFormik}
+                            initAuthVal={initAuthVal}
+
                             onClose={handleClose}
                         />
                     </Container>

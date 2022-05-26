@@ -39,12 +39,13 @@ const HeaderActions: FC<HeaderActionsProps> = (props) => {
                 {location.pathname === '/profile' && (
                     <Grid item>
                         <Button
+                            disableRipple
                             endIcon={<LogOutIcon/>}
-                            variant="outlined"
+                            className={classes.logoutButton}
 
                             onClick={userLogout}
                         >
-                            Выход
+                            Выйти
                         </Button>
                     </Grid>
                 )}
@@ -58,6 +59,19 @@ const useStyles = createUseStyles({
         width: "50px",
         height: "50px",
         borderRadius: "100px",
+    },
+
+    logoutButton: {
+        "&.MuiButton-root": {
+            fontWeight: 700,
+            fontSize: 12,
+            lineHeight: "15px",
+            color: "#000000",
+
+            "&:hover": {
+                background: "none",
+            }
+        }
     }
 })
 
