@@ -11,11 +11,6 @@ import {useActions} from "../hooks/redux/useActions";
 
 const RouteComponent: FC = () => {
     const [isLoading, setIsLoading] = useState(true);
-    const checkAuth = async () => {
-        await setIsLoading(true);
-        await userCheckAuth();
-        await setIsLoading(false);
-    }
     const {
         isAuth
     } = useTypedSelector(state => state.user);
@@ -28,6 +23,12 @@ const RouteComponent: FC = () => {
             await checkAuth();
         })()
     }, [])
+
+    const checkAuth = async () => {
+        await setIsLoading(true);
+        await userCheckAuth();
+        await setIsLoading(false);
+    }
     return (
         <>
             {!isLoading && (
