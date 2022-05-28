@@ -1,4 +1,4 @@
-import React, {FC, useRef, useState} from 'react';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {
     Button,
     Container,
@@ -28,6 +28,9 @@ const initAuthVal: IFormDataAuth = {
     password: "",
 };
 
+let timeoutClose: ReturnType<typeof setTimeout>;
+let timeoutReset: ReturnType<typeof setTimeout>;
+
 const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
     const {
         isOpen,
@@ -46,14 +49,24 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
     }
 
     const handleCloseAuthContent = () => {
-        setAuthContentActive(false);
-        setMainContentActive(true);
+        clearTimeout(timeoutClose);
+        timeoutClose = setTimeout(() => {
+            setAuthContentActive(false);
+            setMainContentActive(true);
+        }, 500);
     }
 
+    const resetForms = () => {
+        clearTimeout(timeoutReset);
+        timeoutReset = setTimeout(() => {
+            resetForm(refFormik, initAuthVal);
+        }, 1000);
+    };
+
     const handleClose = () => {
-        resetForm(refFormik, initAuthVal);
-        onClose();
+        resetForms();
         handleCloseAuthContent();
+        onClose();
     }
     return (
         <>

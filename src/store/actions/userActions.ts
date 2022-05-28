@@ -44,8 +44,8 @@ export const userAuth: UserAuth = (formData, onClose, onSetIsLoading) => {
         } else {
             await dispatch(setUser(user as IUser) as AuthorizationActions);
             await dispatch(setIsAuth(true) as AuthorizationActions);
+            await onClose();
             onSetIsLoading(false);
-            onClose();
         }
     }
 };
