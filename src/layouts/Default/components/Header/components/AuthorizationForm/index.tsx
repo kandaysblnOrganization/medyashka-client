@@ -211,10 +211,10 @@ const useStyles = createUseStyles({
 
     textField: {
         "& .MuiInputLabel-root": {
-            fontSize: 16,
+            fontSize: 18,
         },
         "& .MuiOutlinedInput-input": {
-            fontSize: 16,
+            fontSize: 18,
         },
         '& .MuiFormHelperText-root': {
             fontSize: 16,
