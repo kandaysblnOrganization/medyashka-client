@@ -14,11 +14,13 @@ import clsx from "clsx";
 import {AuthFormComponent} from "../index";
 import {IFormDataAuth} from "../../../../../../store/actions/userActions";
 import {FormikProps} from "formik";
+import {resetForm} from "../../../../../../helper/resetForm";
 
 interface DialogActionsAccountProps {
     isOpen: boolean;
 
-    onClose: () => void
+    onClose: () => void,
+    onSetIsLoading: (isLoading: boolean) => void,
 }
 
 const initAuthVal: IFormDataAuth = {
@@ -30,7 +32,8 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
     const {
         isOpen,
 
-        onClose
+        onClose,
+        onSetIsLoading
     } = props;
     const classes = useStyles();
     const [mainContentActive, setMainContentActive] = useState(true);
@@ -41,22 +44,14 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
         setMainContentActive(false);
         setAuthContentActive(true);
     }
+
     const handleCloseAuthContent = () => {
         setAuthContentActive(false);
         setMainContentActive(true);
     }
 
-    const resetForm = () => {
-        if (refFormik && refFormik.current) {
-            const resetForm = refFormik.current.values;
-            resetForm.password = "";
-            resetForm.email = "";
-            refFormik.current.setValues(resetForm);
-        }
-    }
-
     const handleClose = () => {
-        resetForm();
+        resetForm(refFormik, initAuthVal);
         onClose();
         handleCloseAuthContent();
     }
@@ -148,6 +143,7 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                             initAuthVal={initAuthVal}
 
                             onClose={handleClose}
+                            onSetIsLoading={onSetIsLoading}
                         />
                     </Container>
                 </DialogContent>

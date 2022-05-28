@@ -17,11 +17,14 @@ import * as Yup from "yup";
 import {IFormDataAuth} from "../../../../../../store/actions/userActions";
 import {useActions} from "../../../../../../hooks/redux/useActions";
 import {useNavigate} from "react-router-dom";
+import {resetForm} from "../../../../../../helper/resetForm";
 
 interface AuthorizationFormProps {
     initAuthVal: IFormDataAuth;
     refFormik: RefObject<FormikProps<IFormDataAuth>>;
+
     onClose: () => void
+    onSetIsLoading: (isLoading: boolean) => void
 }
 
 const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
@@ -30,6 +33,7 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
         refFormik,
 
         onClose,
+        onSetIsLoading
     } = props;
     const classes = useStyles();
     const [visiblePass, setVisiblePass] = useState(false);
@@ -40,8 +44,8 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
 
     const onSubmit = async () => {
         if (refFormik && refFormik.current) {
-            const newForm: IFormDataAuth = refFormik.current.values;
-            await userAuth(newForm, onClose);
+            const newForm: IFormDataAuth = await refFormik.current.values;
+            await userAuth(newForm, onClose, onSetIsLoading);
             await navigate('/profile');
         }
     };
@@ -57,129 +61,131 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
         }
     };
     return (
-        <Grid
-            className={classes.root}
-            container
-            alignItems="center"
-            textAlign="center"
-        >
-            <Formik
-                innerRef={refFormik}
-                initialValues={initAuthVal}
-                validationSchema={validationSchema}
-                onSubmit={onSubmit}
+        <>
+            <Grid
+                className={classes.root}
+                container
+                alignItems="center"
+                textAlign="center"
             >
-                {(props) => {
-                    const {
-                        values,
-                        errors,
-                        touched,
+                <Formik
+                    innerRef={refFormik}
+                    initialValues={initAuthVal}
+                    validationSchema={validationSchema}
+                    onSubmit={onSubmit}
+                >
+                    {(props) => {
+                        const {
+                            values,
+                            errors,
+                            touched,
 
-                        handleSubmit,
-                        resetForm
-                    } = props;
+                            handleSubmit,
+                            resetForm
+                        } = props;
 
-                    return (
-                        <>
-                            <Grid item xs={12}>
-                                <img height={240} src={AuthImage} alt="Медяшка"/>
-                            </Grid>
-                            <Grid item container>
-                                <Grid mb={4} item xs={12}>
-                                    <TextField
-                                        className={classes.textField}
-                                        size="medium"
-                                        type="email"
-                                        fullWidth
-                                        color="secondary"
-                                        label="E-Mail"
-                                        value={values.email}
-                                        error={Boolean(touched.email && errors.email)}
-                                        helperText={touched.email && errors.email}
-                                        name="email"
-
-                                        onChange={(e) => handleChange(e)}
-                                    />
+                        return (
+                            <>
+                                <Grid item xs={12}>
+                                    <img height={240} src={AuthImage} alt="Медяшка"/>
                                 </Grid>
-                                <Grid mb={3} container item xs={12}>
-                                    <Grid item mb={1} xs={12}>
+                                <Grid item container>
+                                    <Grid mb={4} item xs={12}>
                                         <TextField
                                             className={classes.textField}
                                             size="medium"
-                                            type={visiblePass ? "text" : "password"}
+                                            type="email"
                                             fullWidth
                                             color="secondary"
-                                            label="Пароль"
-                                            value={values.password}
-                                            error={Boolean(touched.password && errors.password)}
-                                            helperText={touched.password && errors.password}
-                                            name="password"
-                                            InputProps={{
-                                                endAdornment: (
-                                                    <IconButton
-                                                        size="small"
-
-                                                        onClick={() => setVisiblePass(!visiblePass)}
-                                                    >
-                                                        {visiblePass
-                                                            ? <VisibilityIcon/>
-                                                            : <VisibilityOffIcon/>
-                                                        }
-                                                    </IconButton>
-                                                )
-                                            }}
+                                            label="E-Mail"
+                                            value={values.email}
+                                            error={Boolean(touched.email && errors.email)}
+                                            helperText={touched.email && errors.email}
+                                            name="email"
 
                                             onChange={(e) => handleChange(e)}
                                         />
                                     </Grid>
-                                    <Grid item>
-                                        <Button
-                                            disableRipple
-                                            fullWidth
-                                            size="small"
-                                            className={classes.actionButton}
-                                        >
-                                            Забыли пароль?
-                                        </Button>
-                                    </Grid>
-                                </Grid>
-                                <Grid item container xs={12}>
-                                    <Grid item mb={1} xs={12}>
-                                        <Button
-                                            className={clsx({
-                                                [classes.submitButton]: true,
-                                            })}
-                                            fullWidth
-                                            variant="contained"
-                                            color="secondary"
+                                    <Grid mb={3} container item xs={12}>
+                                        <Grid item mb={1} xs={12}>
+                                            <TextField
+                                                className={classes.textField}
+                                                size="medium"
+                                                type={visiblePass ? "text" : "password"}
+                                                fullWidth
+                                                color="secondary"
+                                                label="Пароль"
+                                                value={values.password}
+                                                error={Boolean(touched.password && errors.password)}
+                                                helperText={touched.password && errors.password}
+                                                name="password"
+                                                InputProps={{
+                                                    endAdornment: (
+                                                        <IconButton
+                                                            size="small"
 
-                                            onClick={() => handleSubmit()}
-                                        >
-                                            Войти
-                                        </Button>
-                                    </Grid>
-                                    <Grid item container xs={12} alignItems='center'>
-                                        <Grid item xs>
-                                            <Typography variant="body1" textAlign="right">Нет аккаунта?</Typography>
+                                                            onClick={() => setVisiblePass(!visiblePass)}
+                                                        >
+                                                            {visiblePass
+                                                                ? <VisibilityIcon/>
+                                                                : <VisibilityOffIcon/>
+                                                            }
+                                                        </IconButton>
+                                                    )
+                                                }}
+
+                                                onChange={(e) => handleChange(e)}
+                                            />
                                         </Grid>
-                                        <Grid item xs>
+                                        <Grid item>
                                             <Button
                                                 disableRipple
                                                 fullWidth
                                                 size="small"
                                                 className={classes.actionButton}
                                             >
-                                                Зарегистрируйтесь
+                                                Забыли пароль?
                                             </Button>
                                         </Grid>
                                     </Grid>
+                                    <Grid item container xs={12}>
+                                        <Grid item mb={1} xs={12}>
+                                            <Button
+                                                className={clsx({
+                                                    [classes.submitButton]: true,
+                                                })}
+                                                fullWidth
+                                                variant="contained"
+                                                color="secondary"
+
+                                                onClick={() => handleSubmit()}
+                                            >
+                                                Войти
+                                            </Button>
+                                        </Grid>
+                                        <Grid item container xs={12} alignItems='center'>
+                                            <Grid item xs>
+                                                <Typography variant="body1" textAlign="right">Нет аккаунта?</Typography>
+                                            </Grid>
+                                            <Grid item xs>
+                                                <Button
+                                                    disableRipple
+                                                    fullWidth
+                                                    size="small"
+                                                    className={classes.actionButton}
+                                                >
+                                                    Зарегистрируйтесь
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </>
-                    );
-                }}
-            </Formik>
-        </Grid>
+                            </>
+                        );
+                    }}
+                </Formik>
+            </Grid>
+        </>
     );
 };
 

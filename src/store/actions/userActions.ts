@@ -9,13 +9,18 @@ import {IError} from "../../types/ErrorTypes";
 import jwtDecode from "jwt-decode";
 import {IResponseUser} from "../../types/ResponseTypes";
 
+interface UserAuth {
+    (formData: IFormDataAuth, onClose: () => void, onSetIsLoading: (isLoading: boolean) => void): void;
+}
+
 export interface IFormDataAuth {
     email: string;
     password: string;
 }
 
-export const userAuth = (formData: IFormDataAuth, onClose: () => void) => {
+export const userAuth: UserAuth = (formData, onClose, onSetIsLoading) => {
     return async (dispatch: Dispatch<AuthorizationActions>) => {
+        onSetIsLoading(true);
         const user: IUser | IError = await agentAuth.post<IResponseUser>('medya-api/users/authorization', formData)
             .then(res => {
                 const data = jwtDecode<IUser>(res.data.token)
@@ -31,6 +36,7 @@ export const userAuth = (formData: IFormDataAuth, onClose: () => void) => {
                 return {error: err.response.data.message};
             });
         if (user.error) {
+            onSetIsLoading(false);
             Notification({
                 message: user.error,
                 type: NotificationTypes.error,
@@ -38,6 +44,7 @@ export const userAuth = (formData: IFormDataAuth, onClose: () => void) => {
         } else {
             await dispatch(setUser(user as IUser) as AuthorizationActions);
             await dispatch(setIsAuth(true) as AuthorizationActions);
+            onSetIsLoading(false);
             onClose();
         }
     }

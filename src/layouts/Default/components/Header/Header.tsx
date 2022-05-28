@@ -4,6 +4,7 @@ import {HeaderBackground} from '../../../../assets/images';
 import clsx from "clsx";
 import {useLocation} from "react-router-dom";
 import {DialogActionsAccountComponent, HeaderActionsComponent, HeaderDrawerComponent} from "./components";
+import {Backdrop, CircularProgress} from "@mui/material";
 
 interface HeaderProps {
     isAuth: boolean;
@@ -17,6 +18,7 @@ const Header: FC<HeaderProps> = (props) => {
     const location = useLocation();
     const [isOpenDrawer, setIsOpenDrawer] = useState(false);
     const [isOpenDialog, setIsOpenDialog] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleOpenDrawer = () => {
         setIsOpenDrawer(true);
@@ -31,6 +33,10 @@ const Header: FC<HeaderProps> = (props) => {
     const handleCloseDialog = () => {
         setIsOpenDialog(false);
     }
+
+    const handleSetIsLoading = (isLoading: boolean) => {
+        setIsLoading(isLoading);
+    };
     return (
         <>
             <header
@@ -48,7 +54,16 @@ const Header: FC<HeaderProps> = (props) => {
                 />
             </header>
 
-            <DialogActionsAccountComponent isOpen={isOpenDialog} onClose={handleCloseDialog}/>
+            <Backdrop open={isLoading}>
+                <CircularProgress color="secondary" size={64}/>
+            </Backdrop>
+
+            <DialogActionsAccountComponent
+                isOpen={isOpenDialog}
+
+                onClose={handleCloseDialog}
+                onSetIsLoading={handleSetIsLoading}
+            />
         </>
     );
 };

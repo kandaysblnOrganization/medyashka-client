@@ -8,6 +8,7 @@ import {
     MuiDialogActions,
     MuiOutlinedInput,
     MuiPagination,
+    MuiBackdrop
 } from './overrides';
 import {
     palette,
@@ -26,6 +27,7 @@ const theme = createTheme({
         MuiDialogActions,
         MuiOutlinedInput,
         MuiPagination,
+        MuiBackdrop,
     },
 });
 
