@@ -1,6 +1,6 @@
-import React, {FC} from 'react';
+import React, {createRef, FC, useRef} from 'react';
 import {Button, Container, Grid} from "@mui/material";
-import {MenuBurger} from "../../../../../../components";
+import {DialogConfirmationComponent, MenuBurger} from "../../../../../../components";
 import {LogoutRounded as LogOutIcon} from "@mui/icons-material";
 import {useLocation} from "react-router-dom";
 import {createUseStyles} from "react-jss";
@@ -19,38 +19,65 @@ const HeaderActions: FC<HeaderActionsProps> = (props) => {
     } = props;
     const classes = useStyles();
     const location = useLocation();
+    const refDialogConfirmation = useRef<any>(null);
     const {
         userLogout
     } = useActions();
-    return (
-        <Container maxWidth="xl">
-            <Grid container alignItems="center" justifyContent="space-between">
-                <Grid item>
-                    <Button
-                        className={classes.headerButton}
-                        color="secondary"
-                        size="small"
 
-                        onClick={onSetOpen}
-                    >
-                        <MenuBurger isOpenDrawer={isOpen}/>
-                    </Button>
-                </Grid>
-                {location.pathname === '/profile' && (
+    const handleUserLogout = (isConfirm?: boolean) => {
+        if (!isConfirm) {
+            if (refDialogConfirmation && refDialogConfirmation.current) {
+                refDialogConfirmation.current.onOpen({
+                    message: "Вы действительно хотите выйти из аккаунта?",
+                    acceptButtonTitle: "Да, выйти",
+                    cancelButtonTitle: "Нет",
+                    acceptButtonAction: handleUserLogout.bind(this, true),
+                })
+            }
+
+            return;
+        }
+
+        userLogout();
+    }
+
+    return (
+        <>
+            <Container maxWidth="xl">
+                <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item>
                         <Button
-                            disableRipple
-                            endIcon={<LogOutIcon/>}
-                            className={classes.logoutButton}
+                            className={classes.headerButton}
+                            color="secondary"
+                            size="small"
 
-                            onClick={userLogout}
+                            onClick={onSetOpen}
                         >
-                            Выйти
+                            <MenuBurger isOpenDrawer={isOpen}/>
                         </Button>
                     </Grid>
-                )}
-            </Grid>
-        </Container>
+                    {location.pathname === '/profile' && (
+                        <Grid item>
+                            <Button
+                                disableRipple
+                                endIcon={<LogOutIcon/>}
+                                className={classes.logoutButton}
+
+                                onClick={() => handleUserLogout()}
+                            >
+                                Выйти
+                            </Button>
+                        </Grid>
+                    )}
+                </Grid>
+            </Container>
+
+            {location.pathname === '/profile' && (
+                <DialogConfirmationComponent
+                    ref={refDialogConfirmation}
+                />
+            )}
+        </>
     );
 };
 
