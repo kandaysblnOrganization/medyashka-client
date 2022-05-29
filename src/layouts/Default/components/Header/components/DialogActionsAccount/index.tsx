@@ -66,6 +66,11 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
         setRegContentActive(true);
     }
 
+    const toggleRegOrAuthContent = () => {
+        setRegContentActive(!regContentActive);
+        setAuthContentActive(!authContentActive);
+    }
+
     const handleNext = () => {
         setActiveRegStep((prevActiveStep) => prevActiveStep + 1);
     };
@@ -191,6 +196,7 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
 
                                 onClose={handleClose}
                                 onSetIsLoading={onSetIsLoading}
+                                onOpenReg={toggleRegOrAuthContent}
                             />
                         </Container>
                     </DialogContent>
@@ -209,6 +215,7 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                                 onSetIsLoading={onSetIsLoading}
                                 onNext={handleNext}
                                 onBack={handleBack}
+                                onOpenAuth={toggleRegOrAuthContent}
                             />
                         </Container>
                     </DialogContent>

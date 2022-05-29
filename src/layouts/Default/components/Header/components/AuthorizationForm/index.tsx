@@ -17,6 +17,7 @@ interface AuthorizationFormProps {
 
     onClose: () => void
     onSetIsLoading: (isLoading: boolean) => void
+    onOpenReg: () => void
 }
 
 const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
@@ -25,7 +26,8 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
         refFormik,
 
         onClose,
-        onSetIsLoading
+        onSetIsLoading,
+        onOpenReg
     } = props;
     const classes = useStyles();
     const [visiblePass, setVisiblePass] = useState(false);
@@ -166,6 +168,8 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
                                                     fullWidth
                                                     size="small"
                                                     className={classes.actionButton}
+
+                                                    onClick={onOpenReg}
                                                 >
                                                     Зарегистрируйтесь
                                                 </Button>

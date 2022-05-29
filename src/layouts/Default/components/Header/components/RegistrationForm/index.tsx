@@ -24,6 +24,7 @@ import {useActions} from "../../../../../../hooks/redux/useActions";
 import {useNavigate} from "react-router-dom";
 import RegLastStep from "./regLastStep";
 import {resetForm} from "../../../../../../helper/resetForm";
+import {useTypedSelector} from "../../../../../../hooks/redux/useTypedSelector";
 
 interface RegistrationFormProps {
     initRegVal: IFormDataReg;
@@ -34,6 +35,7 @@ interface RegistrationFormProps {
     onSetIsLoading: (isLoading: boolean) => void
     onNext: () => void
     onBack: () => void
+    onOpenAuth: () => void
 }
 
 const RegistrationForm: FC<RegistrationFormProps> = (props) => {
@@ -46,12 +48,14 @@ const RegistrationForm: FC<RegistrationFormProps> = (props) => {
         onSetIsLoading,
         onClose,
         onNext,
-        onBack
+        onBack,
+        onOpenAuth
     } = props;
     const classes = useStyles();
     const {
         userReg
     } = useActions();
+    const {isAuth} = useTypedSelector(state => state.user);
     const navigate = useNavigate();
 
     const onSubmit = async () => {
@@ -167,6 +171,25 @@ const RegistrationForm: FC<RegistrationFormProps> = (props) => {
                                     </Step>
                                 </Stepper>
                             </Grid>
+                            {!isAuth && (
+                                <Grid item container xs={12} mt={1} alignItems='center'>
+                                    <Grid item xs>
+                                        <Typography variant="body1" textAlign="right">Есть аккаунт?</Typography>
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Button
+                                            disableRipple
+                                            fullWidth
+                                            size="small"
+                                            className={classes.actionButton}
+
+                                            onClick={onOpenAuth}
+                                        >
+                                            Авторизуйтесь
+                                        </Button>
+                                    </Grid>
+                                </Grid>
+                            )}
                         </>
                     );
                 }}
@@ -252,6 +275,24 @@ const useStyles = createUseStyles({
                 fill: "#ffffff",
             }
         }
+    },
+
+    actionButton: {
+        "&.MuiButton-root": {
+            height: "auto",
+            fontWeight: 400,
+            fontSize: "14px",
+            lineHeight: "22px",
+            transition: "all .2s linear",
+            textTransform: "none",
+            color: "#FB8349",
+            justifyContent: "flex-start",
+            padding: 0,
+            marginLeft: 6,
+            "&:hover": {
+                color: "rgba(75, 0, 0, 0.92)",
+            }
+        },
     }
 });
 
