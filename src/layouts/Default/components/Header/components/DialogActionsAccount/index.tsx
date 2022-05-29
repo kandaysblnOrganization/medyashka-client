@@ -1,20 +1,15 @@
-import React, {FC, useEffect, useRef, useState} from 'react';
-import {
-    Button,
-    Container,
-    Dialog,
-    DialogContent,
-    DialogTitle,
-    Grid,
-    Typography
-} from "@mui/material";
+import React, {FC, useRef, useState} from 'react';
+import {Button, Container, Dialog, DialogContent, DialogTitle, Grid, Typography} from "@mui/material";
 import {createUseStyles} from "react-jss";
 import {AccountActionsImage} from '../../../../../../assets/images';
 import clsx from "clsx";
-import {AuthFormComponent} from "../index";
-import {IFormDataAuth} from "../../../../../../store/actions/userActions";
+import {
+    AuthFormComponent,
+    RegFormComponent
+} from "../index";
 import {FormikProps} from "formik";
 import {resetForm} from "../../../../../../helper/resetForm";
+import {IFormDataAuth, IFormDataReg} from "../../../../../../types/FormikTypes";
 
 interface DialogActionsAccountProps {
     isOpen: boolean;
@@ -27,6 +22,13 @@ const initAuthVal: IFormDataAuth = {
     email: "",
     password: "",
 };
+
+const initRegVal: IFormDataReg = {
+    email: "",
+    password: "",
+    position: "",
+    full_name: "",
+}
 
 let timeoutClose: ReturnType<typeof setTimeout>;
 let timeoutReset: ReturnType<typeof setTimeout>;
@@ -41,17 +43,33 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
     const classes = useStyles();
     const [mainContentActive, setMainContentActive] = useState(true);
     const [authContentActive, setAuthContentActive] = useState(false);
-    const refFormik = useRef<FormikProps<IFormDataAuth>>(null);
+    const [regContentActive, setRegContentActive] = useState(false);
+    const [activeRegStep, setActiveRegStep] = useState(0);
+    const refAuthForm = useRef<FormikProps<IFormDataAuth>>(null);
+    const refRegForm = useRef<FormikProps<IFormDataReg>>(null);
 
     const handleOpenAuthContent = () => {
         setMainContentActive(false);
         setAuthContentActive(true);
     }
+    const handleOpenRegContent = () => {
+        setMainContentActive(false);
+        setRegContentActive(true);
+    }
 
-    const handleCloseAuthContent = () => {
+    const handleNext = () => {
+        setActiveRegStep((prevActiveStep) => prevActiveStep + 1);
+    };
+
+    const handleBack = () => {
+        setActiveRegStep((prevActiveStep) => prevActiveStep - 1);
+    };
+
+    const handleCloseContent = () => {
         clearTimeout(timeoutClose);
         timeoutClose = setTimeout(() => {
             setAuthContentActive(false);
+            setRegContentActive(false);
             setMainContentActive(true);
         }, 500);
     }
@@ -59,14 +77,26 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
     const resetForms = () => {
         clearTimeout(timeoutReset);
         timeoutReset = setTimeout(() => {
-            resetForm(refFormik, initAuthVal);
+            resetForm(refAuthForm, initAuthVal);
         }, 1000);
     };
 
     const handleClose = () => {
         resetForms();
-        handleCloseAuthContent();
+        handleCloseContent();
         onClose();
+    }
+
+    const renderDialogTitle = () => {
+        if (mainContentActive) {
+            return "Приключение с Медяшкой"
+        }
+        if (authContentActive) {
+            return "Авторизация";
+        }
+        if (regContentActive) {
+            return "Регистрация";
+        }
     }
     return (
         <>
@@ -87,7 +117,7 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                         className={classes.title}
                         variant="h4"
                     >
-                        ПРИКЛЮЧЕНИЕ С МЕДЯШКОЙ
+                        {renderDialogTitle()}
                     </Typography>
                 </DialogTitle>
                 <DialogContent className={clsx({
@@ -138,6 +168,8 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                                         fullWidth
                                         variant="contained"
                                         color="secondary"
+
+                                        onClick={handleOpenRegContent}
                                     >
                                         Зарегистрироваться
                                     </Button>
@@ -152,11 +184,28 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                 })}>
                     <Container className={classes.container} maxWidth="xs">
                         <AuthFormComponent
-                            refFormik={refFormik}
+                            refFormik={refAuthForm}
                             initAuthVal={initAuthVal}
 
                             onClose={handleClose}
                             onSetIsLoading={onSetIsLoading}
+                        />
+                    </Container>
+                </DialogContent>
+                <DialogContent className={clsx({
+                    [classes.regContent]: true,
+                    [classes.regContentActive]: regContentActive,
+                })}>
+                    <Container className={classes.container} maxWidth="xs">
+                        <RegFormComponent
+                            initRegVal={initRegVal}
+                            refFormik={refRegForm}
+                            activeRegStep={activeRegStep}
+
+                            onClose={onClose}
+                            onSetIsLoading={onSetIsLoading}
+                            onNext={handleNext}
+                            onBack={handleBack}
                         />
                     </Container>
                 </DialogContent>
@@ -246,6 +295,13 @@ const useStyles = createUseStyles({
         display: "none",
     },
     authContentActive: {
+        display: "block",
+    },
+
+    regContent: {
+        display: "none",
+    },
+    regContentActive: {
         display: "block",
     }
 })

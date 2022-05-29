@@ -1,23 +1,14 @@
-import React, {FC, Ref, RefObject, useRef, useState} from 'react';
-import {
-    Button,
-    Grid, IconButton,
-    TextField,
-    Typography
-} from "@mui/material";
-import {
-    VisibilityOutlined as VisibilityIcon,
-    VisibilityOffOutlined as VisibilityOffIcon
-} from "@mui/icons-material";
+import React, {FC, RefObject, useState} from 'react';
+import {Button, Grid, IconButton, TextField, Typography} from "@mui/material";
+import {VisibilityOffOutlined as VisibilityOffIcon, VisibilityOutlined as VisibilityIcon} from "@mui/icons-material";
 import {AuthImage} from "../../../../../../assets/images";
 import clsx from "clsx";
 import {Formik, FormikProps} from "formik";
 import {createUseStyles} from "react-jss";
 import * as Yup from "yup";
-import {IFormDataAuth} from "../../../../../../store/actions/userActions";
 import {useActions} from "../../../../../../hooks/redux/useActions";
 import {useNavigate} from "react-router-dom";
-import {resetForm} from "../../../../../../helper/resetForm";
+import {IFormDataAuth} from "../../../../../../types/FormikTypes";
 
 interface AuthorizationFormProps {
     initAuthVal: IFormDataAuth;

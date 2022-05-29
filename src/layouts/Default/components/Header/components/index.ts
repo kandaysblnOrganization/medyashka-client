@@ -4,3 +4,4 @@ export {default as DialogActionsAccountComponent} from './DialogActionsAccount';
 
 //FORMS
 export {default as AuthFormComponent} from './AuthorizationForm';
+export {default as RegFormComponent} from './RegistrationForm';

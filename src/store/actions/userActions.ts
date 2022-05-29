@@ -8,14 +8,10 @@ import {
 import {IError} from "../../types/ErrorTypes";
 import jwtDecode from "jwt-decode";
 import {IResponseUser} from "../../types/ResponseTypes";
+import {IFormDataAuth, IFormDataReg} from "../../types/FormikTypes";
 
 interface UserAuth {
     (formData: IFormDataAuth, onClose: () => void, onSetIsLoading: (isLoading: boolean) => void): void;
-}
-
-export interface IFormDataAuth {
-    email: string;
-    password: string;
 }
 
 export const userAuth: UserAuth = (formData, onClose, onSetIsLoading) => {
