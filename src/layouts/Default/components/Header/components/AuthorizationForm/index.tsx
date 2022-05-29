@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import {useActions} from "../../../../../../hooks/redux/useActions";
 import {useNavigate} from "react-router-dom";
 import {IFormDataAuth} from "../../../../../../types/FormikTypes";
+import {resetForm} from "../../../../../../helper/resetForm";
 
 interface AuthorizationFormProps {
     initAuthVal: IFormDataAuth;
@@ -38,6 +39,7 @@ const AuthorizationForm: FC<AuthorizationFormProps> = (props) => {
             const newForm: IFormDataAuth = await refFormik.current.values;
             await userAuth(newForm, onClose, onSetIsLoading);
             await navigate('/profile');
+            resetForm(refFormik, initAuthVal);
         }
     };
 

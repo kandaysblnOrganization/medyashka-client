@@ -14,6 +14,10 @@ interface UserAuth {
     (formData: IFormDataAuth, onClose: () => void, onSetIsLoading: (isLoading: boolean) => void): void;
 }
 
+interface UserReg {
+    (formData: IFormDataReg, onSetIsLoading: (isLoading: boolean) => void, onNext: () => void): void;
+}
+
 export const userAuth: UserAuth = (formData, onClose, onSetIsLoading) => {
     return async (dispatch: Dispatch<AuthorizationActions>) => {
         onSetIsLoading(true);
@@ -42,6 +46,38 @@ export const userAuth: UserAuth = (formData, onClose, onSetIsLoading) => {
             await dispatch(setIsAuth(true) as AuthorizationActions);
             await onClose();
             onSetIsLoading(false);
+        }
+    }
+};
+
+export const userReg: UserReg = (formData, onSetIsLoading, onNext) => {
+    return async (dispatch: Dispatch<AuthorizationActions>) => {
+        onSetIsLoading(true);
+        const user: IUser | IError = await agentAuth.post<IResponseUser>(`medya-api/users/registration`, formData)
+            .then(res => {
+                const data = jwtDecode<IUser>(res.data.token);
+                const user: IUser = {
+                    id: data.id,
+                    full_name: data.full_name,
+                    position: data.position,
+                }
+
+                return user;
+            })
+            .catch(err => {
+                return {error: err.response.data.message};
+            })
+        if (user.error) {
+            onSetIsLoading(false);
+            Notification({
+                message: user.error,
+                type: NotificationTypes.error,
+            });
+        } else {
+            await dispatch(setUser(user as IUser) as AuthorizationActions);
+            await dispatch(setIsAuth(true) as AuthorizationActions);
+            await onSetIsLoading(false);
+            onNext();
         }
     }
 };

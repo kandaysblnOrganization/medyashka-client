@@ -1,5 +1,13 @@
 import React, {FC, useRef, useState} from 'react';
-import {Button, Container, Dialog, DialogContent, DialogTitle, Grid, Typography} from "@mui/material";
+import {
+    Button,
+    Container,
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    Grid,
+    Typography
+} from "@mui/material";
 import {createUseStyles} from "react-jss";
 import {AccountActionsImage} from '../../../../../../assets/images';
 import clsx from "clsx";
@@ -8,8 +16,10 @@ import {
     RegFormComponent
 } from "../index";
 import {FormikProps} from "formik";
-import {resetForm} from "../../../../../../helper/resetForm";
-import {IFormDataAuth, IFormDataReg} from "../../../../../../types/FormikTypes";
+import {
+    IFormDataAuth,
+    IFormDataReg
+} from "../../../../../../types/FormikTypes";
 
 interface DialogActionsAccountProps {
     isOpen: boolean;
@@ -31,7 +41,6 @@ const initRegVal: IFormDataReg = {
 }
 
 let timeoutClose: ReturnType<typeof setTimeout>;
-let timeoutReset: ReturnType<typeof setTimeout>;
 
 const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
     const {
@@ -68,21 +77,14 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
     const handleCloseContent = () => {
         clearTimeout(timeoutClose);
         timeoutClose = setTimeout(() => {
+            setActiveRegStep(0);
             setAuthContentActive(false);
             setRegContentActive(false);
             setMainContentActive(true);
         }, 500);
     }
 
-    const resetForms = () => {
-        clearTimeout(timeoutReset);
-        timeoutReset = setTimeout(() => {
-            resetForm(refAuthForm, initAuthVal);
-        }, 1000);
-    };
-
     const handleClose = () => {
-        resetForms();
         handleCloseContent();
         onClose();
     }
@@ -178,37 +180,39 @@ const DialogActionsAccount: FC<DialogActionsAccountProps> = (props) => {
                         </Grid>
                     </Container>
                 </DialogContent>
-                <DialogContent className={clsx({
-                    [classes.authContent]: true,
-                    [classes.authContentActive]: authContentActive,
-                })}>
-                    <Container className={classes.container} maxWidth="xs">
-                        <AuthFormComponent
-                            refFormik={refAuthForm}
-                            initAuthVal={initAuthVal}
+                {authContentActive && (
+                    <DialogContent className={clsx({
+                        [classes.authContent]: true,
+                    })}>
+                        <Container className={classes.container} maxWidth="xs">
+                            <AuthFormComponent
+                                refFormik={refAuthForm}
+                                initAuthVal={initAuthVal}
 
-                            onClose={handleClose}
-                            onSetIsLoading={onSetIsLoading}
-                        />
-                    </Container>
-                </DialogContent>
-                <DialogContent className={clsx({
-                    [classes.regContent]: true,
-                    [classes.regContentActive]: regContentActive,
-                })}>
-                    <Container className={classes.container} maxWidth="xs">
-                        <RegFormComponent
-                            initRegVal={initRegVal}
-                            refFormik={refRegForm}
-                            activeRegStep={activeRegStep}
+                                onClose={handleClose}
+                                onSetIsLoading={onSetIsLoading}
+                            />
+                        </Container>
+                    </DialogContent>
+                )}
+                {regContentActive && (
+                    <DialogContent className={clsx({
+                        [classes.regContent]: true,
+                    })}>
+                        <Container className={classes.container} maxWidth="xs">
+                            <RegFormComponent
+                                initRegVal={initRegVal}
+                                refFormik={refRegForm}
+                                activeRegStep={activeRegStep}
 
-                            onClose={onClose}
-                            onSetIsLoading={onSetIsLoading}
-                            onNext={handleNext}
-                            onBack={handleBack}
-                        />
-                    </Container>
-                </DialogContent>
+                                onClose={handleClose}
+                                onSetIsLoading={onSetIsLoading}
+                                onNext={handleNext}
+                                onBack={handleBack}
+                            />
+                        </Container>
+                    </DialogContent>
+                )}
             </Dialog>
         </>
     );
@@ -292,18 +296,12 @@ const useStyles = createUseStyles({
 
     //AUTH CONTENT
     authContent: {
-        display: "none",
-    },
-    authContentActive: {
         display: "block",
     },
 
     regContent: {
-        display: "none",
-    },
-    regContentActive: {
         display: "block",
-    }
+    },
 })
 
 export default DialogActionsAccount;

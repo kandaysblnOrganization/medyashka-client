@@ -8,6 +8,6 @@ export const resetForm = (ref: RefObject<FormikProps<any>>, initialValues: {}) =
             resetForm[key] = "";
         })
 
-        ref.current.setValues(resetForm);
+        ref.current.resetForm({values: resetForm});
     }
 };

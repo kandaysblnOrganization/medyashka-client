@@ -40,7 +40,7 @@ const RegFirstStep: FC<RegFirstStepProps> = (props) => {
                             size="medium"
                             fullWidth
                             color="secondary"
-                            label="Имя"
+                            label="Как к тебе обращаться?"
                             value={values.full_name}
                             error={Boolean(touched.full_name && errors.full_name)}
                             helperText={touched.full_name && errors.full_name}
@@ -56,7 +56,7 @@ const RegFirstStep: FC<RegFirstStepProps> = (props) => {
                             size="medium"
                             fullWidth
                             color="secondary"
-                            label="Возраст"
+                            label="Сколько тебе лет?"
                             value={values.position}
                             error={Boolean(touched.position && errors.position)}
                             helperText={touched.position && errors.position}

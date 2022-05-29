@@ -20,6 +20,10 @@ import {RegImage} from "../../../../../../assets/images";
 import * as Yup from "yup";
 import RegSecondStep from "./regSecondStep";
 import {IFormDataReg, IFormDataAuth} from "../../../../../../types/FormikTypes";
+import {useActions} from "../../../../../../hooks/redux/useActions";
+import {useNavigate} from "react-router-dom";
+import RegLastStep from "./regLastStep";
+import {resetForm} from "../../../../../../helper/resetForm";
 
 interface RegistrationFormProps {
     initRegVal: IFormDataReg;
@@ -45,10 +49,19 @@ const RegistrationForm: FC<RegistrationFormProps> = (props) => {
         onBack
     } = props;
     const classes = useStyles();
+    const {
+        userReg
+    } = useActions();
+    const navigate = useNavigate();
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         if (activeRegStep === 0) {
             onNext();
+        } else {
+            if (refFormik && refFormik.current) {
+                const formData = refFormik.current.values;
+                await userReg(formData, onSetIsLoading, onNext);
+            }
         }
     };
 
@@ -62,6 +75,12 @@ const RegistrationForm: FC<RegistrationFormProps> = (props) => {
             refFormik.current.setValues(newForm);
         }
     };
+
+    const _routeInProfile = () => {
+        onClose();
+        navigate('/profile');
+        resetForm(refFormik, initRegVal);
+    }
 
     return (
         <Grid
@@ -87,9 +106,6 @@ const RegistrationForm: FC<RegistrationFormProps> = (props) => {
                     console.log("values: ", values);
                     return (
                         <>
-                            <Grid item xs={12}>
-                                <img src={RegImage} alt="Медяшка"/>
-                            </Grid>
                             <Grid className={classes.stepperWrapper} item xs={12}>
                                 <Stepper
                                     className={classes.stepper}
@@ -145,6 +161,9 @@ const RegistrationForm: FC<RegistrationFormProps> = (props) => {
                                         >
                                             Вход
                                         </StepLabel>
+                                        <StepContent>
+                                            <RegLastStep onRoute={_routeInProfile}/>
+                                        </StepContent>
                                     </Step>
                                 </Stepper>
                             </Grid>
