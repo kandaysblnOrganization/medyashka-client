@@ -10,12 +10,16 @@ import {createUseStyles} from "react-jss";
 interface MainInformationProps {
     userProgress: IResponseUserProgress;
     userImage: IResponseUserImage;
+
+    onOpen: (isOpen: boolean) => void,
 }
 
 const MainInformation: FC<MainInformationProps> = (props) => {
     const {
         userImage,
-        userProgress
+        userProgress,
+
+        onOpen,
     } = props;
     const {
         user
@@ -36,7 +40,12 @@ const MainInformation: FC<MainInformationProps> = (props) => {
                 </Grid>
             </Grid>
             <Grid item>
-                <UserImageComponent userImage={userImage} userProgress={userProgress}/>
+                <UserImageComponent
+                    userImage={userImage}
+                    userProgress={userProgress}
+
+                    onOpen={onOpen}
+                />
             </Grid>
         </Grid>
     );
@@ -45,12 +54,16 @@ const MainInformation: FC<MainInformationProps> = (props) => {
 interface UserImageComponentProps {
     userImage: IResponseUserImage;
     userProgress: IResponseUserProgress;
+
+    onOpen: (isOpen: boolean) => void
 }
 
 const UserImageComponent: FC<UserImageComponentProps> = (props) => {
     const {
         userImage,
-        userProgress
+        userProgress,
+
+        onOpen,
     } = props;
     const classes = useStyles();
     return (
@@ -75,7 +88,12 @@ const UserImageComponent: FC<UserImageComponentProps> = (props) => {
                 <Box className={classes.userImageWrapper}>
                     <img className={classes.userImage} src={`${process.env.REACT_APP_API_URL}${userImage.avatar}`}
                          alt="user avatar"/>
-                    <IconButton className={classes.iconWrapper} color="secondary">
+                    <IconButton
+                        className={classes.iconWrapper}
+                        color="secondary"
+
+                        onClick={() => onOpen(true)}
+                    >
                         <AddIcon className={classes.icon} color="secondary"/>
                     </IconButton>
                 </Box>

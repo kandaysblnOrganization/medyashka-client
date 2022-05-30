@@ -5,3 +5,4 @@ export {
 
 //OTHER COMPONENTS
 export {default as DialogConfirmationComponent} from './DialogConfirmation';
+export {default as CropperComponent} from './Cropper';

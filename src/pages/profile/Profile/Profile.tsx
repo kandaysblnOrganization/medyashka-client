@@ -1,9 +1,11 @@
-import {Container, Grid} from '@mui/material';
-import React, {FC, useEffect, useState} from 'react';
+import {avatarClasses, Backdrop, CircularProgress, Container, Grid} from '@mui/material';
+import React, {FC, useEffect, useRef, useState} from 'react';
 import {agent} from "../../../api/agent";
 import {IResponseUserImage, IResponseUserProgress} from "../../../types/ResponseTypes";
 import {IError} from "../../../types/ErrorTypes";
-import {MainInformation as MainInformationComponent} from './components';
+import {DialogImageForm as DialogImageForm, MainInformation as MainInformationComponent} from './components';
+import {DialogConfirmationComponent} from "../../../components";
+import {Notification, NotificationTypes} from "../../../common/Notification";
 
 interface ProfileProps {
 }
@@ -22,6 +24,10 @@ const Profile: FC<ProfileProps> = (props) => {
         id: 0,
     });
     const [isLoading, setIsLoading] = useState(true);
+    const [isOpenImageForm, setIsOpenImageForm] = useState(false);
+    const [isShowBackdrop, setIsShowBackdrop] = useState(false);
+
+    const refDialogConfirmation = useRef<any>(null);
 
     useEffect(() => {
         (async () => {
@@ -55,6 +61,47 @@ const Profile: FC<ProfileProps> = (props) => {
 
         setUserImage(response as IResponseUserImage);
     }
+
+    const changeImage = async (image: any, isConfirm?: boolean) => {
+        if (!isConfirm) {
+            if (refDialogConfirmation && refDialogConfirmation.current) {
+                refDialogConfirmation.current.onOpen({
+                    message: "Вы действительно хотите изменить изображение?",
+                    acceptButtonTitle: "Да, изменить",
+                    cancelButtonTitle: "Нет",
+                    acceptButtonAction: changeImage.bind(this, image, true),
+                })
+            }
+            return;
+        }
+        await setIsShowBackdrop(true);
+
+        const formData = new FormData();
+        formData.append("avatar", image, "avatar.jpg");
+
+        const response = await agent.put(`medya-api/user-image`, formData)
+            .then(res => res.data)
+            .catch(err => {
+                return {error: err.response.data.message}
+            });
+        if (response.error) {
+            Notification({
+                message: response.error,
+                type: NotificationTypes.error,
+            });
+            await setIsShowBackdrop(false);
+        } else {
+            await getUserImage();
+            await setIsShowBackdrop(false);
+        }
+    };
+
+    const handleSetIsOpenImage = (isOpen: boolean) => {
+        setIsOpenImageForm(isOpen);
+    };
+    const handleCLoseIsOpenImage = () => {
+        handleSetIsOpenImage(false);
+    }
     return (
         <>
             <Container maxWidth="xl">
@@ -66,6 +113,8 @@ const Profile: FC<ProfileProps> = (props) => {
                                     <MainInformationComponent
                                         userProgress={userProgress}
                                         userImage={userImage}
+
+                                        onOpen={handleSetIsOpenImage}
                                     />
                                 </Grid>
                             </Grid>
@@ -73,6 +122,21 @@ const Profile: FC<ProfileProps> = (props) => {
                     </Grid>
                 )}
             </Container>
+
+            <DialogImageForm
+                isOpen={isOpenImageForm}
+
+                onClose={handleCLoseIsOpenImage}
+                onChangeImage={changeImage}
+            />
+
+            <DialogConfirmationComponent
+                ref={refDialogConfirmation}
+            />
+
+            <Backdrop open={isShowBackdrop}>
+                <CircularProgress color="secondary" size={64}/>
+            </Backdrop>
         </>
     );
 };
