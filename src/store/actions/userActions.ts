@@ -56,6 +56,7 @@ export const userReg: UserReg = (formData, onSetIsLoading, onNext) => {
         const user: IUser | IError = await agentAuth.post<IResponseUser>(`medya-api/users/registration`, formData)
             .then(res => {
                 const data = jwtDecode<IUser>(res.data.token);
+                localStorage.setItem('token', res.data.token);
                 const user: IUser = {
                     id: data.id,
                     full_name: data.full_name,
