@@ -4,11 +4,11 @@ export interface IResponseUser {
 
 export interface IResponseUserProgress {
     id: number;
-    percent_progress: number | string;
-    first_book_last_page: number | string;
-    second_book_last_page: number | string;
-    third_book_last_page: number | string;
-    fourth_book_last_page: number | string;
+    percent_progress: number;
+    first_book_last_page: number;
+    second_book_last_page: number;
+    third_book_last_page: number;
+    fourth_book_last_page: number;
 }
 
 export interface IResponseUserImage {
