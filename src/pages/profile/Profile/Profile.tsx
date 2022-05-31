@@ -3,7 +3,11 @@ import React, {FC, useEffect, useRef, useState} from 'react';
 import {agent} from "../../../api/agent";
 import {IResponseUserImage, IResponseUserProgress} from "../../../types/ResponseTypes";
 import {IError} from "../../../types/ErrorTypes";
-import {DialogImageForm as DialogImageForm, MainInformation as MainInformationComponent} from './components';
+import {
+    BooksInformation,
+    DialogImageForm as DialogImageForm,
+    MainInformation as MainInformationComponent
+} from './components';
 import {DialogConfirmationComponent} from "../../../components";
 import {Notification, NotificationTypes} from "../../../common/Notification";
 
@@ -116,6 +120,9 @@ const Profile: FC<ProfileProps> = (props) => {
 
                                         onOpen={handleSetIsOpenImage}
                                     />
+                                </Grid>
+                                <Grid item>
+                                    <BooksInformation userProgress={userProgress}/>
                                 </Grid>
                             </Grid>
                         </Grid>
