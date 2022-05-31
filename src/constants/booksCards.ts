@@ -95,8 +95,8 @@ export const booksCards: IBookCard[] = [
             color2: "#FCD247",
         },
         bookLinearButtonBackground: {
-            color1: "#D7AF2A",
-            color2: "rgba(215, 175, 42, 0.7)",
+            color1: "rgba(215, 175, 42, 0.7)",
+            color2: "#D7AF2A",
         },
         bookLinearButtonBorder: {
             color1: "#FFE799",
