@@ -23,8 +23,8 @@ export const userAuth: UserAuth = (formData, onClose, onSetIsLoading) => {
         onSetIsLoading(true);
         const user: IUser | IError = await agentAuth.post<IResponseUser>('medya-api/users/authorization', formData)
             .then(res => {
-                const data = jwtDecode<IUser>(res.data.token)
                 localStorage.setItem('token', res.data.token);
+                const data = jwtDecode<IUser>(res.data.token)
                 const user: IUser = {
                     id: data.id,
                     full_name: data.full_name,
@@ -55,8 +55,8 @@ export const userReg: UserReg = (formData, onSetIsLoading, onNext) => {
         onSetIsLoading(true);
         const user: IUser | IError = await agentAuth.post<IResponseUser>(`medya-api/users/registration`, formData)
             .then(res => {
-                const data = jwtDecode<IUser>(res.data.token);
                 localStorage.setItem('token', res.data.token);
+                const data = jwtDecode<IUser>(res.data.token);
                 const user: IUser = {
                     id: data.id,
                     full_name: data.full_name,
@@ -87,8 +87,8 @@ export const userCheckAuth = () => {
     return async (dispatch: Dispatch<AuthorizationActions>) => {
         const user: IUser | null = await agent.get<IResponseUser>('medya-api/users/auth')
             .then(res => {
-                const data = jwtDecode<IUser>(res.data.token);
                 localStorage.setItem('token', res.data.token);
+                const data = jwtDecode<IUser>(res.data.token);
                 const user: IUser = {
                     id: data.id,
                     full_name: data.full_name,

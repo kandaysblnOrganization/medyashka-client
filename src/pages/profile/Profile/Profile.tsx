@@ -44,7 +44,6 @@ const Profile: FC<ProfileProps> = (props) => {
             });
         setUserProgress(response as IResponseUserProgress);
         setIsLoading(false);
-
     }
 
     const getUserImage = async () => {
@@ -106,7 +105,7 @@ const Profile: FC<ProfileProps> = (props) => {
     return (
         <>
             <Container maxWidth="xl">
-                {!isLoading && (
+                {Boolean(!isLoading) && (
                     <Grid container alignItems='center'>
                         <Grid item xs>
                             <Grid container flexDirection='column'>

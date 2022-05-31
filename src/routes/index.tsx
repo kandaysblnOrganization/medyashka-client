@@ -31,11 +31,11 @@ const RouteComponent: FC = () => {
     }
     return (
         <>
-            {!isLoading && (
+            {Boolean(!isLoading) && (
                 <Routes>
                     <Route path="/" element={<Layout isAuth={isAuth}/>}>
                         <>
-                            {isAuth && (
+                            {(isAuth && !isLoading) && (
                                 <>
                                     {authRoutes.map(route =>
                                         <Route key={route.id} path={route.path} element={<route.element/>}/>)}
