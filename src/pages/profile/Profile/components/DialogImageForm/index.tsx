@@ -48,7 +48,7 @@ const DialogImageForm: FC<DialogImageFormProps> = (props) => {
                 }
             });
             await onChangeImage(formData);
-            onClose();
+            handleClose();
         }
     };
 
