@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {Box, Grid, IconButton, Typography} from "@mui/material";
+import {Box, Grid, IconButton, Tooltip, Typography} from "@mui/material";
 import {PlayArrowRounded as PlayIcon} from '@mui/icons-material';
 import {createUseStyles} from "react-jss";
 import {IBookCard} from "../../../../../types/ContantsTypes";
@@ -52,14 +52,20 @@ const BookCard: FC<BookCardProps> = (props) => {
                 <Grid item mb={2}>
                     <Typography className={classes.progress}>Прочитано до: {renderProgress()} стр</Typography>
                 </Grid>
-                <Grid item container alignItems='center' columnSpacing={1}>
+                <Grid item container alignItems='center'>
                     <Grid item className={classes.playButtonWrapper}>
-                        <IconButton className={classes.playButton}>
-                            <PlayIcon/>
-                        </IconButton>
-                    </Grid>
-                    <Grid item>
-                        <Typography className={classes.buttonLabel}>Читать</Typography>
+                        <Tooltip
+                            classes={{
+                                popper: classes.buttonTooltip,
+                            }}
+                            title="Читать"
+                            arrow
+                            followCursor
+                        >
+                            <IconButton className={classes.playButton}>
+                                <PlayIcon/>
+                            </IconButton>
+                        </Tooltip>
                     </Grid>
                 </Grid>
             </Grid>
@@ -115,12 +121,8 @@ const useStyles = createUseStyles({
     playButtonWrapper: (props: IBookCardJss) => ({
         "&.MuiGrid-root": {
             borderRadius: "100%",
-            marginLeft: 8,
             position: "relative",
             border: "4px solid transparent",
-            "&.MuiGrid-item": {
-                paddingLeft: 0,
-            },
             "&:before": {
                 content: "''",
                 position: "absolute",
@@ -152,6 +154,23 @@ const useStyles = createUseStyles({
             color: "#FFFFFF",
         }
     },
+    buttonTooltip: (props: IBookCardJss) => ({
+        '&.MuiTooltip-popper': {
+            paddingTop: 10,
+            '& .MuiTooltip-tooltip': {
+                background: props.backgroundColor1,
+                fontWeight: 700,
+                fontSize: 16,
+                lineHeight: "20px",
+                color: "#FFFFFF",
+                padding: 12,
+                borderRadius: 14,
+            },
+            "& .MuiTooltip-arrow": {
+                color: "#FFFFFF",
+            }
+        }
+    })
 });
 
 export default BookCard;

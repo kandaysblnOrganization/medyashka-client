@@ -80,5 +80,5 @@ export default {
     },
 
     fontFamily: ['Montserrat Alternates'].join(','),
-    fontSize: 14
+    fontSize: 18,
 };
