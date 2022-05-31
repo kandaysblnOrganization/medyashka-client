@@ -110,12 +110,16 @@ class DialogConfirmation extends Component<DialogConfirmationProps, DialogConfir
 
                             onClose={this.onClose}
                         >
+                            <DialogTitle className={classes.dialogTitle}>
+                                <Typography
+                                    className={classes.title}
+                                    variant="h4"
+                                >
+                                    {message || "Вы действительно хотите это сделать?"}
+                                </Typography>
+                            </DialogTitle>
                             <DialogContent>
                                 <Grid container flexDirection='column' rowSpacing={2.5} alignItems='center'>
-                                    <Grid item>
-                                        <Typography
-                                            variant="h6">{message || "Вы действительно хотите это сделать?"}</Typography>
-                                    </Grid>
                                     <Grid item xs={12} container flexDirection='column' rowSpacing={1}
                                           alignItems='center'>
                                         <Grid item width="100%" xs={8}>
@@ -157,7 +161,7 @@ class DialogConfirmation extends Component<DialogConfirmationProps, DialogConfir
     }
 }
 
-export function createStyles(classes: { cancelButton: { background: string; fontSize: string; lineHeight: string; "&:hover": { color: string; background: string }; fontWeight: string; transition: string; textTransform: string }; root: { padding: string; borderRadius: string }; acceptButton: { background: string; fontSize: string; lineHeight: string; "&:hover": { color: string; background: string }; fontWeight: string; transition: string; textTransform: string } }) {
+export function createStyles(classes: { cancelButton: { background: string; fontSize: string; lineHeight: string; "&:hover": { color: string; background: string }; fontWeight: string; transition: string; textTransform: string }; root: { padding: string; borderRadius: string }; dialogTitle: { "&.MuiDialogTitle-root": { background: string } }; title: { "&.MuiTypography-root": { color: string; textAlign: string; fontWeight: number } }; acceptButton: { background: string; fontSize: string; lineHeight: string; "&:hover": { color: string; background: string }; fontWeight: string; transition: string; textTransform: string } }) {
     return createUseStyles(classes as any);
 }
 
@@ -170,6 +174,20 @@ const styles = createStyles({
     root: {
         borderRadius: "20px !important",
         padding: "20px 0",
+    },
+
+    title: {
+        "&.MuiTypography-root": {
+            fontWeight: 700,
+            color: "#000000 !important",
+            textAlign: "center",
+        }
+    },
+
+    dialogTitle: {
+        "&.MuiDialogTitle-root": {
+            background: "none",
+        }
     },
 
     acceptButton: {
