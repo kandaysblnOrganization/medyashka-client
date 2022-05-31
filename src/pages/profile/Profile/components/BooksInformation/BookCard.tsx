@@ -75,8 +75,12 @@ const useStyles = createUseStyles({
         padding: 20,
         background: ` linear-gradient(0deg, ${props.backgroundColor1} -0.11%, ${props.backgroundColor2} 100.05%)`,
         boxSizing: "border-box",
+        transition: "all .2s linear",
         "& *, *:after, *:before": {
             boxSizing: "border-box",
+        },
+        "&:hover": {
+            transform: "scale(1.1)",
         }
     }),
 
