@@ -41,10 +41,14 @@ const DialogImageForm: FC<DialogImageFormProps> = (props) => {
             if (typeof cropper.getCroppedCanvas() === "undefined") {
                 return;
             }
-            console.log("image: ", image);
-            let newImage = cropper.getCroppedCanvas().toDataURL();
-            console.log("newImage: ", newImage);
-            await onChangeImage(newImage);
+            const formData = new FormData();
+            cropper.getCroppedCanvas().toBlob((blob) => {
+                if (blob !== null) {
+                    formData.append('avatar', blob, 'avatar.jpg');
+                }
+            });
+            await onChangeImage(formData);
+            onClose();
         }
     };
 

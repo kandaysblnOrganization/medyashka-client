@@ -76,10 +76,7 @@ const Profile: FC<ProfileProps> = (props) => {
         }
         await setIsShowBackdrop(true);
 
-        const formData = new FormData();
-        formData.append("avatar", image, "avatar.jpg");
-
-        const response = await agent.put(`medya-api/user-image`, formData)
+        const response = await agent.put(`medya-api/user-image`, image)
             .then(res => res.data)
             .catch(err => {
                 return {error: err.response.data.message}
@@ -91,6 +88,10 @@ const Profile: FC<ProfileProps> = (props) => {
             });
             await setIsShowBackdrop(false);
         } else {
+            Notification({
+                message: 'Изображение успешно сохранено',
+                type: NotificationTypes.success,
+            });
             await getUserImage();
             await setIsShowBackdrop(false);
         }
