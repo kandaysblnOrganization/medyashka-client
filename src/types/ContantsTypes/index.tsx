@@ -21,3 +21,10 @@ export interface IBookCard {
         color2: string;
     }
 }
+export interface IGameCard {
+    id: number;
+    title: string;
+    bookNumber: string;
+    image: ImageBitmap;
+    to: string;
+}
