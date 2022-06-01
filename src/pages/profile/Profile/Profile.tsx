@@ -4,9 +4,10 @@ import {agent} from "../../../api/agent";
 import {IResponseUserImage, IResponseUserProgress} from "../../../types/ResponseTypes";
 import {IError} from "../../../types/ErrorTypes";
 import {
-    BooksInformation,
-    DialogImageForm as DialogImageForm,
-    MainInformation as MainInformationComponent
+    BooksInformation as BooksInformationComponent,
+    DialogImageForm as DialogImageFormComponent,
+    MainInformation as MainInformationComponent,
+    GamesInformation as GamesInformationComponent
 } from './components';
 import {DialogConfirmationComponent} from "../../../components";
 import {Notification, NotificationTypes} from "../../../common/Notification";
@@ -110,8 +111,8 @@ const Profile: FC<ProfileProps> = (props) => {
         <>
             <Container maxWidth="xl">
                 {Boolean(!isLoading) && (
-                    <Grid container alignItems='center'>
-                        <Grid item xs>
+                    <Grid container alignItems='center' columnSpacing={5}>
+                        <Grid item xs={9}>
                             <Grid container flexDirection='column'>
                                 <Grid item>
                                     <MainInformationComponent
@@ -122,15 +123,18 @@ const Profile: FC<ProfileProps> = (props) => {
                                     />
                                 </Grid>
                                 <Grid item>
-                                    <BooksInformation userProgress={userProgress}/>
+                                    <BooksInformationComponent userProgress={userProgress}/>
                                 </Grid>
                             </Grid>
+                        </Grid>
+                        <Grid item xs>
+                            <GamesInformationComponent/>
                         </Grid>
                     </Grid>
                 )}
             </Container>
 
-            <DialogImageForm
+            <DialogImageFormComponent
                 isOpen={isOpenImageForm}
 
                 onClose={handleCLoseIsOpenImage}

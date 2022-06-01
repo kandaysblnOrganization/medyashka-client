@@ -1,3 +1,5 @@
+import {ReactSVG} from "react-svg";
+
 export interface IBookCard {
     id: string;
     bookNumber: string;
@@ -25,6 +27,6 @@ export interface IGameCard {
     id: number;
     title: string;
     bookNumber: string;
-    image: ImageBitmap;
+    image: string;
     to: string;
 }
