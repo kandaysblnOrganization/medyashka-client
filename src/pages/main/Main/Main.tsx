@@ -25,8 +25,7 @@ const Main: FC<MainProps> = () => {
 };
 
 const useStyles = createUseStyles({
-    sliderContent: {
-    },
+    sliderContent: {},
 })
 
 export default Main;
