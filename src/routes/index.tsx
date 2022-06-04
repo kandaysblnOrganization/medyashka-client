@@ -32,7 +32,7 @@ const RouteComponent: FC = () => {
     return (
         <>
             {Boolean(!isLoading) && (
-                <Routes>
+                <Routes key="mainRoutes">
                     <Route path="/" element={<Layout isAuth={isAuth}/>}>
                         <>
                             {(isAuth && !isLoading) && (
@@ -49,7 +49,7 @@ const RouteComponent: FC = () => {
                                     }
                                 </>
                             ))}
-                            <Route path="*" element={<Navigate to={'/'}/>}/>
+                            <Route key="notFound" path="*" element={<Navigate to={'/'}/>}/>
                         </>
                     </Route>
                 </Routes>

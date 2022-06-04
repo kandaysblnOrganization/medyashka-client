@@ -1,10 +1,16 @@
 import React, {FC} from 'react';
+import {Box} from "@mui/material";
 
-const Main: FC = () => {
+interface MainProps {
+}
+
+const Main: FC<MainProps> = () => {
     return (
-        <div>
-            ОСНОВНАЯ
-        </div>
+        <>
+            <Box>
+
+            </Box>
+        </>
     );
 };
 

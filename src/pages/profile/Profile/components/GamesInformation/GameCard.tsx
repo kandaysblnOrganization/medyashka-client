@@ -7,17 +7,15 @@ import {PlayArrowRounded as PlayIcon} from "@mui/icons-material";
 
 interface GameCardProps {
     gameCard: IGameCard;
-    otherProps?: PropsWithChildren<any>;
 }
 
 const GameCard: FC<GameCardProps> = (props) => {
     const {
         gameCard,
-        otherProps,
     } = props;
     const classes = useStyles();
     return (
-        <Box key={gameCard.id} className={classes.root} {...otherProps}>
+        <Box className={classes.root}>
             <Grid container alignItems='center' flexWrap='nowrap'>
                 <Grid item>
                     <ReactSVG className={classes.cardIcon} src={gameCard.image}/>

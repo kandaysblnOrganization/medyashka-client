@@ -15,7 +15,7 @@ const BooksInformation: FC<BooksInformationProps> = (props) => {
     return (
         <Grid container alignItems='center' columnSpacing={3}>
             {booksCards.map(bookCard => (
-                <Grid item>
+                <Grid item key={bookCard.id}>
                     <BookCard bookCard={bookCard} userProgress={userProgress}/>
                 </Grid>
             ))}

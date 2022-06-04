@@ -48,7 +48,7 @@ const GamesInformation: FC<GamesInformationProps> = (props) => {
             <Box className={classes.root}>
                 <Slider {...settings}>
                     {gamesCards.map(gameCard => (
-                        <GameCard gameCard={gameCard}/>
+                        <GameCard key={gameCard.id} gameCard={gameCard}/>
                     ))}
                 </Slider>
             </Box>
