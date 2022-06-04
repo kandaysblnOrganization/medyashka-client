@@ -20,11 +20,11 @@ const GameCard: FC<GameCardProps> = (props) => {
         <Box key={gameCard.id} className={classes.root} {...otherProps}>
             <Grid container alignItems='center' flexWrap='nowrap'>
                 <Grid item>
-                    <ReactSVG src={gameCard.image}/>
+                    <ReactSVG className={classes.cardIcon} src={gameCard.image}/>
                 </Grid>
                 <Grid item>
                     <Grid container flexDirection='column'>
-                        <Grid item>
+                        <Grid item mb={0.5}>
                             <Typography classes={{root: classes.title}} variant="body2">
                                 {gameCard.title}
                             </Typography>
@@ -63,14 +63,30 @@ const useStyles = createUseStyles({
         width: "100%",
     },
     title: {
-        color: "#6252B0",
-        fontWeight: 700,
+        "&.MuiTypography-root": {
+            color: "#6252B0",
+            fontWeight: 700,
+        }
     },
     bookNumber: {
-        color: "#6252B0",
-        fontWeight: 400,
+        "&.MuiTypography-root": {
+            color: "#6252B0",
+            fontWeight: 400,
+        }
     },
 
+    cardIcon: {
+        width: 42,
+        height: 42,
+        marginRight: 10,
+        "& div": {
+            width: 42,
+            height: 42,
+            display: 'flex',
+            alignItems: "center",
+            justifyContent: "center",
+        }
+    },
     playButtonWrapper: {
         "&.MuiGrid-root": {
             borderRadius: "100%",

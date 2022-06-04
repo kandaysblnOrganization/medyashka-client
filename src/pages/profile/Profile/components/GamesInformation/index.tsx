@@ -94,7 +94,7 @@ const useStyles = createUseStyles({
         top: "-10%",
     },
     nextIcon: {
-        top: "100%",
+        top: "98%",
     }
 })
 
