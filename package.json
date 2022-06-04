@@ -23,7 +23,6 @@
     "react": "^18.1.0",
     "react-cropper": "^2.1.8",
     "react-dom": "^18.1.0",
-    "react-id-swiper": "^4.0.0",
     "react-jss": "^10.9.0",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.3.0",

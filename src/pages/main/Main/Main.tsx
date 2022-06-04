@@ -1,5 +1,8 @@
 import React, {FC} from 'react';
-import {Box} from "@mui/material";
+import {Container} from "@mui/material";
+import {
+    BooksInformation as BooksInformationComponent
+} from './components';
 
 interface MainProps {
 }
@@ -7,9 +10,9 @@ interface MainProps {
 const Main: FC<MainProps> = () => {
     return (
         <>
-            <Box>
-
-            </Box>
+            <Container maxWidth="xl">
+                <BooksInformationComponent/>
+            </Container>
         </>
     );
 };

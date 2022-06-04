@@ -1,13 +1,11 @@
-import {ReactSVG} from "react-svg";
-
 export interface IBookCard {
     id: string;
     bookNumber: string;
     title: string;
     description: string;
     year: string;
-    bookCover: ImageBitmap;
-    bookCharacter: ImageBitmap;
+    bookCover: string;
+    bookCharacter: string;
     to: string;
     bookColor: string;
     bookLinearBackground: {
