@@ -57,10 +57,10 @@ const useStyles = createUseStyles({
             borderRadius: 37,
         },
         "& .swiper-slide-shadow-left": {
-            backgroundImage: "linear-gradient(to left, rgba(68,63,84, 0.3), rgba(68,63,84, 0))",
+            backgroundImage: "linear-gradient(to left, rgba(68,63,84, 0.15), rgba(68,63,84, 0))",
         },
         "& .swiper-slide-shadow-right": {
-            backgroundImage: "linear-gradient(to right, rgba(68,63,84, 0.3), rgba(68,63,84, 0))",
+            backgroundImage: "linear-gradient(to right, rgba(68,63,84, 0.15), rgba(68,63,84, 0))",
         }
     }
 });
