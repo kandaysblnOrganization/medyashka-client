@@ -48,8 +48,6 @@ const BooksInformation: FC<BooksInformationProps> = (props) => {
 const useStyles = createUseStyles({
     root: {
         width: "100%",
-        paddingTop: 50,
-        paddingBottom: 50,
     },
     swiperSlide: {
         backgroundPosition: "center",
