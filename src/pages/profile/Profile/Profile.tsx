@@ -1,4 +1,4 @@
-import {avatarClasses, Backdrop, CircularProgress, Container, Grid} from '@mui/material';
+import {avatarClasses, Backdrop, Box, CircularProgress, Container, Grid} from '@mui/material';
 import React, {FC, useEffect, useRef, useState} from 'react';
 import {agent} from "../../../api/agent";
 import {IResponseUserImage, IResponseUserProgress} from "../../../types/ResponseTypes";
@@ -128,7 +128,9 @@ const Profile: FC<ProfileProps> = (props) => {
                             </Grid>
                         </Grid>
                         <Grid item xs>
-                            <GamesInformationComponent/>
+                            <Box>
+                                <GamesInformationComponent/>
+                            </Box>
                         </Grid>
                     </Grid>
                 )}
