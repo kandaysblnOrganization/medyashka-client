@@ -28,3 +28,11 @@ export interface IGameCard {
     image: string;
     to: string;
 }
+
+export interface ICharacterCard {
+    id: number;
+    name: string;
+    description: string;
+    image: string;
+    color: string;
+}

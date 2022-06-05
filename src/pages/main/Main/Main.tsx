@@ -4,7 +4,8 @@ import {
     Container
 } from "@mui/material";
 import {
-    BooksInformation as BooksInformationComponent
+    BooksInformation as BooksInformationComponent,
+    CharactersInformation as CharactersInformationComponent
 } from './components';
 import {createUseStyles} from "react-jss";
 
@@ -20,12 +21,25 @@ const Main: FC<MainProps> = () => {
                     <BooksInformationComponent/>
                 </Box>
             </Container>
+            <Box className={classes.charactersContent}>
+                <Container maxWidth="xl">
+                    <CharactersInformationComponent/>
+                </Container>
+            </Box>
         </>
     );
 };
 
 const useStyles = createUseStyles({
-    sliderContent: {},
+    sliderContent: {
+        marginTop: 150,
+    },
+    charactersContent: {
+        marginTop: 150,
+        paddingTop: 50,
+        paddingBottom: 50,
+        background: "#6252B0",
+    },
 })
 
 export default Main;

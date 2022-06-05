@@ -4,7 +4,7 @@ import {PlayArrowRounded as PlayIcon} from '@mui/icons-material';
 import {createUseStyles} from "react-jss";
 import {IBookCard} from "../../../../../types/ContantsTypes";
 import {IResponseUserProgress} from "../../../../../types/ResponseTypes";
-import {IBookCardJss} from "../../../../../types/JssProps";
+import {ICardsJss} from "../../../../../types/JssProps";
 
 interface BookCardProps {
     bookCard: IBookCard;
@@ -16,7 +16,7 @@ const BookCard: FC<BookCardProps> = (props) => {
         bookCard,
         userProgress
     } = props;
-    const StylesProps: IBookCardJss = {
+    const StylesProps: ICardsJss = {
         backgroundColor1: bookCard.bookLinearBackground.color1,
         backgroundColor2: bookCard.bookLinearBackground.color2,
         buttonColor1: bookCard.bookLinearButtonBackground.color1,
@@ -74,7 +74,7 @@ const BookCard: FC<BookCardProps> = (props) => {
 };
 
 const useStyles = createUseStyles({
-    root: (props: IBookCardJss) => ({
+    root: (props: ICardsJss) => ({
         height: "100%",
         maxWidth: 250,
         borderRadius: 37,
@@ -118,7 +118,7 @@ const useStyles = createUseStyles({
         }
     },
 
-    playButtonWrapper: (props: IBookCardJss) => ({
+    playButtonWrapper: (props: ICardsJss) => ({
         "&.MuiGrid-root": {
             borderRadius: "100%",
             position: "relative",
@@ -137,7 +137,7 @@ const useStyles = createUseStyles({
             }
         }
     }),
-    playButton: (props: IBookCardJss) => ({
+    playButton: (props: ICardsJss) => ({
         "&.MuiButtonBase-root": {
             background: props.buttonColor1,
             boxShadow: `4px 4px 6px rgba(0, 0, 0, 0.4)`,
@@ -154,7 +154,7 @@ const useStyles = createUseStyles({
             color: "#FFFFFF",
         }
     },
-    buttonTooltip: (props: IBookCardJss) => ({
+    buttonTooltip: (props: ICardsJss) => ({
         '&.MuiTooltip-popper': {
             paddingTop: 10,
             '& .MuiTooltip-tooltip': {

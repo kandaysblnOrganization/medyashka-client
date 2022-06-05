@@ -12,3 +12,9 @@ export {default as ThirdBookCover} from './books/third-book-cover.png';
 export {default as ThirdBookCharacter} from './books/third-book-character.png';
 export {default as FourthBookCover} from './books/fourth-book-cover.png';
 export {default as FourthBookCharacter} from './books/fourth-book-character.png';
+
+//CHARACTERS IMAGES
+export {default as Medyashka} from './characters/medyashka.png';
+export {default as Jenka} from './characters/jenka.png';
+export {default as Zolotinka} from './characters/zolotinka.png';
+export {default as Victoria} from './characters/victoria.png';

@@ -2,7 +2,7 @@ import React, {FC} from 'react';
 import {Box, Button, Grid, Typography} from "@mui/material";
 import {IBookCard} from "../../../../../types/ContantsTypes";
 import {createUseStyles} from "react-jss";
-import {IBookCardJss} from "../../../../../types/JssProps";
+import {ICardsJss} from "../../../../../types/JssProps";
 
 interface BookCardProps {
     bookCard: IBookCard;
@@ -12,7 +12,7 @@ const BookCard: FC<BookCardProps> = (props) => {
     const {
         bookCard
     } = props;
-    const StylesProps: IBookCardJss = {
+    const StylesProps: ICardsJss = {
         backgroundColor1: bookCard.bookColor,
     }
     const classes = useStyles(StylesProps);
@@ -63,7 +63,7 @@ const useStyles = createUseStyles({
         height: "100%",
         objectFit: "cover",
     },
-    bookNumber: (props: IBookCardJss) => ({
+    bookNumber: (props: ICardsJss) => ({
         "&.MuiTypography-root": {
             color: props.backgroundColor1,
         }
