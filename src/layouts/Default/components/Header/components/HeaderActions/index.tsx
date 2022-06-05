@@ -23,7 +23,7 @@ const HeaderActions: FC<HeaderActionsProps> = (props) => {
     const {
         userLogout
     } = useActions();
-
+    const whiteMenu = location.pathname === "/books" || location.pathname === "/aboutUs";
     const handleUserLogout = (isConfirm?: boolean) => {
         if (!isConfirm) {
             if (refDialogConfirmation && refDialogConfirmation.current) {
@@ -53,7 +53,7 @@ const HeaderActions: FC<HeaderActionsProps> = (props) => {
 
                             onClick={onSetOpen}
                         >
-                            <MenuBurger isOpenDrawer={isOpen}/>
+                            <MenuBurger whiteMenu={whiteMenu} isOpenDrawer={isOpen}/>
                         </Button>
                     </Grid>
                     {location.pathname === '/profile' && (

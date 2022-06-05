@@ -5,16 +5,19 @@ import clsx from "clsx";
 
 interface MenuBurgerProps {
     isOpenDrawer: boolean;
+    whiteMenu?: boolean;
 }
 
 const MenuBurger: FC<MenuBurgerProps> = (props) => {
     const {
-        isOpenDrawer
+        isOpenDrawer,
+        whiteMenu
     } = props;
     const classes = useStyles();
     return (
         <Box className={clsx({
             [classes.menuBurger]: true,
+            [classes.menuBurgerWhite]: whiteMenu,
             [classes.menuBurgerActive]: isOpenDrawer,
         })}>
             <span></span>
@@ -74,6 +77,12 @@ const useStyles = createUseStyles({
 
     menuBurgerActive: {
         transform: "scale(0)",
+    },
+
+    menuBurgerWhite: {
+        "& span": {
+            backgroundColor: "#F2EFEE",
+        }
     }
 })
 

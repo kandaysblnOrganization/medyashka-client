@@ -59,7 +59,7 @@ const useStyles = createUseStyles({
     },
 
     buttonWrapper: {
-        width: "50%",
+        width: "25%",
         margin: "60px auto 0 auto",
         borderRadius: 25,
         position: "relative",
