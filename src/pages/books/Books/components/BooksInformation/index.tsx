@@ -2,6 +2,8 @@ import React, {FC, ReactNode} from 'react';
 import {Box} from "@mui/material";
 import Slider, {Settings} from "react-slick";
 import {createUseStyles} from "react-jss";
+import {booksCards} from "../../../../../constants/booksCards";
+import BooksCard from "./BooksCard";
 
 
 interface BooksInformationProps {
@@ -27,7 +29,9 @@ const BooksInformation: FC<BooksInformationProps> = (props) => {
     return (
         <Box className={classes.root}>
             <Slider {...settings}>
-                <Box>1234</Box>
+                {booksCards.map(bookCard => (
+                    <BooksCard key={bookCard.id} bookCard={bookCard}/>
+                ))}
             </Slider>
         </Box>
     );
@@ -49,12 +53,12 @@ const CustomDots: FC<CustomDotsProps> = (props) => {
 
 const useStyles = createUseStyles({
     root: {
-        minHeight: "100vh",
     },
 
     dotWrapper: {
         display: "flex",
         justifyContent: "flex-end",
+        marginTop: 50,
     },
     dotList: {
         display: 'flex',
