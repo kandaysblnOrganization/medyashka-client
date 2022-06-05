@@ -53,6 +53,16 @@ const useStyles = createUseStyles({
         backgroundPosition: "center",
         backgroundSize: "cover",
         width: 520,
+        "&.swiper-slide-prev": {
+            "& .MuiButton-root": {
+                pointerEvents: "none",
+            }
+        },
+        "&.swiper-slide-next": {
+            "& .MuiButton-root": {
+                pointerEvents: "none",
+            }
+        },
         "& .swiper-slide-shadow-left, .swiper-slide-shadow-right": {
             borderRadius: 37,
         },
