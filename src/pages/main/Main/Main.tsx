@@ -5,7 +5,8 @@ import {
 } from "@mui/material";
 import {
     BooksInformation as BooksInformationComponent,
-    CharactersInformation as CharactersInformationComponent
+    CharactersInformation as CharactersInformationComponent,
+    Feedback as FeedbackComponent
 } from './components';
 import {createUseStyles} from "react-jss";
 
@@ -26,6 +27,9 @@ const Main: FC<MainProps> = () => {
                     <CharactersInformationComponent/>
                 </Container>
             </Box>
+            <Container maxWidth="xl">
+                <FeedbackComponent/>
+            </Container>
         </>
     );
 };

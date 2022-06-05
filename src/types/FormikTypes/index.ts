@@ -9,3 +9,9 @@ export interface IFormDataReg {
     full_name: string;
     position: string;
 }
+
+export interface IFormFeedback {
+    name: string;
+    email: string;
+    question: string;
+}
