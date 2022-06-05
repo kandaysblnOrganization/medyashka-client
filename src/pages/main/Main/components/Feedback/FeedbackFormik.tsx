@@ -154,13 +154,13 @@ const useStyles = createUseStyles({
     },
     textField: {
         "& .MuiFilledInput-root": {
-            background: "#fcefe9",
+            background: "#F4D1BC",
             "&.Mui-focused": {
-                background: "#fcefe9",
+                background: "#F4D1BC",
             },
 
             "&:hover": {
-                background: "#fcefe9",
+                background: "#F4D1BC",
             }
         },
         "& .MuiInputLabel-root": {
@@ -175,7 +175,10 @@ const useStyles = createUseStyles({
     },
 
     icon: {
+        padding: 5,
         marginRight: 8,
+        background: "#F4D1BC",
+        borderRadius: 14,
 
         "& > path": {
             stroke: "#78675D",
