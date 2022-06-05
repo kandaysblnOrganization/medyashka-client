@@ -5,11 +5,9 @@ import {
     FOURTH_BOOK_ROUTE,
     SECOND_BOOK_ROUTE,
     THIRD_BOOK_ROUTE,
-    ABOUT_US_ROUTE,
 } from "./routesConst";
 
 import {
-    AboutUs as AboutsUsPage,
     Main as MainPage,
     Book as BookPage,
     Books as BooksPage,
@@ -38,26 +36,21 @@ export const publicRoutes: IRoutesList[] = [
     },
     {
         id: 4,
-        path: ABOUT_US_ROUTE,
-        element: AboutsUsPage,
-    },
-    {
-        id: 5,
         path: FIRST_BOOK_ROUTE,
         element: BookPage,
     },
     {
-        id: 6,
+        id: 5,
         path: SECOND_BOOK_ROUTE,
         element: BookPage,
     },
     {
-        id: 7,
+        id: 6,
         path: THIRD_BOOK_ROUTE,
         element: BookPage,
     },
     {
-        id: 8,
+        id: 7,
         path: FOURTH_BOOK_ROUTE,
         element: BookPage,
     },

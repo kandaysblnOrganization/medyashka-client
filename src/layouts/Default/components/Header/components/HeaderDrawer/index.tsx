@@ -55,11 +55,6 @@ const HeaderDrawer: FC<HeaderDrawerProps> = (props) => {
                     label: "Профиль",
                     to: "/profile",
                 },
-                {
-                    id: 4,
-                    label: "Разработчики",
-                    to: "/aboutUs",
-                }
             ]
         } else {
             return [
@@ -73,11 +68,6 @@ const HeaderDrawer: FC<HeaderDrawerProps> = (props) => {
                     label: "Книги",
                     to: "/books",
                 },
-                {
-                    id: 7,
-                    label: "Разработчики",
-                    to: "/aboutUs",
-                }
             ]
         }
     };
