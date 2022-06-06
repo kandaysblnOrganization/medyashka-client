@@ -3,6 +3,7 @@ import {IBookCard} from "../../../../../types/ContantsTypes";
 import {createUseStyles} from "react-jss";
 import {Box, Button, Grid, Typography} from "@mui/material";
 import {ICardsJss} from "../../../../../types/JssProps";
+import {Link} from "react-router-dom";
 
 interface BooksCardProps {
     bookCard: IBookCard;
@@ -34,13 +35,15 @@ const BooksCard: FC<BooksCardProps> = (props) => {
                         </Grid>
                         <Grid item>
                             <Box className={classes.buttonWrapper}>
-                                <Button
-                                    fullWidth
-                                    variant="contained"
-                                    className={classes.button}
-                                >
-                                    Начать чтение
-                                </Button>
+                                <Link to={`../${bookCard.to}`} >
+                                    <Button
+                                        fullWidth
+                                        variant="contained"
+                                        className={classes.button}
+                                    >
+                                        Начать чтение
+                                    </Button>
+                                </Link>
                             </Box>
                         </Grid>
                     </Grid>
@@ -53,7 +56,8 @@ const BooksCard: FC<BooksCardProps> = (props) => {
                 <Grid className={classes.numberContent} item xs>
                     <Grid container flexDirection='column'>
                         <Grid item>
-                            <Typography className={classes.number} textAlign='right' variant="h1">{bookCard.id}</Typography>
+                            <Typography className={classes.number} textAlign='right'
+                                        variant="h1">{bookCard.id}</Typography>
                         </Grid>
                         <Grid item>
                             <Typography className={classes.year}>{bookCard.year}</Typography>

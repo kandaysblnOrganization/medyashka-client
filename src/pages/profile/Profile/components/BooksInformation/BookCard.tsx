@@ -5,6 +5,7 @@ import {createUseStyles} from "react-jss";
 import {IBookCard} from "../../../../../types/ContantsTypes";
 import {IResponseUserProgress} from "../../../../../types/ResponseTypes";
 import {ICardsJss} from "../../../../../types/JssProps";
+import {Link} from "react-router-dom";
 
 interface BookCardProps {
     bookCard: IBookCard;
@@ -54,18 +55,20 @@ const BookCard: FC<BookCardProps> = (props) => {
                 </Grid>
                 <Grid item container alignItems='center'>
                     <Grid item className={classes.playButtonWrapper}>
-                        <Tooltip
-                            classes={{
-                                popper: classes.buttonTooltip,
-                            }}
-                            title="Читать"
-                            arrow
-                            followCursor
-                        >
-                            <IconButton className={classes.playButton}>
-                                <PlayIcon/>
-                            </IconButton>
-                        </Tooltip>
+                        <Link to={`../${bookCard.to}`}>
+                            <Tooltip
+                                classes={{
+                                    popper: classes.buttonTooltip,
+                                }}
+                                title="Читать"
+                                arrow
+                                followCursor
+                            >
+                                <IconButton className={classes.playButton}>
+                                    <PlayIcon/>
+                                </IconButton>
+                            </Tooltip>
+                        </Link>
                     </Grid>
                 </Grid>
             </Grid>

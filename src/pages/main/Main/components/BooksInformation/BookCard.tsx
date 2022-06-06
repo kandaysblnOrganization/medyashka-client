@@ -3,6 +3,7 @@ import {Box, Button, Grid, Typography} from "@mui/material";
 import {IBookCard} from "../../../../../types/ContantsTypes";
 import {createUseStyles} from "react-jss";
 import {ICardsJss} from "../../../../../types/JssProps";
+import {Link} from "react-router-dom";
 
 interface BookCardProps {
     bookCard: IBookCard;
@@ -34,13 +35,15 @@ const BookCard: FC<BookCardProps> = (props) => {
                     <Typography className={classes.title} variant="h4">{bookCard.title}</Typography>
                 </Grid>
                 <Grid item mt={2} className={classes.buttonWrapper}>
-                    <Button
-                        fullWidth
-                        variant="contained"
-                        className={classes.button}
-                    >
-                        Начать чтение
-                    </Button>
+                    <Link to={bookCard.to}>
+                        <Button
+                            fullWidth
+                            variant="contained"
+                            className={classes.button}
+                        >
+                            Начать чтение
+                        </Button>
+                    </Link>
                 </Grid>
             </Grid>
         </Box>
