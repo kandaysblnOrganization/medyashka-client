@@ -93,8 +93,8 @@ const useStyles = createUseStyles({
         }
     },
     imageWrapper: {
-        width: 557,
-        height: 772,
+        width: 447,
+        height: 662,
         boxShadow: "0px 10px 28px #0D0B0B",
     },
     image: {
