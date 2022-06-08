@@ -4,6 +4,7 @@ import {useLocation} from "react-router-dom";
 import {IBookContent, IResponseBookContent} from "../../../types/ResponseTypes";
 import {agent} from "../../../api/agent";
 import queryString from "query-string";
+import {Notification, NotificationTypes} from "../../../common/Notification";
 
 interface BookProps {
 }
@@ -29,9 +30,14 @@ const Book: FC<BookProps> = (props) => {
     useEffect(() => {
         (async () => {
             await initFilter();
-            await getBookContent();
         })();
     }, []);
+
+    useEffect(() => {
+        (async () => {
+            await getBookContent();
+        })();
+    }, [filter]);
 
     const initFilter = async () => {
         const search = location.search || "";
@@ -66,6 +72,12 @@ const Book: FC<BookProps> = (props) => {
                 }
                 return error;
             });
+        if (response.count === 0) {
+            Notification({
+                message: "Ошибка загрузки книги, попробуйте позже",
+                type: NotificationTypes.error,
+            });
+        }
         setTotalPage(response.count);
         setBookContent(response.rows[0]);
         setIsLoading(false);
