@@ -1,8 +1,7 @@
 import React, {FC, useEffect, useState} from 'react';
 import {createUseStyles} from "react-jss";
 import {useLocation} from "react-router-dom";
-import {IBookContent, IResponseBookContent, IResponseUserProgress} from "../../../types/ResponseTypes";
-import {IError} from "../../../types/ErrorTypes";
+import {IBookContent, IResponseBookContent} from "../../../types/ResponseTypes";
 import {agent} from "../../../api/agent";
 import queryString from "query-string";
 
@@ -15,14 +14,6 @@ const Book: FC<BookProps> = (props) => {
     const classes = useStyles();
     const [activeBook, setActiveBook] = useState(location.pathname.split('/')[2]);
     const [filter, setFilter] = useState({page: 1});
-    const [userProgress, setUserProgress] = useState<IResponseUserProgress>({
-        percent_progress: 0,
-        third_book_last_page: 1,
-        id: 0,
-        fourth_book_last_page: 1,
-        second_book_last_page: 1,
-        first_book_last_page: 1,
-    });
     const [bookContent, setBookContent] = useState<IBookContent>({
         foreword_author: null,
         id: 0,
@@ -33,15 +24,18 @@ const Book: FC<BookProps> = (props) => {
         page_title: null,
     });
     const [totalPage, setTotalPage] = useState(0);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
         (async () => {
             await initFilter();
-            await getUserProgress();
-            await getBookContent();
         })();
     }, []);
+    useEffect(() => {
+        (async () => {
+            await getBookContent();
+        })();
+    }, [filter]);
 
     const initFilter = async () => {
         const search = location.search || "";
@@ -49,7 +43,7 @@ const Book: FC<BookProps> = (props) => {
             arrayFormat: "bracket",
         });
         const initFilter = {
-            page: Number(parseSearch.page) || 1,
+            page: Number(parseSearch.page) || filter.page,
         };
 
         setFilter(initFilter);
@@ -80,16 +74,6 @@ const Book: FC<BookProps> = (props) => {
         setBookContent(response.rows[0]);
         setIsLoading(false);
     };
-
-    const getUserProgress = async () => {
-        setIsLoading(true);
-        const response: IResponseUserProgress | IError = await agent.get(`medya-api/progress`)
-            .then(res => res.data)
-            .catch(err => {
-                return {error: err.response.data.message}
-            });
-        setUserProgress(response as IResponseUserProgress);
-    }
 
     return (
         <div>

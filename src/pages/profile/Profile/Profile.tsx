@@ -1,29 +1,31 @@
-import {avatarClasses, Backdrop, Box, CircularProgress, Container, Grid} from '@mui/material';
 import React, {FC, useEffect, useRef, useState} from 'react';
+import {
+    Backdrop,
+    Box,
+    CircularProgress,
+    Container,
+    Grid
+} from '@mui/material';
 import {agent} from "../../../api/agent";
-import {IResponseUserImage, IResponseUserProgress} from "../../../types/ResponseTypes";
+import {IResponseUserImage} from "../../../types/ResponseTypes";
 import {IError} from "../../../types/ErrorTypes";
 import {
     BooksInformation as BooksInformationComponent,
     DialogImageForm as DialogImageFormComponent,
-    MainInformation as MainInformationComponent,
-    GamesInformation as GamesInformationComponent
+    GamesInformation as GamesInformationComponent,
+    MainInformation as MainInformationComponent
 } from './components';
 import {DialogConfirmationComponent} from "../../../components";
 import {Notification, NotificationTypes} from "../../../common/Notification";
+import {useTypedSelector} from "../../../hooks/redux/useTypedSelector";
 
 interface ProfileProps {
 }
 
 const Profile: FC<ProfileProps> = (props) => {
-    const [userProgress, setUserProgress] = useState<IResponseUserProgress>({
-        percent_progress: 0,
-        third_book_last_page: 0,
-        id: 0,
-        fourth_book_last_page: 0,
-        second_book_last_page: 0,
-        first_book_last_page: 0,
-    });
+    const {
+        userProgress
+    } = useTypedSelector(state => state.user);
     const [userImage, setUserImage] = useState<IResponseUserImage>({
         avatar: "",
         id: 0,
@@ -39,21 +41,11 @@ const Profile: FC<ProfileProps> = (props) => {
     useEffect(() => {
         (async () => {
             await getUserImage();
-            await getUserProgress();
         })()
     }, []);
 
-    const getUserProgress = async () => {
-        const response: IResponseUserProgress | IError = await agent.get(`medya-api/progress`)
-            .then(res => res.data)
-            .catch(err => {
-                return {error: err.response.data.message}
-            });
-        setUserProgress(response as IResponseUserProgress);
-        setIsLoading(false);
-    }
-
     const getUserImage = async () => {
+        await setIsLoading(true);
         const response: IResponseUserImage | IError = await agent.get<IResponseUserImage>(`medya-api/user-image`)
             .then(res => {
                 return {
@@ -66,6 +58,7 @@ const Profile: FC<ProfileProps> = (props) => {
             });
 
         setUserImage(response as IResponseUserImage);
+        await setIsLoading(false);
     }
 
     const changeImage = async (image: any, isConfirm?: boolean) => {

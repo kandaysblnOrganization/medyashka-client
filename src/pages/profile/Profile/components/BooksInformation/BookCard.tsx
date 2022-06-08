@@ -3,13 +3,13 @@ import {Box, Grid, IconButton, Tooltip, Typography} from "@mui/material";
 import {PlayArrowRounded as PlayIcon} from '@mui/icons-material';
 import {createUseStyles} from "react-jss";
 import {IBookCard} from "../../../../../types/ContantsTypes";
-import {IResponseUserProgress} from "../../../../../types/ResponseTypes";
 import {ICardsJss} from "../../../../../types/JssProps";
 import {Link} from "react-router-dom";
+import {IUserProgress} from "../../../../../store/types";
 
 interface BookCardProps {
     bookCard: IBookCard;
-    userProgress: IResponseUserProgress;
+    userProgress: IUserProgress | null;
 }
 
 const BookCard: FC<BookCardProps> = (props) => {
@@ -30,13 +30,13 @@ const BookCard: FC<BookCardProps> = (props) => {
     const renderProgress = () => {
         switch (bookCard.id) {
             case "01":
-                return userProgress.first_book_last_page;
+                return userProgress?.first_book_last_page;
             case "02":
-                return userProgress.second_book_last_page;
+                return userProgress?.second_book_last_page;
             case "03":
-                return userProgress.third_book_last_page;
+                return userProgress?.third_book_last_page;
             case "04":
-                return userProgress.fourth_book_last_page;
+                return userProgress?.fourth_book_last_page;
             default:
                 return "0";
         }

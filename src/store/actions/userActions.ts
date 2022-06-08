@@ -1,4 +1,4 @@
-import {AuthorizationActions, authorizationActionTypes, IUser} from "../types";
+import {AuthorizationActions, authorizationActionTypes, IUser, IUserProgress} from "../types";
 import {Dispatch} from "react";
 import {agent, agentAuth} from "../../api/agent";
 import {
@@ -83,6 +83,32 @@ export const userReg: UserReg = (formData, onSetIsLoading, onNext) => {
     }
 };
 
+export const getUserProgress = () => {
+    return async (dispatch: Dispatch<AuthorizationActions>) => {
+        const userProgress: IUserProgress | null = await agent.get<IUserProgress>(`medya-api/progress`)
+            .then(res => {
+                const progress: IUserProgress = {
+                    id: res.data.id,
+                    percent_progress: res.data.percent_progress,
+                    first_book_last_page: res.data.first_book_last_page,
+                    second_book_last_page: res.data.second_book_last_page,
+                    third_book_last_page: res.data.third_book_last_page,
+                    fourth_book_last_page: res.data.fourth_book_last_page,
+                }
+                return progress;
+            })
+            .catch(err => null);
+        if (userProgress === null) {
+            Notification({
+                message: "Ошибка загрузки прогресса пользователя",
+                type: NotificationTypes.error,
+            });
+        } else {
+            await dispatch(setUserProgress(userProgress as IUserProgress) as AuthorizationActions);
+        }
+    }
+};
+
 export const userCheckAuth = () => {
     return async (dispatch: Dispatch<AuthorizationActions>) => {
         const user: IUser | null = await agent.get<IResponseUser>('medya-api/users/auth')
@@ -120,6 +146,11 @@ const setUser = (payload: IUser | null) => ({
     type: authorizationActionTypes.SET_USER,
     payload,
 });
+
+const setUserProgress = (payload: IUserProgress | null) => ({
+    type: authorizationActionTypes.SET_USER_PROGRESS,
+    payload,
+})
 
 const setIsAuth = (payload: boolean) => ({
     type: authorizationActionTypes.SET_IS_AUTH,

@@ -1,14 +1,15 @@
 import React, {FC} from 'react';
-import {IResponseUserImage, IResponseUserProgress} from "../../../../../types/ResponseTypes";
+import {IResponseUserImage} from "../../../../../types/ResponseTypes";
 import {useTypedSelector} from "../../../../../hooks/redux/useTypedSelector";
 import {Box, CircularProgress, Grid, IconButton, Typography} from "@mui/material";
 import {
     AddAPhoto as AddIcon
 } from "@mui/icons-material";
 import {createUseStyles} from "react-jss";
+import {IUserProgress} from "../../../../../store/types";
 
 interface MainInformationProps {
-    userProgress: IResponseUserProgress;
+    userProgress: IUserProgress | null;
     userImage: IResponseUserImage;
 
     onOpen: (isOpen: boolean) => void,
@@ -53,7 +54,7 @@ const MainInformation: FC<MainInformationProps> = (props) => {
 
 interface UserImageComponentProps {
     userImage: IResponseUserImage;
-    userProgress: IResponseUserProgress;
+    userProgress: IUserProgress | null;
 
     onOpen: (isOpen: boolean) => void
 }
@@ -83,7 +84,7 @@ const UserImageComponent: FC<UserImageComponentProps> = (props) => {
                     size={350}
                     thickness={1.5}
                     variant="determinate"
-                    value={userProgress.percent_progress}
+                    value={userProgress?.percent_progress}
                 />
                 <Box className={classes.userImageWrapper}>
                     <img className={classes.userImage} src={`${process.env.REACT_APP_API_URL}${userImage.avatar}`}

@@ -2,6 +2,7 @@ import {AuthorizationActions, authorizationActionTypes, IAuthorizationState} fro
 
 const authorizationState: IAuthorizationState = {
     user: null,
+    userProgress: null,
     isAuth: false,
 }
 
@@ -9,6 +10,8 @@ export const userReducers = (state = authorizationState, action: AuthorizationAc
     switch (action.type) {
         case authorizationActionTypes.SET_IS_AUTH:
             return {...state, isAuth: action.payload};
+        case authorizationActionTypes.SET_USER_PROGRESS:
+            return {...state, userProgress: action.payload}
         case authorizationActionTypes.SET_USER:
             return {...state, user: action.payload};
         default:

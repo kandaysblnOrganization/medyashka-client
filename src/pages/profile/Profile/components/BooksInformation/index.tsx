@@ -1,11 +1,11 @@
 import React, {FC} from 'react';
 import {Grid} from "@mui/material";
-import {IResponseUserProgress} from "../../../../../types/ResponseTypes";
 import {booksCards} from "../../../../../constants/booksCards";
 import BookCard from "./BookCard";
+import {IUserProgress} from "../../../../../store/types";
 
 interface BooksInformationProps {
-    userProgress: IResponseUserProgress;
+    userProgress: IUserProgress | null;
 }
 
 const BooksInformation: FC<BooksInformationProps> = (props) => {

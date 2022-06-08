@@ -15,12 +15,14 @@ const RouteComponent: FC = () => {
         isAuth
     } = useTypedSelector(state => state.user);
     const {
-        userCheckAuth
+        userCheckAuth,
+        getUserProgress
     } = useActions();
 
     useEffect(() => {
         (async () => {
             await checkAuth();
+            await getUserProgress();
         })()
     }, [])
 
