@@ -4,6 +4,8 @@ import {IBookCard} from "../../../../../types/ContantsTypes";
 import {createUseStyles} from "react-jss";
 import {ICardsJss} from "../../../../../types/JssProps";
 import {Link} from "react-router-dom";
+import {useTypedSelector} from "../../../../../hooks/redux/useTypedSelector";
+import {getLastPage} from "../../../../../helper/getLastPage";
 
 interface BookCardProps {
     bookCard: IBookCard;
@@ -16,6 +18,9 @@ const BookCard: FC<BookCardProps> = (props) => {
     const StylesProps: ICardsJss = {
         backgroundColor1: bookCard.bookColor,
     }
+    const {
+        userProgress
+    } = useTypedSelector(state => state.user);
     const classes = useStyles(StylesProps);
     return (
         <Box className={classes.root}>
@@ -35,7 +40,7 @@ const BookCard: FC<BookCardProps> = (props) => {
                     <Typography className={classes.title} variant="h4">{bookCard.title}</Typography>
                 </Grid>
                 <Grid item mt={2} className={classes.buttonWrapper}>
-                    <Link to={bookCard.to}>
+                    <Link to={`${bookCard.to}?page=${getLastPage(bookCard.id, userProgress)}`}>
                         <Button
                             fullWidth
                             variant="contained"

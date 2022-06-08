@@ -29,13 +29,9 @@ const Book: FC<BookProps> = (props) => {
     useEffect(() => {
         (async () => {
             await initFilter();
-        })();
-    }, []);
-    useEffect(() => {
-        (async () => {
             await getBookContent();
         })();
-    }, [filter]);
+    }, []);
 
     const initFilter = async () => {
         const search = location.search || "";

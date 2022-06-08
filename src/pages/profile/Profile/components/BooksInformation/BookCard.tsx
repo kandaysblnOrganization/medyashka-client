@@ -6,6 +6,7 @@ import {IBookCard} from "../../../../../types/ContantsTypes";
 import {ICardsJss} from "../../../../../types/JssProps";
 import {Link} from "react-router-dom";
 import {IUserProgress} from "../../../../../store/types";
+import {getLastPage} from "../../../../../helper/getLastPage";
 
 interface BookCardProps {
     bookCard: IBookCard;
@@ -27,20 +28,6 @@ const BookCard: FC<BookCardProps> = (props) => {
     }
     const classes = useStyles(StylesProps);
 
-    const renderProgress = () => {
-        switch (bookCard.id) {
-            case "01":
-                return userProgress?.first_book_last_page;
-            case "02":
-                return userProgress?.second_book_last_page;
-            case "03":
-                return userProgress?.third_book_last_page;
-            case "04":
-                return userProgress?.fourth_book_last_page;
-            default:
-                return "0";
-        }
-    }
     return (
         <Box className={classes.root}>
             <Grid container flexDirection='column' rowSpacing={2}>
@@ -51,11 +38,11 @@ const BookCard: FC<BookCardProps> = (props) => {
                     <Typography className={classes.title}>{bookCard.title}</Typography>
                 </Grid>
                 <Grid item mb={2}>
-                    <Typography className={classes.progress}>Прочитано до: {renderProgress()} стр</Typography>
+                    <Typography className={classes.progress}>Прочитано до: {getLastPage(bookCard.id, userProgress)} стр</Typography>
                 </Grid>
                 <Grid item container alignItems='center'>
                     <Grid item className={classes.playButtonWrapper}>
-                        <Link to={`../${bookCard.to}`}>
+                        <Link to={`../${bookCard.to}?page=${getLastPage(bookCard.id, userProgress)}`}>
                             <Tooltip
                                 classes={{
                                     popper: classes.buttonTooltip,

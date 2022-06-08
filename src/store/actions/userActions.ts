@@ -44,6 +44,7 @@ export const userAuth: UserAuth = (formData, onClose, onSetIsLoading) => {
         } else {
             await dispatch(setUser(user as IUser) as AuthorizationActions);
             await dispatch(setIsAuth(true) as AuthorizationActions);
+            await getUserProgress();
             await onClose();
             onSetIsLoading(false);
         }
@@ -77,6 +78,7 @@ export const userReg: UserReg = (formData, onSetIsLoading, onNext) => {
         } else {
             await dispatch(setUser(user as IUser) as AuthorizationActions);
             await dispatch(setIsAuth(true) as AuthorizationActions);
+            await getUserProgress();
             await onSetIsLoading(false);
             onNext();
         }
@@ -99,10 +101,7 @@ export const getUserProgress = () => {
             })
             .catch(err => null);
         if (userProgress === null) {
-            Notification({
-                message: "Ошибка загрузки прогресса пользователя",
-                type: NotificationTypes.error,
-            });
+            await dispatch(setUser((userProgress as null)) as AuthorizationActions);
         } else {
             await dispatch(setUserProgress(userProgress as IUserProgress) as AuthorizationActions);
         }

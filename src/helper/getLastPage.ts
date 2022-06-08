@@ -1,15 +1,15 @@
 import {IUserProgress} from "../store/types";
 
-export const getLastPage = (numberBook: string, userProgress: IUserProgress | null) => {
-    switch (numberBook) {
-        case "first_book":
-            return `?page=${userProgress?.first_book_last_page || 1}`;
-        case "second_book":
-            return `?page=${userProgress?.second_book_last_page || 1}`;
-        case "third_book":
-            return `?page=${userProgress?.third_book_last_page || 1}`;
-        case "fourth_book":
-            return `?page=${userProgress?.fourth_book_last_page || 1}`;
+export const getLastPage = (id: string, userProgress: IUserProgress | null) => {
+    switch (id) {
+        case "01":
+            return userProgress?.first_book_last_page || 1;
+        case "02":
+            return userProgress?.second_book_last_page || 1;
+        case "03":
+            return userProgress?.third_book_last_page || 1;
+        case "04":
+            return userProgress?.fourth_book_last_page || 1;
         default:
             return `?page=1`;
     }

@@ -36,8 +36,6 @@ const Profile: FC<ProfileProps> = (props) => {
 
     const refDialogConfirmation = useRef<any>(null);
 
-    console.log("userProgress: ", userProgress);
-
     useEffect(() => {
         (async () => {
             await getUserImage();
