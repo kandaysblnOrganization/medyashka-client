@@ -129,6 +129,7 @@ const Book: FC<BookProps> = (props) => {
                             <MainContentComponent bookContent={bookContent}/>
                             <Box className={classes.paginationContent}>
                                 <Pagination
+                                    className={classes.pagination}
                                     size="large"
                                     page={filter.page}
                                     count={totalPage}
@@ -154,6 +155,25 @@ const useStyles = createUseStyles({
 
     paginationContent: {
         margin: "40px 0",
+    },
+    pagination: {
+        "&.MuiPagination-root": {
+            "& .MuiPagination-ul": {
+                "& > li:not(:first-child), li:not(:last-child)": {
+                    "& .MuiButtonBase-root": {
+                        fontSize: 24,
+                        "&.Mui-selected": {
+                            fontWeight: 700,
+                            fontSize: 24,
+                            background: "#f07022",
+                            color: "#FFFFFF",
+                            borderRadius: 8,
+                        }
+                    },
+                },
+                "& .MuiPaginationItem-previousNext": {},
+            },
+        }
     },
 });
 
