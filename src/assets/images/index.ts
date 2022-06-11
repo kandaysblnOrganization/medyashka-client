@@ -19,3 +19,14 @@ export {default as Medyashka} from './characters/medyashka.png';
 export {default as Jenka} from './characters/jenka.png';
 export {default as Zolotinka} from './characters/zolotinka.png';
 export {default as Victoria} from './characters/victoria.png';
+
+
+//GAMES IMAGES
+export {default as FindWordGameImage1} from './games/fourthBook/findWordGame.jpg';
+export {default as RebusGameImage1} from './games/fourthBook/rebus1.jpg';
+export {default as RebusGameImage2} from './games/fourthBook/rebus2.jpg';
+export {default as RebusGameImage3} from './games/fourthBook/rebus3.jpg';
+export {default as ArrowRebusGameImage1} from './games/fourthBook/secondRebus1.jpg';
+export {default as ArrowRebusGameImage2} from './games/fourthBook/secondRebus2.jpg';
+export {default as ArrowRebusGameImage3} from './games/fourthBook/secondRebus3.jpg';
+export {default as ArrowRebusGameImage4} from './games/fourthBook/secondRebus4.jpg';

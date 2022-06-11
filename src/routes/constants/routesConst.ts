@@ -7,3 +7,4 @@ export const FIRST_BOOK_ROUTE = "books/first_book";
 export const SECOND_BOOK_ROUTE = "books/second_book";
 export const THIRD_BOOK_ROUTE = "books/third_book";
 export const FOURTH_BOOK_ROUTE = "books/fourth_book";
+export const GAME_ROUTE = 'games/:label';

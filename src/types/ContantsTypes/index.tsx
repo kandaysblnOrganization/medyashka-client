@@ -21,12 +21,28 @@ export interface IBookCard {
         color2: string;
     }
 }
+
 export interface IGameCard {
     id: number;
+    label: string;
     title: string;
     bookNumber: string;
     image: string;
     to: string;
+    type: string;
+    questions: IGameQuestions[];
+}
+
+interface IGameQuestions {
+    question: string;
+    img?: string;
+    answers: IGameAnswers[];
+}
+
+interface IGameAnswers {
+    id: string;
+    value: string;
+    correct: boolean;
 }
 
 export interface ICharacterCard {

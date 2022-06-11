@@ -4,6 +4,7 @@ import {createUseStyles} from "react-jss";
 import {IGameCard} from "../../../../../types/ContantsTypes";
 import {ReactSVG} from 'react-svg';
 import {PlayArrowRounded as PlayIcon} from "@mui/icons-material";
+import {Link} from "react-router-dom";
 
 interface GameCardProps {
     gameCard: IGameCard;
@@ -43,9 +44,11 @@ const GameCard: FC<GameCardProps> = (props) => {
                         arrow
                         followCursor
                     >
-                        <IconButton className={classes.playButton}>
-                            <PlayIcon/>
-                        </IconButton>
+                        <Link to={`../${gameCard.to}`}>
+                            <IconButton className={classes.playButton}>
+                                <PlayIcon/>
+                            </IconButton>
+                        </Link>
                     </Tooltip>
                 </Grid>
             </Grid>

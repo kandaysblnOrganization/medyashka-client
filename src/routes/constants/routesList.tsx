@@ -5,13 +5,15 @@ import {
     FOURTH_BOOK_ROUTE,
     SECOND_BOOK_ROUTE,
     THIRD_BOOK_ROUTE,
+    GAME_ROUTE
 } from "./routesConst";
 
 import {
     Main as MainPage,
     Book as BookPage,
     Books as BooksPage,
-    Profile as ProfilePage
+    Profile as ProfilePage,
+    Game as GamePage
 } from '../../pages';
 import {IRoutesList} from "./types";
 
@@ -54,4 +56,9 @@ export const publicRoutes: IRoutesList[] = [
         path: FOURTH_BOOK_ROUTE,
         element: BookPage,
     },
+    {
+        id: 8,
+        path: GAME_ROUTE,
+        element: GamePage,
+    }
 ];

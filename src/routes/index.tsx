@@ -2,7 +2,7 @@ import React, {FC, useEffect, useState} from 'react';
 import {
     Navigate,
     Route,
-    Routes, useLocation, useNavigate
+    Routes
 } from "react-router-dom";
 import {authRoutes, publicRoutes} from "./constants/routesList";
 import {Layout} from "../layouts";
