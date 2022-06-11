@@ -11,6 +11,6 @@ export const getLastPage = (id: string, userProgress: IUserProgress | null) => {
         case "04":
             return userProgress?.fourth_book_last_page || 1;
         default:
-            return `?page=1`;
+            return 1;
     }
 };

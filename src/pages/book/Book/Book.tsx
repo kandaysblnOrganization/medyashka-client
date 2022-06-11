@@ -1,15 +1,44 @@
 import React, {FC, useEffect, useState} from 'react';
-import {Box, Container, Pagination, Typography} from "@mui/material";
+import {
+    Box,
+    Container,
+    Pagination,
+} from "@mui/material";
 import {
     HeadContent as HeadContentComponent,
     MainContent as MainContentComponent
 } from './components';
-import {createUseStyles} from "react-jss";
-import {useLocation, useNavigate} from "react-router-dom";
-import {IBookContent, IResponseBookContent} from "../../../types/ResponseTypes";
-import {agent} from "../../../api/agent";
+import {
+    createUseStyles
+} from "react-jss";
+import {
+    useLocation,
+    useNavigate
+} from "react-router-dom";
+import {
+    IBookContent,
+    IResponseBookContent
+} from "../../../types/ResponseTypes";
+import {
+    agent
+} from "../../../api/agent";
 import queryString from "query-string";
-import {Notification, NotificationTypes} from "../../../common/Notification";
+import {
+    Notification,
+    NotificationTypes
+} from "../../../common/Notification";
+import {
+    useTypedSelector
+} from "../../../hooks/redux/useTypedSelector";
+import {
+    getLastPage
+} from "../../../helper/getLastPage";
+import {
+    useActions
+} from "../../../hooks/redux/useActions";
+import {
+    IUserProgress
+} from "../../../store/types";
 
 interface BookProps {
 }
@@ -19,8 +48,15 @@ const Book: FC<BookProps> = (props) => {
     const location = useLocation();
     const navigate = useNavigate();
     const classes = useStyles();
+    const {
+        userProgress,
+        isAuth
+    } = useTypedSelector(state => state.user);
+    const {
+        getUserProgress
+    } = useActions();
     const [activeBook, setActiveBook] = useState(location.pathname.split('/')[2]);
-    const [filter, setFilter] = useState({page: 1});
+    const [filter, setFilter] = useState({...queryString.parse(location.search, {arrayFormat: "bracket"})});
     const [bookContent, setBookContent] = useState<IBookContent>({
         foreword_author: null,
         id: 0,
@@ -42,6 +78,7 @@ const Book: FC<BookProps> = (props) => {
     useEffect(() => {
         (async () => {
             await getBookContent();
+            await changeUserProgress();
         })();
     }, [filter]);
 
@@ -51,7 +88,7 @@ const Book: FC<BookProps> = (props) => {
             arrayFormat: "bracket",
         });
         const initFilter = {
-            page: Number(parseSearch.page) || filter.page,
+            page: parseSearch.page || filter.page,
         };
 
         setFilter(initFilter);
@@ -59,7 +96,7 @@ const Book: FC<BookProps> = (props) => {
 
     const getBookContent = async () => {
         await setIsLoading(true);
-        const response: IResponseBookContent = await agent.get<IResponseBookContent>(`medya-api/${activeBook}?page=${filter.page}`)
+        const response: IResponseBookContent = await agent.get<IResponseBookContent>(`medya-api/${activeBook}?page=${filter.page || 1}`)
             .then(res => res.data)
             .catch(err => {
                 const error: IResponseBookContent = {
@@ -89,9 +126,91 @@ const Book: FC<BookProps> = (props) => {
         setIsLoading(false);
     };
 
+    const changeUserProgress = async () => {
+        if (isAuth) {
+            const page = filter.page || 1;
+            const lastPage = getLastPage(renderNumberBook(), userProgress);
+            if (+page > lastPage) {
+                if (+page < lastPage + 2) {
+                    const body = getBodyProgress(+page);
+                    const response = await agent.put(`medya-api/progress`, body)
+                        .then(res => res.data)
+                        .catch(err => {
+                            Notification({
+                                message: "Ошибка обновления прогресса, попробуйте позже...",
+                                type: NotificationTypes.error,
+                            })
+                        });
+                    await getUserProgress();
+                } else {
+                    Notification({
+                        message: `Вы не прочитали ${lastPage + 1} страницу`,
+                        type: NotificationTypes.error,
+                    });
+                }
+            } else {
+                if (lastPage !== 1) {
+                    if (lastPage > page) {
+                        Notification({
+                            message: `Вы уже прочитали эту страницу`,
+                            type: NotificationTypes.success,
+                        });
+                    } else {
+                        Notification({
+                            message: `Вы остановились на этой странице`,
+                            type: NotificationTypes.success,
+                        });
+                    }
+                }
+            }
+        }
+    };
+
+    const getBodyProgress = (page: number) => {
+        if (userProgress !== null) {
+            let body: IUserProgress;
+            switch (activeBook) {
+                case "first_book":
+                    body = {
+                        ...userProgress,
+                        first_book_last_page: page
+                    };
+                    return body;
+                case "second_book":
+                    body = {
+                        ...userProgress,
+                        second_book_last_page: page
+                    };
+                    return body;
+                case "third_book":
+                    body = {
+                        ...userProgress,
+                        third_book_last_page: page
+                    };
+                    return body;
+                case "fourth_book":
+                    body = {
+                        ...userProgress,
+                        fourth_book_last_page: page
+                    };
+                    return body;
+                default:
+                    body = {
+                        ...userProgress,
+                    };
+                    return body;
+            }
+        } else {
+            Notification({
+                message: "Прогресс пользователя не найден",
+                type: NotificationTypes.error,
+            })
+        }
+    };
+
     const handleChangePage = async (page: number) => {
         let newFilter = {...filter};
-        newFilter.page = page;
+        newFilter.page = String(page);
 
         navigate(`/books/${activeBook}?page=${page}`);
 
@@ -131,7 +250,7 @@ const Book: FC<BookProps> = (props) => {
                                 <Pagination
                                     className={classes.pagination}
                                     size="large"
-                                    page={filter.page}
+                                    page={Number(filter.page)}
                                     count={totalPage}
 
                                     onChange={(e, page) => handleChangePage(page)}

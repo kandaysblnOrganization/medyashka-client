@@ -3,7 +3,7 @@ import {createUseStyles} from "react-jss";
 import {Box, Typography} from "@mui/material";
 
 interface HeadContentProps {
-    page: number;
+    page: string | (string | null)[] | null;
     totalPage: number;
     renderNumberBook: () => string
 }

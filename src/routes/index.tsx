@@ -22,13 +22,13 @@ const RouteComponent: FC = () => {
     useEffect(() => {
         (async () => {
             await checkAuth();
-            await getUserProgress();
         })()
     }, [])
 
     const checkAuth = async () => {
         await setIsLoading(true);
         await userCheckAuth();
+        await getUserProgress();
         await setIsLoading(false);
     }
     return (
