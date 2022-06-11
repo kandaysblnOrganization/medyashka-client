@@ -19,11 +19,14 @@ const Game: FC<GameProps> = (props) => {
 
 const useStyles = createUseStyles({
     root: {
-        position: "relative",
+        width: "100%",
+        minWidth: 0,
+        position: "absolute",
         zIndex: 999,
         display: "flex",
         alignItems: 'center',
-        height: "100vh",
+        top: "50%",
+        transform: "translate(0, -50%)",
     },
 })
 
