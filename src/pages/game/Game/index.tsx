@@ -1,17 +1,75 @@
-import React, {FC} from 'react';
-import {Box, Container} from "@mui/material";
-import {createUseStyles} from "react-jss";
+import React, {FC, useEffect, useState} from 'react';
+import {
+    Box,
+    Container,
+    Typography
+} from "@mui/material";
+import {
+    QuizGame as QuizGameComponent
+} from './components';
+import {
+    createUseStyles
+} from "react-jss";
+import {
+    IGameCard
+} from "../../../types/ContantsTypes";
+import {
+    useParams
+} from "react-router-dom";
+import {
+    gamesCards
+} from "../../../constants/gamesCards";
 
 interface GameProps {
 }
 
+type UserAnswers = {
+    [key: string]: any;
+};
+
 const Game: FC<GameProps> = (props) => {
     const {} = props;
     const classes = useStyles();
+    const {
+        label
+    } = useParams();
+    const [userAnswers, setUserAnswers] = useState<UserAnswers>();
+    const [game, setGame] = useState<IGameCard | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        (async () => {
+            await getGame();
+        })();
+    }, []);
+
+    const getGame = async () => {
+        await setIsLoading(true);
+        const currentGame = gamesCards.filter(gameCard => gameCard.label === label)[0];
+        await setGame(currentGame);
+        await setIsLoading(false);
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const {name, value} = e.target;
+
+        const newAnswers = {...userAnswers};
+        newAnswers![name] = value;
+
+        setUserAnswers(newAnswers);
+    };
+
     return (
         <Box className={classes.root}>
             <Container maxWidth="xl">
-                ИГРА
+                {!isLoading && (
+                    <QuizGameComponent
+                        game={game!}
+                        userAnswers={userAnswers || ""}
+
+                        onChange={handleChange}
+                    />
+                )}
             </Container>
         </Box>
     );

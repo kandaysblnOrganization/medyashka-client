@@ -33,7 +33,7 @@ export interface IGameCard {
     questions: IGameQuestions[];
 }
 
-interface IGameQuestions {
+export interface IGameQuestions {
     question: string;
     img?: string;
     answers: IGameAnswers[];
