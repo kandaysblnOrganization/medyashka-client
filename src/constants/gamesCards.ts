@@ -24,7 +24,7 @@ export const gamesCards: IGameCard[] = [
         label: "quiz-1-1",
         bookNumber: "Книга 1",
         image: QuizGameIcon,
-        to: `games/quiz-1-1`,
+        to: `first_book/games/quiz-1-1`,
         type: "quiz",
         questions: [
             {
@@ -60,7 +60,7 @@ export const gamesCards: IGameCard[] = [
         label: "quiz-2-1",
         bookNumber: "Книга 1",
         image: QuizGameIcon,
-        to: `games/quiz-2-1`,
+        to: `first_book/games/quiz-2-1`,
         type: "quiz",
         questions: [
             {
@@ -96,7 +96,7 @@ export const gamesCards: IGameCard[] = [
         label: "quiz-1-2",
         bookNumber: "Книга 2",
         image: QuizGameIcon,
-        to: `games/quiz-1-2`,
+        to: `second_book/games/quiz-1-2`,
         type: "quiz",
         questions: [
             {
@@ -133,7 +133,7 @@ export const gamesCards: IGameCard[] = [
         bookNumber: "Книга 3",
         image: QuizGameIcon,
         // @ts-ignore
-        to: `games/quiz-1-3`,
+        to: `third_book/games/quiz-1-3`,
         type: "quiz",
         questions: [
             {
@@ -178,7 +178,7 @@ export const gamesCards: IGameCard[] = [
         bookNumber: "Книга 4",
         image: ProverbGameIcon,
         // @ts-ignore
-        to: `games/proverb-1-4`,
+        to: `fourth_book/games/proverb-1-4`,
         type: "quiz",
         questions: [
             {
@@ -271,7 +271,7 @@ export const gamesCards: IGameCard[] = [
         bookNumber: "Книга 4",
         image: FindWordGameIcon,
         // @ts-ignore
-        to: `games/find-word-1-4`,
+        to: `fourth_book/games/find-word-1-4`,
         type: "text",
         questions: [
             {
@@ -292,7 +292,7 @@ export const gamesCards: IGameCard[] = [
         bookNumber: "Книга 4",
         image: ArrowRebusGameIcon,
         // @ts-ignore
-        to: `games/arrow-rebus-1-4`,
+        to: `fourth_book/games/arrow-rebus-1-4`,
         type: "text",
         questions: [
             {
@@ -333,7 +333,7 @@ export const gamesCards: IGameCard[] = [
         bookNumber: "Книга 4",
         image: RebusGameIcon,
         // @ts-ignore
-        to: `games/rebus-1-4`,
+        to: `fourth_book/games/rebus-1-4`,
         type: "text",
         questions: [
             {

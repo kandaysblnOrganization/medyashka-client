@@ -30,3 +30,9 @@ export {default as ArrowRebusGameImage1} from './games/fourthBook/secondRebus1.j
 export {default as ArrowRebusGameImage2} from './games/fourthBook/secondRebus2.jpg';
 export {default as ArrowRebusGameImage3} from './games/fourthBook/secondRebus3.jpg';
 export {default as ArrowRebusGameImage4} from './games/fourthBook/secondRebus4.jpg';
+
+//GAMES BACKGROUNDS
+export {default as FirstBookGameBG} from './games/firstBook/background.jpg';
+export {default as SecondBookGameBG} from './games/secondBook/background.jpg';
+export {default as ThirdBookGameBG} from './games/thirdBook/background.jpg';
+export {default as FourthBookGameBG} from './games/fourthBook/background.jpg';

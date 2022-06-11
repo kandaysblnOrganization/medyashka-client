@@ -43,7 +43,7 @@ const HeaderActions: FC<HeaderActionsProps> = (props) => {
 
     return (
         <>
-            <Container maxWidth="xl">
+            <Container className={classes.root} maxWidth="xl">
                 <Grid container alignItems="center" justifyContent="space-between">
                     <Grid item>
                         <Button
@@ -82,6 +82,9 @@ const HeaderActions: FC<HeaderActionsProps> = (props) => {
 };
 
 const useStyles = createUseStyles({
+    root: {
+        marginTop: 40,
+    },
     headerButton: {
         width: "50px",
         height: "50px",

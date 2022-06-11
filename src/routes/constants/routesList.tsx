@@ -5,7 +5,10 @@ import {
     FOURTH_BOOK_ROUTE,
     SECOND_BOOK_ROUTE,
     THIRD_BOOK_ROUTE,
-    GAME_ROUTE
+    FIRST_BOOK_GAME_ROUTE,
+    SECOND_BOOK_GAME_ROUTE,
+    THIRD_BOOK_GAME_ROUTE,
+    FOURTH_BOOK_GAME_ROUTE
 } from "./routesConst";
 
 import {
@@ -22,6 +25,26 @@ export const authRoutes: IRoutesList[] = [
         id: 1,
         path: PROFILE_ROUTE,
         element: ProfilePage,
+    },
+    {
+        id: 8,
+        path: FIRST_BOOK_GAME_ROUTE,
+        element: GamePage,
+    },
+    {
+        id: 9,
+        path: SECOND_BOOK_GAME_ROUTE,
+        element: GamePage,
+    },
+    {
+        id: 10,
+        path: THIRD_BOOK_GAME_ROUTE,
+        element: GamePage,
+    },
+    {
+        id: 11,
+        path: FOURTH_BOOK_GAME_ROUTE,
+        element: GamePage,
     }
 ];
 
@@ -56,9 +79,4 @@ export const publicRoutes: IRoutesList[] = [
         path: FOURTH_BOOK_ROUTE,
         element: BookPage,
     },
-    {
-        id: 8,
-        path: GAME_ROUTE,
-        element: GamePage,
-    }
 ];

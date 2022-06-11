@@ -18,17 +18,14 @@ const Layout: FC<LayoutProps> = (props) => {
     const location = useLocation();
 
     const renderFooter = () => {
-        const path = location.pathname;
-
-        switch (path) {
-            case "/books":
-                return null;
-            case "/profile":
-                return null;
-            default:
-                return <FooterComponent/>;
+        const path = location.pathname.split('/');
+        const notFooter = path.includes("books") || path.includes("profile") || path.includes("games");
+        if (notFooter) {
+            return null;
+        } else {
+            return <FooterComponent/>;
         }
-    }
+    };
     return (
         <>
             <HeaderComponent isAuth={isAuth}/>
