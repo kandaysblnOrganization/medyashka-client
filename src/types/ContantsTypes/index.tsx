@@ -30,6 +30,7 @@ export interface IGameCard {
     image: string;
     to: string;
     type: string;
+    color: string;
     questions: IGameQuestions[];
 }
 

@@ -26,6 +26,7 @@ export const gamesCards: IGameCard[] = [
         image: QuizGameIcon,
         to: `first_book/games/quiz-1-1`,
         type: "quiz",
+        color: "#F98237",
         questions: [
             {
                 question: "Как зовут хранителя медного царства?", answers: [{
@@ -62,6 +63,7 @@ export const gamesCards: IGameCard[] = [
         image: QuizGameIcon,
         to: `first_book/games/quiz-2-1`,
         type: "quiz",
+        color: "#F98237",
         questions: [
             {
                 question: "Что нашёл Жорка на дне рюкзака?", answers: [{
@@ -98,6 +100,7 @@ export const gamesCards: IGameCard[] = [
         image: QuizGameIcon,
         to: `second_book/games/quiz-1-2`,
         type: "quiz",
+        color: "#9E4839",
         questions: [
             {
                 question: "Какой класс окончили Санька и Данька?", answers: [{
@@ -135,6 +138,7 @@ export const gamesCards: IGameCard[] = [
         // @ts-ignore
         to: `third_book/games/quiz-1-3`,
         type: "quiz",
+        color: "#A2B744",
         questions: [
             {
                 question: "О ком давно мечтала Женя?", answers: [{
@@ -180,6 +184,7 @@ export const gamesCards: IGameCard[] = [
         // @ts-ignore
         to: `fourth_book/games/proverb-1-4`,
         type: "quiz",
+        color: "#D7AF2A",
         questions: [
             {
                 question: "Родина - мать,", answers: [{
@@ -273,6 +278,7 @@ export const gamesCards: IGameCard[] = [
         // @ts-ignore
         to: `fourth_book/games/find-word-1-4`,
         type: "text",
+        color: "#D7AF2A",
         questions: [
             {
                 question: "Найди спрятанное слово",
@@ -294,6 +300,7 @@ export const gamesCards: IGameCard[] = [
         // @ts-ignore
         to: `fourth_book/games/arrow-rebus-1-4`,
         type: "text",
+        color: "#D7AF2A",
         questions: [
             {
                 question: "Прочитай слова по стрелочкам",
@@ -335,6 +342,7 @@ export const gamesCards: IGameCard[] = [
         // @ts-ignore
         to: `fourth_book/games/rebus-1-4`,
         type: "text",
+        color: "#D7AF2A",
         questions: [
             {
                 question: "Разгадайте ребус",
