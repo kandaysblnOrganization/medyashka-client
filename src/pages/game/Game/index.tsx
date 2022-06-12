@@ -5,7 +5,7 @@ import {
     Typography
 } from "@mui/material";
 import {
-    QuizGame as QuizGameComponent
+    MainGame as MainGameComponent
 } from './components';
 import {
     createUseStyles
@@ -35,6 +35,9 @@ const Game: FC<GameProps> = (props) => {
     } = useParams();
     const [userAnswers, setUserAnswers] = useState<UserAnswers>();
     const [game, setGame] = useState<IGameCard | null>(null);
+    const [renderAnswers, setRenderAnswers] = useState(true);
+    const [renderResults, setRenderResults] = useState(false);
+    const [showCheck, setShowCheck] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -43,6 +46,10 @@ const Game: FC<GameProps> = (props) => {
         })();
     }, []);
 
+    useEffect(() => {
+        changeShowCheck();
+    }, [userAnswers]);
+
     const getGame = async () => {
         await setIsLoading(true);
         const currentGame = gamesCards.filter(gameCard => gameCard.label === label)[0];
@@ -50,7 +57,47 @@ const Game: FC<GameProps> = (props) => {
         await setIsLoading(false);
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const getResults = () => {
+        if (userAnswers !== undefined) {
+            const questionsLength = game?.questions.length || 1;
+            const keys = Object.keys(userAnswers);
+            const currentAnswersLength = keys.length;
+            let count = 0;
+            if (questionsLength === currentAnswersLength) {
+                keys.forEach(key => {
+                    if (game?.type === 'quiz') {
+                        const currentAnswer = game!.questions[+key].answers.filter(answer => answer.id === userAnswers[key])[0];
+                        if (currentAnswer.correct) {
+                            return count++;
+                        }
+                    }
+                    if (game?.type === 'text') {
+                        const currentAnswer = game!.questions[+key].answers.find(answer => answer.value.toLowerCase() === userAnswers[key].toLowerCase());
+                        if (currentAnswer) {
+                            count++;
+                        }
+                    }
+                });
+            }
+            console.log("count: ", count);
+        }
+    };
+
+    const changeShowCheck = () => {
+        if (userAnswers !== undefined) {
+            const questionsLength = game?.questions.length || 1;
+            const keys = Object.keys(userAnswers);
+            const notEmpty = keys.find(key => userAnswers[key] !== "");
+            const currentAnswersLength = keys.length;
+            if (questionsLength === currentAnswersLength && notEmpty) {
+                setShowCheck(true);
+            } else {
+                setShowCheck(false);
+            }
+        }
+    }
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = e.target;
 
         const newAnswers = {...userAnswers};
@@ -59,16 +106,42 @@ const Game: FC<GameProps> = (props) => {
         setUserAnswers(newAnswers);
     };
 
+    const renderContent = () => {
+        if (renderAnswers) {
+            switch (game!.type) {
+                case "quiz":
+                    return (
+                        <MainGameComponent
+                            game={game!}
+                            userAnswers={userAnswers || ""}
+                            showCheck={showCheck}
+
+                            onChange={handleChange}
+                            getResults={getResults}
+                        />
+                    );
+                default:
+                    return (
+                        <MainGameComponent
+                            game={game!}
+                            userAnswers={userAnswers || ""}
+                            showCheck={showCheck}
+
+                            onChange={handleChange}
+                            getResults={getResults}
+                        />
+                    );
+            }
+        }
+    };
+
     return (
         <Box className={classes.root}>
-            <Container maxWidth="xl">
+            <Container className={classes.container} maxWidth="xl">
                 {!isLoading && (
-                    <QuizGameComponent
-                        game={game!}
-                        userAnswers={userAnswers || ""}
-
-                        onChange={handleChange}
-                    />
+                    <>
+                        {renderContent()}
+                    </>
                 )}
             </Container>
         </Box>
@@ -78,14 +151,20 @@ const Game: FC<GameProps> = (props) => {
 const useStyles = createUseStyles({
     root: {
         width: "100%",
+        height: "90%",
         minWidth: 0,
         position: "absolute",
         zIndex: 999,
         display: "flex",
-        alignItems: 'center',
-        top: "50%",
-        transform: "translate(0, -50%)",
+        flexDirection: "column",
+        justifyContent: "space-around",
+        bottom: 0,
     },
+    container: {
+        '&.MuiContainer-root': {
+            height: "100%",
+        }
+    }
 })
 
 export default Game;

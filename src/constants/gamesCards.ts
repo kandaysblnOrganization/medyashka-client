@@ -27,6 +27,7 @@ export const gamesCards: IGameCard[] = [
         to: `first_book/games/quiz-1-1`,
         type: "quiz",
         color: "#F98237",
+        colorOpacity: "rgb(249,130,55, .3)",
         questions: [
             {
                 question: "Как зовут хранителя медного царства?", answers: [{
@@ -64,6 +65,7 @@ export const gamesCards: IGameCard[] = [
         to: `first_book/games/quiz-2-1`,
         type: "quiz",
         color: "#F98237",
+        colorOpacity: "rgb(249,130,55, .3)",
         questions: [
             {
                 question: "Что нашёл Жорка на дне рюкзака?", answers: [{
@@ -101,6 +103,7 @@ export const gamesCards: IGameCard[] = [
         to: `second_book/games/quiz-1-2`,
         type: "quiz",
         color: "#9E4839",
+        colorOpacity: "rgba(158,72,57, .3)",
         questions: [
             {
                 question: "Какой класс окончили Санька и Данька?", answers: [{
@@ -139,6 +142,7 @@ export const gamesCards: IGameCard[] = [
         to: `third_book/games/quiz-1-3`,
         type: "quiz",
         color: "#A2B744",
+        colorOpacity: "rgba(162,183,68, .3)",
         questions: [
             {
                 question: "О ком давно мечтала Женя?", answers: [{
@@ -185,6 +189,7 @@ export const gamesCards: IGameCard[] = [
         to: `fourth_book/games/proverb-1-4`,
         type: "quiz",
         color: "#D7AF2A",
+        colorOpacity: "rgba(215,175,42, .3)",
         questions: [
             {
                 question: "Родина - мать,", answers: [{
@@ -279,6 +284,7 @@ export const gamesCards: IGameCard[] = [
         to: `fourth_book/games/find-word-1-4`,
         type: "text",
         color: "#D7AF2A",
+        colorOpacity: "rgba(215,175,42, .3)",
         questions: [
             {
                 question: "Найди спрятанное слово",
@@ -301,6 +307,7 @@ export const gamesCards: IGameCard[] = [
         to: `fourth_book/games/arrow-rebus-1-4`,
         type: "text",
         color: "#D7AF2A",
+        colorOpacity: "rgba(215,175,42, .3)",
         questions: [
             {
                 question: "Прочитай слова по стрелочкам",
@@ -343,6 +350,7 @@ export const gamesCards: IGameCard[] = [
         to: `fourth_book/games/rebus-1-4`,
         type: "text",
         color: "#D7AF2A",
+        colorOpacity: "rgba(215,175,42, .2)",
         questions: [
             {
                 question: "Разгадайте ребус",

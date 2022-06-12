@@ -10,10 +10,10 @@ interface GameSlideProps {
     index: number;
     userAnswers: any;
 
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
 }
 
-const GameSlide: FC<GameSlideProps> = (props) => {
+const QuizGameSlide: FC<GameSlideProps> = (props) => {
     const {
         game,
         question,
@@ -29,7 +29,7 @@ const GameSlide: FC<GameSlideProps> = (props) => {
         answers
     } = question;
 
-    const getAnswer = () => {
+    const getValue = () => {
         return userAnswers[String(index)] || "";
     };
     return (
@@ -40,7 +40,7 @@ const GameSlide: FC<GameSlideProps> = (props) => {
             <Box className={classes.answersWrapper}>
                 <FormControl>
                     <RadioGroup
-                        value={getAnswer()}
+                        value={getValue()}
                         name={index + ""}
 
                         onChange={(e) => onChange(e)}
@@ -67,9 +67,10 @@ const GameSlide: FC<GameSlideProps> = (props) => {
 const useStyles = createUseStyles({
     root: {
         width: "100%",
-        height: "100%",
+        height: "max-content",
         display: "flex",
         justifyContent: "space-between",
+        marginBottom: "20%",
     },
 
     titleWrapper: {
@@ -125,4 +126,4 @@ const useStyles = createUseStyles({
     })
 });
 
-export default GameSlide;
+export default QuizGameSlide;
