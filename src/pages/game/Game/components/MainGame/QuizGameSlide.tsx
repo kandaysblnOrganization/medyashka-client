@@ -70,7 +70,6 @@ const useStyles = createUseStyles({
         height: "max-content",
         display: "flex",
         justifyContent: "space-between",
-        marginBottom: "20%",
     },
 
     titleWrapper: {

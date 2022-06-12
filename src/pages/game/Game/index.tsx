@@ -5,7 +5,8 @@ import {
     Typography
 } from "@mui/material";
 import {
-    MainGame as MainGameComponent
+    MainGame as MainGameComponent,
+    ResultsInfo as ResultsInfoComponent
 } from './components';
 import {
     createUseStyles
@@ -37,6 +38,7 @@ const Game: FC<GameProps> = (props) => {
     const [game, setGame] = useState<IGameCard | null>(null);
     const [renderAnswers, setRenderAnswers] = useState(true);
     const [renderResults, setRenderResults] = useState(false);
+    const [count, setCount] = useState(0);
     const [showCheck, setShowCheck] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -79,7 +81,9 @@ const Game: FC<GameProps> = (props) => {
                     }
                 });
             }
-            console.log("count: ", count);
+            setCount(count);
+            setRenderAnswers(false);
+            setRenderResults(true);
         }
     };
 
@@ -106,32 +110,37 @@ const Game: FC<GameProps> = (props) => {
         setUserAnswers(newAnswers);
     };
 
+    const handleReset = () => {
+        setRenderAnswers(true);
+        setRenderResults(false);
+        setUserAnswers({});
+        setCount(0);
+        setShowCheck(false);
+    };
+
     const renderContent = () => {
         if (renderAnswers) {
-            switch (game!.type) {
-                case "quiz":
-                    return (
-                        <MainGameComponent
-                            game={game!}
-                            userAnswers={userAnswers || ""}
-                            showCheck={showCheck}
+            return (
+                <MainGameComponent
+                    game={game!}
+                    userAnswers={userAnswers || ""}
+                    showCheck={showCheck}
 
-                            onChange={handleChange}
-                            getResults={getResults}
-                        />
-                    );
-                default:
-                    return (
-                        <MainGameComponent
-                            game={game!}
-                            userAnswers={userAnswers || ""}
-                            showCheck={showCheck}
+                    onChange={handleChange}
+                    getResults={getResults}
+                />
+            );
+        }
+        if (renderResults) {
+            return (
+                <ResultsInfoComponent
+                    game={game!}
+                    userAnswers={userAnswers}
+                    count={count}
 
-                            onChange={handleChange}
-                            getResults={getResults}
-                        />
-                    );
-            }
+                    onReset={handleReset}
+                />
+            );
         }
     };
 
@@ -163,6 +172,9 @@ const useStyles = createUseStyles({
     container: {
         '&.MuiContainer-root': {
             height: "100%",
+            display: "flex",
+            flexDirection: 'column',
+            justifyContent: "center",
         }
     }
 })

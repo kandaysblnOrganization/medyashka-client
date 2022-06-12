@@ -66,7 +66,6 @@ const useStyles = createUseStyles({
         width: "100%",
         display: "flex",
         justifyContent: "space-between",
-        marginBottom: "20%",
     },
 
     titleWrapper: {
