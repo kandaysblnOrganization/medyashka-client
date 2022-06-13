@@ -1,9 +1,26 @@
 import React, {FC, useState} from 'react';
-import {Box, Button, Typography} from "@mui/material";
-import {createUseStyles} from "react-jss";
-import {IGameCard} from "../../../../../types/ContantsTypes";
-import {ICardsJss} from "../../../../../types/JssProps";
-import {Link} from "react-router-dom";
+import {
+    Box,
+    Button,
+    Typography
+} from "@mui/material";
+import {
+    CheckRounded as CorrectIcon,
+    CloseRounded as IncorrectIcon
+} from '@mui/icons-material';
+import {
+    createUseStyles
+} from "react-jss";
+import {
+    IGameCard, IGameQuestions
+} from "../../../../../types/ContantsTypes";
+import {
+    ICardsJss
+} from "../../../../../types/JssProps";
+import {
+    Link
+} from "react-router-dom";
+import clsx from "clsx";
 
 interface ResultsInfoProps {
     game: IGameCard;
@@ -78,15 +95,72 @@ const ResultsInfo: FC<ResultsInfoProps> = (props) => {
                             <img className={classes.questionImage} src={question.img} alt={question.question}/>
                         </Box>
                     )}
-                    {question.answers.map((answer, idxA) => (
-                        <Typography>
-                            {answer.value}
-                        </Typography>
-                    ))}
+                    <Box className={classes.answersWrapper}>
+                        {question.answers.map((answer, idxA) => (
+                            <Box className={classes.answerWrapper}>
+                                <Typography className={clsx({
+                                    [classes.answerValue]: true,
+                                    [classes.correctValue]: answer.correct,
+                                })}>
+                                    {answer.value}
+                                </Typography>
+                                {answer.correct && (
+                                    <CorrectIcon className={classes.correctIcon}/>
+                                )}
+                            </Box>
+                        ))}
+                    </Box>
+                    <Box className={classes.userAnswerBlock}>
+                        <Typography className={classes.userAnswerTitle}>Ваш ответ:</Typography>
+                        <Box className={classes.userAnswerWrapper}>
+                            <Typography className={clsx({
+                                [classes.answerValue]: true,
+                                [classes.correctValue]: checkCorrectUserAnswer(question, idxQ),
+                                [classes.incorrectValue]: !checkCorrectUserAnswer(question, idxQ)
+                            })}>{getUserAnswer(question, idxQ)}</Typography>
+                            {checkCorrectUserAnswer(question, idxQ)
+                                ? (
+                                    <CorrectIcon className={classes.correctIcon}/>
+                                )
+                                : (
+                                    <IncorrectIcon className={classes.incorrectIcon}/>
+                                )
+                            }
+                        </Box>
+                    </Box>
                 </Box>
             </>
         ));
     };
+
+    const getUserAnswer = (question: IGameQuestions, idx: number) => {
+        if (game.type === "quiz") {
+            const answer = question.answers.filter(answer => answer.id === userAnswers[idx])[0];
+            return answer.value;
+        }
+        if (game.type === 'text') {
+            return userAnswers[idx];
+        }
+    };
+    const checkCorrectUserAnswer = (question: IGameQuestions, idx: number) => {
+        if (game.type === 'quiz') {
+            const answer = question.answers.filter(answer => answer.id === userAnswers[idx])[0];
+            if (answer) {
+                return answer.correct;
+            } else {
+                return false;
+            }
+        }
+        if (game.type === 'text') {
+            const currentAnswer = question.answers.find(answer => answer.value.toLowerCase() === userAnswers[idx].toLowerCase());
+            if (currentAnswer) {
+                return currentAnswer;
+            } else {
+                return false;
+            }
+        }
+    };
+
     return (
         <Box className={classes.root}>
             <Box className={classes.amountContent}>
@@ -165,11 +239,23 @@ const useStyles = createUseStyles({
         },
     }),
 
-    questions: {
+    questions: (props: ICardsJss) => ({
         maxHeight: 600,
-        overflow: "scroll",
+        overflowY: "scroll",
         marginTop: 16,
-    },
+        paddingRight: 10,
+
+        "&::-webkit-scrollbar": {
+            width: 5,
+        },
+        "&::-webkit-scrollbar-track": {
+            margin: "10px 0",
+        },
+        "&::-webkit-scrollbar-thumb": {
+            background: props.backgroundColor1,
+            borderRadius: 999,
+        },
+    }),
     questionWrapper: (props: ICardsJss) => ({
         padding: 20,
         border: `1px solid ${props.backgroundColor1}`,
@@ -196,6 +282,73 @@ const useStyles = createUseStyles({
         width: "100%",
         height: "100%",
         borderRadius: 14,
+    },
+
+    answersWrapper: {},
+    answerWrapper: {
+        display: "flex",
+        alignItems: "center",
+        marginTop: 12,
+        "&:first-child": {
+            marginTop: 16,
+        }
+    },
+    answerValue: {
+        "&.MuiTypography-root": {
+            fontWeight: 400,
+            fontSize: 20,
+            textDecorationLine: "line-through",
+            color: "#425154",
+            opacity: .4,
+        },
+    },
+    correctIcon: {
+        marginLeft: 8,
+        "&.MuiSvgIcon-root": {
+            width: 22,
+            height: 22,
+            "& > path": {
+                fill: "#91AC00",
+            },
+        },
+    },
+    incorrectIcon: {
+        marginLeft: 8,
+        "&.MuiSvgIcon-root": {
+            width: 22,
+            height: 22,
+            "& > path": {
+                fill: "#E43333",
+            },
+        },
+    },
+    correctValue: {
+        "&.MuiTypography-root": {
+            textDecorationLine: "none",
+            color: "#91AC00",
+            opacity: 1,
+        },
+    },
+    incorrectValue: {
+        "&.MuiTypography-root": {
+            textDecorationLine: "none",
+            color: "#E43333",
+            opacity: 1,
+        },
+    },
+
+    userAnswerBlock: {
+        marginTop: 24,
+    },
+    userAnswerWrapper: {
+        display: "flex",
+        alignItems: 'center',
+        marginTop: 8,
+    },
+    userAnswerTitle: {
+        "&.MuiTypography-root": {
+            fontSize: 20,
+        },
     },
 });
 
