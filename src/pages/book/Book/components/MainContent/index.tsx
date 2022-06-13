@@ -7,6 +7,9 @@ import {
     Typography
 } from "@mui/material";
 import {
+    MessageBackground
+} from '../../../../../assets/images';
+import {
     createUseStyles
 } from "react-jss";
 import HTMLReactParser from "html-react-parser";
@@ -43,6 +46,13 @@ const MainContent: FC<MainContentProps> = (props) => {
                 </Typography>
             )}
             <Box className={classes.textWrapper}>
+                {bookContent.page_message !== null && (
+                    <Box className={classes.messageWrapper}>
+                        <Typography className={classes.messageText}>
+                            {HTMLReactParser(bookContent.page_message)}
+                        </Typography>
+                    </Box>
+                )}
                 {bookContent.page_text !== null && (
                     <Typography className={classes.text} variant="h3">
                         {HTMLReactParser(bookContent.page_text)}
@@ -103,6 +113,7 @@ const useStyles = createUseStyles({
     textWrapper: {
         display: 'flex',
         flexDirection: "column",
+        alignItems: "center",
     },
     text: {
         "&.MuiTypography-root": {
@@ -110,6 +121,45 @@ const useStyles = createUseStyles({
             color: "#425154",
             textAlign: "justify",
             textIndent: "1.5em",
+        }
+    },
+    messageWrapper: {
+        width: 500,
+        height: 600,
+        background: `url(${MessageBackground}) center no-repeat`,
+        backgroundSize: "cover",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        marginBottom: 16,
+    },
+    messageText: {
+        "&.MuiTypography-root": {
+            width: 400,
+            height: 418,
+            overflowY: "scroll",
+            fontWeight: 600,
+            fontSize: 18,
+            lineHeight: "28px",
+            color: "#000000",
+            textAlign: "justify",
+            textIndent: "1.5em",
+            margin: "0 auto",
+            padding: "0 10px 0 0",
+
+            "&::-webkit-scrollbar": {
+                width: 5,
+            },
+            "&::-webkit-scrollbar-track": {
+                margin: "10px 0",
+                background: "rgba(0, 0, 0, .05)",
+                boxShadow: "0 0 10px 4px #e1ba66",
+            },
+            "&::-webkit-scrollbar-thumb": {
+                background: "#d4af5b",
+                borderRadius: 999,
+                boxShadow: "0 0 10px 4px #e1ba66",
+            },
         }
     },
 });

@@ -13,6 +13,7 @@ export {default as ThirdBookCover} from './books/third-book-cover.png';
 export {default as ThirdBookCharacter} from './books/third-book-character.png';
 export {default as FourthBookCover} from './books/fourth-book-cover.png';
 export {default as FourthBookCharacter} from './books/fourth-book-character.png';
+export {default as MessageBackground} from './books/messageBG.png';
 
 //CHARACTERS IMAGES
 export {default as Medyashka} from './characters/medyashka.png';
