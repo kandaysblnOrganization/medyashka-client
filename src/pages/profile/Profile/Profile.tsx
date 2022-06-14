@@ -18,6 +18,7 @@ import {
 import {DialogConfirmationComponent} from "../../../components";
 import {Notification, NotificationTypes} from "../../../common/Notification";
 import {useTypedSelector} from "../../../hooks/redux/useTypedSelector";
+import {useActions} from "../../../hooks/redux/useActions";
 
 interface ProfileProps {
 }
@@ -26,6 +27,9 @@ const Profile: FC<ProfileProps> = (props) => {
     const {
         userProgress
     } = useTypedSelector(state => state.user);
+    const {
+        getUserProgress
+    } = useActions();
     const [userImage, setUserImage] = useState<IResponseUserImage>({
         avatar: "",
         id: 0,
@@ -38,6 +42,7 @@ const Profile: FC<ProfileProps> = (props) => {
 
     useEffect(() => {
         (async () => {
+            await getUserProgress();
             await getUserImage();
         })()
     }, []);

@@ -72,6 +72,7 @@ const Book: FC<BookProps> = (props) => {
     useEffect(() => {
         (async () => {
             await initFilter();
+            await getUserProgress();
         })();
     }, []);
 

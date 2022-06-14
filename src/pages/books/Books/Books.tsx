@@ -1,11 +1,22 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {
     BooksInformation as BooksInformationComponent
 } from './components';
 import {Container} from "@mui/material";
 import {createUseStyles} from "react-jss";
+import {useActions} from "../../../hooks/redux/useActions";
 
 const Books: FC = () => {
+    const {
+        getUserProgress
+    } = useActions();
+
+    useEffect(() => {
+        (async () => {
+            await getUserProgress();
+        })();
+    });
+
     useStyles();
     return (
         <>
