@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect} from 'react';
 import {
     Box,
     Container
@@ -9,12 +9,22 @@ import {
     Feedback as FeedbackComponent
 } from './components';
 import {createUseStyles} from "react-jss";
+import {useActions} from "../../../hooks/redux/useActions";
 
 interface MainProps {
 }
 
 const Main: FC<MainProps> = () => {
+    const {
+        getUserProgress
+    } = useActions();
     const classes = useStyles();
+
+    useEffect(() => {
+        (async () => {
+            await getUserProgress();
+        })();
+    })
     return (
         <>
             <Container maxWidth="xl">
