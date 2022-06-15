@@ -24,7 +24,7 @@ const Main: FC<MainProps> = () => {
         (async () => {
             await getUserProgress();
         })();
-    })
+    }, []);
     return (
         <>
             <Container maxWidth="xl">

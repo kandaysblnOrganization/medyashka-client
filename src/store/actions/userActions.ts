@@ -124,6 +124,7 @@ export const userCheckAuth = () => {
         if (user === null) {
             await localStorage.removeItem('token');
             await dispatch(setUser(null) as AuthorizationActions);
+            await dispatch(setUserProgress(null) as AuthorizationActions)
             await dispatch(setIsAuth(false) as AuthorizationActions);
         } else {
             await dispatch(setUser(user as IUser) as AuthorizationActions);

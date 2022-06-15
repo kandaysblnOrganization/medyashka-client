@@ -15,7 +15,7 @@ const Books: FC = () => {
         (async () => {
             await getUserProgress();
         })();
-    });
+    }, []);
 
     useStyles();
     return (
